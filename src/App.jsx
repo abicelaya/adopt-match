@@ -10,6 +10,7 @@ import RegisterAnimal from "./pages/RegisterAnimal/RegisterAnimal";
 import ProtectiveProfile from "./pages/ProtectiveProfile/ProtectiveProfile";
 import Adopted from "./pages/Adopted/Adopted";
 import ForAdoption from "./pages/ForAdoption/ForAdoption";
+import AnimalProfile from "./pages/AnimalProfile/AnimalProfile";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/protective-profile" element={<ProtectiveProfile />} />
         <Route path="/adopted" element={<Adopted />} />
         <Route path="/for-adoption" element={<ForAdoption />} />
+        <Route path="/animal-profile" element={<AnimalProfile />} />
       </Routes>
     </Router>
   );
