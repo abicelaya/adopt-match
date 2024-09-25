@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const RegisterProtective = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
         <h1 className="text-2xl font-bold text-center mb-4">Protectora</h1>
-        
+
         <form>
           <div className="mb-4">
             <input
@@ -65,7 +65,7 @@ const RegisterProtective = () => {
             type="submit"
             className="mt-6 w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
           >
-            Registrarse
+            Aceptar
           </button>
         </form>
       </div>
@@ -74,4 +74,3 @@ const RegisterProtective = () => {
 };
 
 export default RegisterProtective;
-

@@ -2,7 +2,7 @@ import React from "react";
 import AnimalBox from "../../components/AnimalBox/AnimalBox";
 import Navbar from "../../components/Navbar/Navbar";
 
-const Home = () => {
+const Adopted = () => {
   const animals = [
     { id: 1, name: "Perro 1", image: "path/to/perro1.jpg" },
     { id: 2, name: "Gato 1", image: "path/to/gato1.jpg" },
@@ -31,4 +31,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Adopted;

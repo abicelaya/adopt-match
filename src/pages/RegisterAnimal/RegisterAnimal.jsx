@@ -1,15 +1,22 @@
-import React from 'react';
+import React from "react";
 
 const RegisterAnimal = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-4">Registrar Animal</h1>
-        
+        <h1 className="text-2xl font-bold text-center mb-4">
+          Registrar Animal
+        </h1>
+
         <form>
           <div className="mb-4">
-            <label className="text-sm text-gray-600" htmlFor="animalType">Tipo de animal</label>
-            <select id="animalType" className="mt-1 p-2 w-full border rounded-lg">
+            <label className="text-sm text-gray-600" htmlFor="animalType">
+              Tipo de animal
+            </label>
+            <select
+              id="animalType"
+              className="mt-1 p-2 w-full border rounded-lg"
+            >
               <option value="">Selecciona un tipo</option>
               <option value="perro">Perro</option>
               <option value="gato">Gato</option>
@@ -35,8 +42,13 @@ const RegisterAnimal = () => {
           </div>
 
           <div className="mb-4">
-            <label className="text-sm text-gray-600" htmlFor="animalHealth">Salud</label>
-            <select id="animalHealth" className="mt-1 p-2 w-full border rounded-lg">
+            <label className="text-sm text-gray-600" htmlFor="animalHealth">
+              Salud
+            </label>
+            <select
+              id="animalHealth"
+              className="mt-1 p-2 w-full border rounded-lg"
+            >
               <option value="">Selecciona una opción</option>
               <option value="esterilizado">Esterilizado</option>
               <option value="VIF">VIF</option>
@@ -59,7 +71,9 @@ const RegisterAnimal = () => {
           </div>
 
           <div className="mb-4">
-            <label className="text-sm text-gray-600" htmlFor="animalPhoto">Sube una foto del animal</label>
+            <label className="text-sm text-gray-600" htmlFor="animalPhoto">
+              Sube una foto del animal
+            </label>
             <input
               type="file"
               id="animalPhoto"
@@ -68,7 +82,12 @@ const RegisterAnimal = () => {
           </div>
 
           <div className="mb-4">
-            <label className="text-sm text-gray-600" htmlFor="animalDescription">Breve descripción del animal</label>
+            <label
+              className="text-sm text-gray-600"
+              htmlFor="animalDescription"
+            >
+              Breve descripción del animal
+            </label>
             <textarea
               id="animalDescription"
               rows="4"
