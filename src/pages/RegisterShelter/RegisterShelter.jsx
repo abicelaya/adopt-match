@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { registerUser } from "../../firebaseConfig";
+import { useNavigate } from "react-router-dom"; 
 
-const RegisterProtective = () => {
+const RegisterShelter = () => {
+  const navigate = useNavigate(); 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -39,6 +41,8 @@ const RegisterProtective = () => {
         await registerUser(values.email, values.password);
         setSuccess("Usuario registrado con éxito");
         setError("");
+
+        navigate("/shelter-profile");
       } catch (error) {
         setError("Error al registrar el usuario: " + error.message);
         setSuccess("");
@@ -165,4 +169,4 @@ const RegisterProtective = () => {
   );
 };
 
-export default RegisterProtective;
+export default RegisterShelter;

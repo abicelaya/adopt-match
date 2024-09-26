@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { registerUser } from "../../firebaseConfig";
+import { useNavigate } from "react-router-dom"; 
 
 const RegisterAdopter = () => {
-  const [registerError, setRegisterError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [registerError, setRegisterError] = useState(""); 
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const navigate = useNavigate(); 
 
   const validationSchema = Yup.object({
     nombreCompleto: Yup.string().required("El nombre completo es obligatorio"),
@@ -33,15 +35,18 @@ const RegisterAdopter = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      setIsSubmitting(true);
+      setIsSubmitting(true); 
       try {
         await registerUser(values.email, values.password);
         console.log("Usuario registrado correctamente:", values);
+
+        
+        navigate("/home"); 
       } catch (error) {
         console.error("Error en el registro:", error);
-        setRegisterError(error.message);
+        setRegisterError(error.message); 
       } finally {
-        setIsSubmitting(false);
+        setIsSubmitting(false); 
       }
     },
   });

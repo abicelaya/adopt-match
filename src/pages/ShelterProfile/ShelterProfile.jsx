@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 
-const ProtectiveProfile = () => {
+const ShelterProfile = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-100">
       <Navbar />
@@ -10,7 +10,7 @@ const ProtectiveProfile = () => {
       <div className="flex flex-col items-center justify-center flex-grow p-4">
         <h2 className="text-2xl font-bold mb-6">Nombre de la Protectora</h2>
         <div className="flex flex-col space-y-4 w-full max-w-md">
-          <Link to="/register-protective">
+          <Link to="/register-shelter">
             <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
               Editar perfil
             </button>
@@ -31,4 +31,4 @@ const ProtectiveProfile = () => {
   );
 };
 
-export default ProtectiveProfile;
+export default ShelterProfile;
