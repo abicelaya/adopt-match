@@ -1,6 +1,39 @@
 import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const RegisterAnimal = () => {
+  const validationSchema = Yup.object({
+    animalType: Yup.string().required("El tipo de animal es obligatorio"),
+    animalName: Yup.string().required("El nombre del animal es obligatorio"),
+    animalAge: Yup.number()
+      .required("La edad del animal es obligatoria")
+      .min(0, "La edad debe ser mayor o igual a 0")
+      .integer("La edad debe ser un número entero"),
+    space: Yup.string().required(
+      "Es necesario indicar si necesita espacio abierto"
+    ),
+    animalDescription: Yup.string().required(
+      "La descripción del animal es obligatoria"
+    ),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      animalType: "",
+      animalName: "",
+      animalAge: "",
+      animalHealth: "",
+      space: "",
+      animalPhoto: null,
+      animalDescription: "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Datos del formulario:", values);
+    },
+  });
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
@@ -8,46 +41,73 @@ const RegisterAnimal = () => {
           Registrar Animal
         </h1>
 
-        <form>
+        <form onSubmit={formik.handleSubmit}>
           <div className="mb-4">
             <label className="text-sm text-gray-600" htmlFor="animalType">
               Tipo de animal
             </label>
             <select
               id="animalType"
+              name="animalType"
               className="mt-1 p-2 w-full border rounded-lg"
+              value={formik.values.animalType}
+              onChange={formik.handleChange}
             >
               <option value="">Selecciona un tipo</option>
               <option value="perro">Perro</option>
               <option value="gato">Gato</option>
             </select>
+            {formik.errors.animalType && (
+              <div className="text-red-500 text-sm">
+                {formik.errors.animalType}
+              </div>
+            )}
           </div>
 
           <div className="mb-4">
             <input
               type="text"
               id="animalName"
+              name="animalName"
               placeholder="Nombre del animal"
               className="mt-1 p-2 w-full border rounded-lg"
+              value={formik.values.animalName}
+              onChange={formik.handleChange}
             />
+            {formik.errors.animalName && (
+              <div className="text-red-500 text-sm">
+                {formik.errors.animalName}
+              </div>
+            )}
           </div>
 
           <div className="mb-4">
             <input
               type="number"
               id="animalAge"
+              name="animalAge"
               placeholder="Edad del animal"
               className="mt-1 p-2 w-full border rounded-lg"
+              value={formik.values.animalAge}
+              onChange={formik.handleChange}
             />
+            {formik.errors.animalAge && (
+              <div className="text-red-500 text-sm">
+                {formik.errors.animalAge}
+              </div>
+            )}
           </div>
 
           <div className="mb-4">
             <label className="text-sm text-gray-600" htmlFor="animalHealth">
-              Salud
+              Salud (opcional)
             </label>
             <select
               id="animalHealth"
+              name="animalHealth"
               className="mt-1 p-2 w-full border rounded-lg"
+              value={formik.values.animalHealth}
+              onChange={formik.handleChange}
             >
               <option value="">Selecciona una opción</option>
               <option value="esterilizado">Esterilizado</option>
@@ -60,24 +120,45 @@ const RegisterAnimal = () => {
             <p className="text-sm text-gray-600">¿Necesita espacio abierto?</p>
             <div className="flex space-x-4">
               <label>
-                <input type="radio" name="space" value="si" className="mr-2" />
+                <input
+                  type="radio"
+                  name="space"
+                  value="si"
+                  className="mr-2"
+                  checked={formik.values.space === "si"}
+                  onChange={formik.handleChange}
+                />
                 Sí
               </label>
               <label>
-                <input type="radio" name="space" value="no" className="mr-2" />
+                <input
+                  type="radio"
+                  name="space"
+                  value="no"
+                  className="mr-2"
+                  checked={formik.values.space === "no"}
+                  onChange={formik.handleChange}
+                />
                 No
               </label>
             </div>
+            {formik.errors.space && (
+              <div className="text-red-500 text-sm">{formik.errors.space}</div>
+            )}
           </div>
 
           <div className="mb-4">
             <label className="text-sm text-gray-600" htmlFor="animalPhoto">
-              Sube una foto del animal
+              Sube una foto del animal (opcional)
             </label>
             <input
               type="file"
               id="animalPhoto"
+              name="animalPhoto"
               className="mt-1 p-2 w-full border rounded-lg"
+              onChange={(event) => {
+                formik.setFieldValue("animalPhoto", event.target.files[0]);
+              }}
             />
           </div>
 
@@ -90,10 +171,18 @@ const RegisterAnimal = () => {
             </label>
             <textarea
               id="animalDescription"
+              name="animalDescription"
               rows="4"
               placeholder="Escribe una breve descripción"
               className="mt-1 p-2 w-full border rounded-lg"
+              value={formik.values.animalDescription}
+              onChange={formik.handleChange}
             />
+            {formik.errors.animalDescription && (
+              <div className="text-red-500 text-sm">
+                {formik.errors.animalDescription}
+              </div>
+            )}
           </div>
 
           <button
