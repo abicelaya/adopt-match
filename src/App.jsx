@@ -11,24 +11,29 @@ import ShelterProfile from "./pages/ShelterProfile/ShelterProfile";
 import Adopted from "./pages/Adopted/Adopted";
 import ForAdoption from "./pages/ForAdoption/ForAdoption";
 import AnimalProfile from "./pages/AnimalProfile/AnimalProfile";
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Welcome />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register-shelter" element={<RegisterShelter />} />
-        <Route path="/register-adopter" element={<RegisterAdopter />} />
-        <Route path="/register-animal" element={<RegisterAnimal />} />
-        <Route path="/shelter-profile" element={<ShelterProfile />} />
-        <Route path="/adopted" element={<Adopted />} />
-        <Route path="/for-adoption" element={<ForAdoption />} />
-        <Route path="/animal-profile" element={<AnimalProfile />} />
-      </Routes>
-    </Router>
+    
+      <Router>
+        <AuthProvider> 
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Welcome />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register-shelter" element={<RegisterShelter />} />
+          <Route path="/register-adopter" element={<RegisterAdopter />} />
+          <Route path="/register-animal" element={<RegisterAnimal />} />
+          <Route path="/shelter-profile" element={<ShelterProfile />} />
+          <Route path="/adopted" element={<Adopted />} />
+          <Route path="/for-adoption" element={<ForAdoption />} />
+          <Route path="/animal-profile" element={<AnimalProfile />} />
+        </Routes>
+        </AuthProvider>
+      </Router>
+    
   );
 };
 

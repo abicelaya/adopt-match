@@ -1,8 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; 
 import AnimalBox from "../../components/AnimalBox/AnimalBox";
 import Navbar from "../../components/Navbar/Navbar";
+import { useAuth } from "../../context/AuthContext"; 
 
 const Home = () => {
+  const { user } = useAuth(); // Solo necesitamos el user aquí
+  const navigate = useNavigate(); 
+
   const animals = [
     { id: 1, name: "Perro 1", image: "path/to/perro1.jpg" },
     { id: 2, name: "Gato 1", image: "path/to/gato1.jpg" },
@@ -18,13 +23,20 @@ const Home = () => {
     { id: 12, name: "Gato 6", image: "path/to/gato6.jpg" },
   ];
 
+  const handleSeeMoreAnimals = () => {
+    navigate("/for-adoption"); 
+  };
+
   return (
     <div className="flex flex-col items-center p-4">
       <Navbar />
 
       <AnimalBox animals={animals} />
 
-      <button className="mt-6 w-full bg-[#6dab71] text-white font-semibold py-3 rounded-lg transition duration-200 hover:bg-[#5ca861]">
+      <button 
+        onClick={handleSeeMoreAnimals} 
+        className="mt-6 w-full bg-[#6dab71] text-white font-semibold py-3 rounded-lg transition duration-200 hover:bg-[#5ca861]"
+      >
         Ver más animales
       </button>
     </div>
