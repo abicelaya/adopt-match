@@ -2,12 +2,16 @@ import React, { useState } from "react"; // Importar useState
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
-import { loginUser } from "../../firebaseConfig"; // Asegúrate de que la ruta sea correcta
+import {app} from "../../firebaseConfig"
+import {
+  signInWithEmailAndPassword,
+  getAuth
+} from "firebase/auth";
 
 const Login = () => {
   const [error, setError] = useState(null); // Estado para manejar el error
   const navigate = useNavigate(); // Hook para navegar entre páginas
-
+  const auth = getAuth(app)
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Correo electrónico inválido")
@@ -39,6 +43,17 @@ const Login = () => {
       }
     },
   });
+
+  // Función para iniciar sesión
+const loginUser = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    return user;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">

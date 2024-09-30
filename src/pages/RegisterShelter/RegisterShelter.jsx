@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { registerUser } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom"; 
 
 const RegisterShelter = () => {
@@ -37,16 +36,16 @@ const RegisterShelter = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      try {
-        await registerUser(values.email, values.password);
-        setSuccess("Usuario registrado con éxito");
-        setError("");
+      // try {
+      //   await registerUser(values.email, values.password);
+      //   setSuccess("Usuario registrado con éxito");
+      //   setError("");
 
-        navigate("/shelter-profile");
-      } catch (error) {
-        setError("Error al registrar el usuario: " + error.message);
-        setSuccess("");
-      }
+      //   navigate("/shelter-profile");
+      // } catch (error) {
+      //   setError("Error al registrar el usuario: " + error.message);
+      //   setSuccess("");
+      // }
     },
   });
 

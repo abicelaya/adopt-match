@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { registerUser } from "../../firebaseConfig";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import { app } from "../../firebaseConfig";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
 
 const RegisterAdopter = () => {
-  const [registerError, setRegisterError] = useState(""); 
-  const [isSubmitting, setIsSubmitting] = useState(false); 
-  const navigate = useNavigate(); 
+  const [registerError, setRegisterError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
   const validationSchema = Yup.object({
     nombreCompleto: Yup.string().required("El nombre completo es obligatorio"),
     telefono: Yup.string()
-      .matches(/^[0-9]{9}$/, "El teléfono debe tener 10 dígitos")
+      .matches(/^[0-9]{9}$/, "El teléfono debe tener 9 dígitos")
       .required("El teléfono es obligatorio"),
     email: Yup.string()
       .email("Email inválido")
@@ -35,18 +39,37 @@ const RegisterAdopter = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      setIsSubmitting(true); 
-      try {
-        await registerUser(values.email, values.password);
-        console.log("Usuario registrado correctamente:", values);
+      console.log("Valores de Formik:", values);
 
-        
-        navigate("/home"); 
+      setIsSubmitting(true);
+      try {
+        // Registra el usuario en Firebase
+
+        // Crea el objeto adoptante
+        const adopterData = {
+          nombreCompleto: values.nombreCompleto,
+          telefono: values.telefono,
+          email: values.email,
+          animales: values.animales,
+          hogar: values.hogar,
+        };
+
+        const user = await registerUser(
+          values.email,
+          values.password,
+          adopterData
+        );
+        console.log("Usuario registrado correctamente:", user);
+
+        console.log("Datos del adoptante:", adopterData);
+
+        // Navega a la página de inicio o donde desees después del registro
+        navigate("/home");
       } catch (error) {
         console.error("Error en el registro:", error);
-        setRegisterError(error.message); 
+        setRegisterError(error.message);
       } finally {
-        setIsSubmitting(false); 
+        setIsSubmitting(false);
       }
     },
   });
@@ -60,6 +83,55 @@ const RegisterAdopter = () => {
       );
     } else {
       formik.setFieldValue(field, [...fieldValue, value]);
+    }
+  };
+
+  // Función para registrar un usuario y guardar los datos del adoptante en Firestore
+  const registerUser = async (email, password, adopterData) => {
+    try {
+      // Registramos al usuario en Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Agregamos los datos del adoptante a Firestore utilizando el UID del usuario
+      await addAdopterToFirestore({
+        ...adopterData,
+        uid: user.uid, // Guardamos el UID del usuario para identificarlo en Firestore
+        // El resto de los datos del adoptante se pasan desde adopterData
+      });
+
+      console.log("Usuario y adoptante registrados correctamente.");
+      return user;
+    } catch (error) {
+      throw new Error("Error en el registro del usuario: " + error.message);
+    }
+  };
+
+  // Función para agregar los datos del adoptante a Firestore
+  const addAdopterToFirestore = async (adopterData) => {
+    try {
+      const collectionRef = doc(collection(db, "adoptantes"), adopterData.uid);
+      console.log("Adoptante agregado a Firestore:", adopterData);
+
+      // Creamos o sobreescribimos el documento del adoptante utilizando su UID como ID
+      await setDoc(collectionRef, {
+        userId: adopterData.uid, // UID del usuario en Firebase Authentication
+        nombreCompleto: adopterData.nombreCompleto,
+        telefono: adopterData.telefono,
+        email: adopterData.email,
+        animales: adopterData.animales, // Lista de animales
+        hogar: adopterData.hogar, // Información del hogar (terraza/balcón, etc.)
+      });
+
+      console.log("Adoptante agregado a Firestore:", adopterData);
+    } catch (error) {
+      throw new Error(
+        "Error al agregar el adoptante a Firestore: " + error.message
+      );
     }
   };
 
