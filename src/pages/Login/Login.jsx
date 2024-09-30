@@ -1,17 +1,14 @@
-import React, { useState } from "react"; // Importar useState
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
-import {app} from "../../firebaseConfig"
-import {
-  signInWithEmailAndPassword,
-  getAuth
-} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { app } from "../../firebaseConfig";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 
 const Login = () => {
-  const [error, setError] = useState(null); // Estado para manejar el error
-  const navigate = useNavigate(); // Hook para navegar entre páginas
-  const auth = getAuth(app)
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const auth = getAuth(app);
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Correo electrónico inválido")
@@ -29,38 +26,38 @@ const Login = () => {
     validationSchema,
     onSubmit: async (values) => {
       console.log("Datos del formulario:", values);
-      setError(null); // Limpiar el mensaje de error antes de intentar iniciar sesión
+      setError(null);
 
       try {
-        // Llama a la función loginUser para autenticar al usuario
         await loginUser(values.email, values.password);
-        // Si la autenticación es exitosa, redirigir a Home
-        navigate("/home"); // Cambia "/home" por la ruta correcta si es necesario
+
+        navigate("/home");
       } catch (error) {
         console.error("Error en el inicio de sesión:", error);
-        // Establecer el mensaje de error en el estado
-        setError(error.message); // Guardar el mensaje de error
+
+        setError(error.message);
       }
     },
   });
 
-  // Función para iniciar sesión
-const loginUser = async (email, password) => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    return user;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+  const loginUser = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      return user;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
       <h1 className="text-2xl font-bold mb-4">Iniciar sesión</h1>
-      {error && (
-        <div className="mb-4 text-red-500 text-sm">{error}</div> // Mostrar el mensaje de error si existe
-      )}
+      {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
       <form
         onSubmit={formik.handleSubmit}
         className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md"

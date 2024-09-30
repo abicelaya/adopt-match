@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useAuth } from "../../context/AuthContext"; 
 
 const Home = () => {
-  const { user } = useAuth(); // Solo necesitamos el user aquí
+  const { user } = useAuth(); 
   const navigate = useNavigate(); 
 
   const animals = [

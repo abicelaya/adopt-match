@@ -43,9 +43,6 @@ const RegisterAdopter = () => {
 
       setIsSubmitting(true);
       try {
-        // Registra el usuario en Firebase
-
-        // Crea el objeto adoptante
         const adopterData = {
           nombreCompleto: values.nombreCompleto,
           telefono: values.telefono,
@@ -63,7 +60,6 @@ const RegisterAdopter = () => {
 
         console.log("Datos del adoptante:", adopterData);
 
-        // Navega a la página de inicio o donde desees después del registro
         navigate("/home");
       } catch (error) {
         console.error("Error en el registro:", error);
@@ -86,10 +82,8 @@ const RegisterAdopter = () => {
     }
   };
 
-  // Función para registrar un usuario y guardar los datos del adoptante en Firestore
   const registerUser = async (email, password, adopterData) => {
     try {
-      // Registramos al usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -97,11 +91,9 @@ const RegisterAdopter = () => {
       );
       const user = userCredential.user;
 
-      // Agregamos los datos del adoptante a Firestore utilizando el UID del usuario
       await addAdopterToFirestore({
         ...adopterData,
-        uid: user.uid, // Guardamos el UID del usuario para identificarlo en Firestore
-        // El resto de los datos del adoptante se pasan desde adopterData
+        uid: user.uid,
       });
 
       console.log("Usuario y adoptante registrados correctamente.");
@@ -111,20 +103,18 @@ const RegisterAdopter = () => {
     }
   };
 
-  // Función para agregar los datos del adoptante a Firestore
   const addAdopterToFirestore = async (adopterData) => {
     try {
       const collectionRef = doc(collection(db, "adoptantes"), adopterData.uid);
       console.log("Adoptante agregado a Firestore:", adopterData);
 
-      // Creamos o sobreescribimos el documento del adoptante utilizando su UID como ID
       await setDoc(collectionRef, {
-        userId: adopterData.uid, // UID del usuario en Firebase Authentication
+        userId: adopterData.uid,
         nombreCompleto: adopterData.nombreCompleto,
         telefono: adopterData.telefono,
         email: adopterData.email,
-        animales: adopterData.animales, // Lista de animales
-        hogar: adopterData.hogar, // Información del hogar (terraza/balcón, etc.)
+        animales: adopterData.animales,
+        hogar: adopterData.hogar,
       });
 
       console.log("Adoptante agregado a Firestore:", adopterData);
