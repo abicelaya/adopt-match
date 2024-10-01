@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const RegisterAnimal = () => {  
   const navigate = useNavigate();
   const db = getFirestore();
-  const {user} = useAuth();
+  const { user } = useAuth();
   console.log(user);
 
   const validationSchema = Yup.object({
@@ -21,6 +21,9 @@ const RegisterAnimal = () => {
     space: Yup.string().required(
       "Es necesario indicar si necesita espacio abierto"
     ),
+    canLiveWithOthers: Yup.string().required(
+      "Es necesario indicar si puede estar con otros animales"
+    ),
     animalDescription: Yup.string().required(
       "La descripción del animal es obligatoria"
     ),
@@ -31,7 +34,7 @@ const RegisterAnimal = () => {
       animalType: "",
       animalName: "",
       animalAge: "",
-      animalHealth: "",
+      canLiveWithOthers: "",
       space: "",
       animalPhoto: null,
       animalDescription: "",
@@ -40,7 +43,7 @@ const RegisterAnimal = () => {
     onSubmit: async (values) => {
       const animalData = {
         ...values,
-        shelterId: user.uid,  
+        shelterId: user.uid,
       };
       await registerAnimal(animalData);
     },
@@ -51,7 +54,7 @@ const RegisterAnimal = () => {
       const collectionRef = collection(db, "animales");
       await addDoc(collectionRef, animalData);
       console.log("Animal registrado con éxito");
-      navigate("/shelter-profile"); // Redirige a la página profile-shelter
+      navigate("/shelter-profile"); 
     } catch (error) {
       console.error("Error al registrar el animal: ", error);
     }
@@ -65,6 +68,7 @@ const RegisterAnimal = () => {
         </h1>
 
         <form onSubmit={formik.handleSubmit}>
+          {/* Tipo de animal */}
           <div className="mb-4">
             <label className="text-sm text-gray-600" htmlFor="animalType">
               Tipo de animal
@@ -87,6 +91,7 @@ const RegisterAnimal = () => {
             )}
           </div>
 
+          {/* Nombre del animal */}
           <div className="mb-4">
             <input
               type="text"
@@ -104,6 +109,7 @@ const RegisterAnimal = () => {
             )}
           </div>
 
+          {/* Edad del animal */}
           <div className="mb-4">
             <input
               type="number"
@@ -121,24 +127,39 @@ const RegisterAnimal = () => {
             )}
           </div>
 
+          {/* ¿Puede estar con otros animales? */}
           <div className="mb-4">
-            <label className="text-sm text-gray-600" htmlFor="animalHealth">
-              Salud (opcional)
-            </label>
-            <select
-              id="animalHealth"
-              name="animalHealth"
-              className="mt-1 p-2 w-full border rounded-lg"
-              value={formik.values.animalHealth}
-              onChange={formik.handleChange}
-            >
-              <option value="">Selecciona una opción</option>
-              <option value="esterilizado">Esterilizado</option>
-              <option value="VIF">VIF</option>
-              <option value="VLFe">VLFe</option>
-            </select>
+            <p className="text-sm text-gray-600">¿Puede estar con otros animales?</p>
+            <div className="flex space-x-4">
+              <label>
+                <input
+                  type="radio"
+                  name="canLiveWithOthers"
+                  value="si"
+                  className="mr-2"
+                  checked={formik.values.canLiveWithOthers === "si"}
+                  onChange={formik.handleChange}
+                />
+                Sí
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="canLiveWithOthers"
+                  value="no"
+                  className="mr-2"
+                  checked={formik.values.canLiveWithOthers === "no"}
+                  onChange={formik.handleChange}
+                />
+                No
+              </label>
+            </div>
+            {formik.errors.canLiveWithOthers && (
+              <div className="text-red-500 text-sm">{formik.errors.canLiveWithOthers}</div>
+            )}
           </div>
 
+          {/* ¿Necesita espacio abierto? */}
           <div className="mb-4">
             <p className="text-sm text-gray-600">¿Necesita espacio abierto?</p>
             <div className="flex space-x-4">
@@ -170,26 +191,9 @@ const RegisterAnimal = () => {
             )}
           </div>
 
+          {/* Descripción del animal */}
           <div className="mb-4">
-            <label className="text-sm text-gray-600" htmlFor="animalPhoto">
-              Sube una foto del animal (opcional)
-            </label>
-            <input
-              type="file"
-              id="animalPhoto"
-              name="animalPhoto"
-              className="mt-1 p-2 w-full border rounded-lg"
-              onChange={(event) => {
-                formik.setFieldValue("animalPhoto", event.target.files[0]);
-              }}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              className="text-sm text-gray-600"
-              htmlFor="animalDescription"
-            >
+            <label className="text-sm text-gray-600" htmlFor="animalDescription">
               Breve descripción del animal
             </label>
             <textarea
@@ -208,6 +212,7 @@ const RegisterAnimal = () => {
             )}
           </div>
 
+          
           <button
             type="submit"
             className="mt-6 w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
