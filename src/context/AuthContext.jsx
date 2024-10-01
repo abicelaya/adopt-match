@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
   const logout = async () => {
     try {

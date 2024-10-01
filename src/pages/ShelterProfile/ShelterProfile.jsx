@@ -25,6 +25,11 @@ const ShelterProfile = () => {
               Adoptados
             </button>
           </Link>
+          <Link to="/register-animal">
+            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
+              Registrar animal
+            </button>
+          </Link>
         </div>
       </div>
     </div>

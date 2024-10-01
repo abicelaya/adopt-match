@@ -1,8 +1,16 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const RegisterAnimal = () => {
+const RegisterAnimal = () => {  
+  const navigate = useNavigate();
+  const db = getFirestore();
+  const {user} = useAuth();
+  console.log(user);
+
   const validationSchema = Yup.object({
     animalType: Yup.string().required("El tipo de animal es obligatorio"),
     animalName: Yup.string().required("El nombre del animal es obligatorio"),
@@ -29,10 +37,25 @@ const RegisterAnimal = () => {
       animalDescription: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log("Datos del formulario:", values);
+    onSubmit: async (values) => {
+      const animalData = {
+        ...values,
+        shelterId: user.uid,  
+      };
+      await registerAnimal(animalData);
     },
   });
+
+  const registerAnimal = async (animalData) => {
+    try {
+      const collectionRef = collection(db, "animales");
+      await addDoc(collectionRef, animalData);
+      console.log("Animal registrado con éxito");
+      navigate("/shelter-profile"); // Redirige a la página profile-shelter
+    } catch (error) {
+      console.error("Error al registrar el animal: ", error);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
@@ -189,7 +212,7 @@ const RegisterAnimal = () => {
             type="submit"
             className="mt-6 w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
           >
-            Aceptar
+            Registrar Animal
           </button>
         </form>
       </div>

@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import { app } from "../../firebaseConfig"; 
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
 
 const RegisterShelter = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
   const validationSchema = Yup.object({
     fullName: Yup.string().required("El nombre completo es obligatorio"),
     phone: Yup.string()
-      .matches(/^[0-9]+$/, "El teléfono solo debe contener números")
+      .matches(/^[0-9]{9}$/, "El teléfono debe tener 9 dígitos")
       .required("El teléfono es obligatorio"),
     location: Yup.string().required("La ubicación es obligatoria"),
     registrationNumber: Yup.string().required(
@@ -36,18 +41,47 @@ const RegisterShelter = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      // try {
-      //   await registerUser(values.email, values.password);
-      //   setSuccess("Usuario registrado con éxito");
-      //   setError("");
-
-      //   navigate("/shelter-profile");
-      // } catch (error) {
-      //   setError("Error al registrar el usuario: " + error.message);
-      //   setSuccess("");
-      // }
+      setError("");
+      setSuccess("");
+      try {
+        const user = await registerUser(values.email, values.password);
+        await addShelterToFirestore({ ...values, uid: user.uid });
+        setSuccess("Protectora registrada con éxito");
+        navigate("/shelter-profile");
+      } catch (error) {
+        setError("Error al registrar la protectora: " + error.message);
+      }
     },
   });
+
+  const registerUser = async (email, password) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      return userCredential.user;
+    } catch (error) {
+      throw new Error("Error en el registro del usuario: " + error.message);
+    }
+  };
+
+  const addShelterToFirestore = async (shelterData) => {
+    try {
+      const collectionRef = doc(collection(db, "protectoras"), shelterData.uid);
+      await setDoc(collectionRef, {
+        userId: shelterData.uid,
+        fullName: shelterData.fullName,
+        phone: shelterData.phone,
+        location: shelterData.location,
+        registrationNumber: shelterData.registrationNumber,
+        email: shelterData.email,
+      });
+    } catch (error) {
+      throw new Error("Error al agregar la protectora a Firestore: " + error.message);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
@@ -150,15 +184,13 @@ const RegisterShelter = () => {
               onChange={formik.handleChange}
             />
             {formik.errors.password && (
-              <div className="text-red-500 text-sm">
-                {formik.errors.password}
-              </div>
+              <div className="text-red-500 text-sm">{formik.errors.password}</div>
             )}
           </div>
 
           <button
             type="submit"
-            className="mt-6 w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg w-full transition duration-200"
           >
             Aceptar
           </button>
