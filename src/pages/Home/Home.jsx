@@ -22,9 +22,20 @@ const Home = () => {
     const fetchAnimals = async () => {
       try {
         const animalsCollection = collection(db, "animales");
-        const q = query(animalsCollection, where("shelterId", "==", user.uid));
-        const querySnapshot = await getDocs(q);
+        let animalsQuery;
 
+        if (user?.isShelter) {
+          animalsQuery = query(
+            animalsCollection,
+            where("shelterId", "==", user.uid)
+          );
+        } else if (user) {
+          animalsQuery = query(animalsCollection);
+        } else {
+          animalsQuery = query(animalsCollection);
+        }
+
+        const querySnapshot = await getDocs(animalsQuery);
         const animalsList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -37,9 +48,7 @@ const Home = () => {
       }
     };
 
-    if (user?.uid) {
-      fetchAnimals();
-    }
+    fetchAnimals();
   }, [db, user]);
 
   const handleSeeMoreAnimals = () => {
@@ -55,7 +64,7 @@ const Home = () => {
       ) : animals.length > 0 ? (
         <AnimalBox animals={animals} />
       ) : (
-        <p>No hay animales registrados por esta protectora.</p>
+        <p>No hay animales registrados.</p>
       )}
 
       <button

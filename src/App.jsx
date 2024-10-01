@@ -11,7 +11,9 @@ import ShelterProfile from "./pages/ShelterProfile/ShelterProfile";
 import Adopted from "./pages/Adopted/Adopted";
 import ForAdoption from "./pages/ForAdoption/ForAdoption";
 import AnimalProfile from "./pages/AnimalProfile/AnimalProfile";
+import Likes from "./pages/Likes/Likes"
 import { AuthProvider } from "./context/AuthContext";
+
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
           <Route path="/adopted" element={<Adopted />} />
           <Route path="/for-adoption" element={<ForAdoption />} />
           <Route path="/animal-profile" element={<AnimalProfile />} />
+          <Route path="/likes" element={<Likes />} />
+
         </Routes>
         </AuthProvider>
       </Router>
