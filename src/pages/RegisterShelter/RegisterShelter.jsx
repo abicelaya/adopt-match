@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { app } from "../../firebaseConfig"; 
+import { app } from "../../firebaseConfig";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
 
@@ -79,15 +79,23 @@ const RegisterShelter = () => {
         email: shelterData.email,
       });
     } catch (error) {
-      throw new Error("Error al agregar la protectora a Firestore: " + error.message);
+      throw new Error(
+        "Error al agregar la protectora a Firestore: " + error.message
+      );
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-4">Protectora</h1>
+    <div className="flex flex-col items-start justify-center h-screen pb-4">
+      <div className="relative w-full h-full">
+        <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg z-[-1]"></div>
 
+        <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
+          Protectora
+        </h1>
+      </div>
+
+      <div className="bg-white rounded-lg p-8 w-full max-w-md z-10 relative mb-5">
         {error && <p className="text-red-500 mb-4">{error}</p>}
         {success && <p className="text-green-500 mb-4">{success}</p>}
 
@@ -184,13 +192,15 @@ const RegisterShelter = () => {
               onChange={formik.handleChange}
             />
             {formik.errors.password && (
-              <div className="text-red-500 text-sm">{formik.errors.password}</div>
+              <div className="text-red-500 text-sm">
+                {formik.errors.password}
+              </div>
             )}
           </div>
 
           <button
             type="submit"
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg w-full transition duration-200"
+            className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold mt-8 py-2 rounded-lg w-full transition duration-200"
           >
             Aceptar
           </button>

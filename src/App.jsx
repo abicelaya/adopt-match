@@ -11,15 +11,13 @@ import ShelterProfile from "./pages/ShelterProfile/ShelterProfile";
 import Adopted from "./pages/Adopted/Adopted";
 import ForAdoption from "./pages/ForAdoption/ForAdoption";
 import AnimalProfile from "./pages/AnimalProfile/AnimalProfile";
-import Likes from "./pages/Likes/Likes"
+import Likes from "./pages/Likes/Likes";
 import { AuthProvider } from "./context/AuthContext";
-
 
 const App = () => {
   return (
-    
-      <Router>
-        <AuthProvider> 
+    <Router>
+      <AuthProvider>
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Welcome />} />
@@ -31,13 +29,11 @@ const App = () => {
           <Route path="/shelter-profile" element={<ShelterProfile />} />
           <Route path="/adopted" element={<Adopted />} />
           <Route path="/for-adoption" element={<ForAdoption />} />
-          <Route path="/animal-profile" element={<AnimalProfile />} />
+          <Route path="/animal-profile/:id" element={<AnimalProfile />} />
           <Route path="/likes" element={<Likes />} />
-
         </Routes>
-        </AuthProvider>
-      </Router>
-    
+      </AuthProvider>
+    </Router>
   );
 };
 

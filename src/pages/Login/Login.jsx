@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { app } from "../../firebaseConfig";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 
@@ -55,8 +55,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">Iniciar sesión</h1>
+    <div className="flex flex-col items-center justify-center h-screen bg-[#6dab71] p-4">
+      <h1 className="text-2xl  text-left text-white font-semibold mb-6">
+        Iniciar sesión
+      </h1>
       {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
       <form
         onSubmit={formik.handleSubmit}
@@ -92,11 +94,19 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
+          className="w-full bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
         >
           Aceptar
         </button>
       </form>
+
+      {/* Mensaje de registro */}
+      <p className="mt-5 text-gray-800 text-center">
+        ¿No tienes cuenta?{" "}
+        <Link to="/register" className="text-white font-semibold">
+          Regístrate aquí
+        </Link>
+      </p>
     </div>
   );
 };

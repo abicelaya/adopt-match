@@ -1,57 +1,115 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { FiMenu } from "react-icons/fi";
+import { IoArrowBack } from "react-icons/io5";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const handleMyAnimals = () => {
-    navigate("/likes"); 
+    navigate("/likes");
   };
 
   const handleProfile = () => {
     navigate("/shelter-profile");
   };
 
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <nav className="w-full bg-[#6dab71] text-white">
-      <div className="p-4 flex justify-between items-center">
-        <h1 className="text-lg font-bold">
-          {user ? `Hola, ${user.displayName || user.email}` : "AdoptMatch"}
-        </h1>
+    <nav className="w-full bg-white text-[#6dab71] rounded-xl">
+      <div className="p-8 flex justify-between items-center">
+        {location.pathname !== "/home" ? (
+          <button onClick={goBack} className="text-2xl hover:text-green-300">
+            <IoArrowBack />
+          </button>
+        ) : (
+          <h1 className="text-lg font-bold">
+            {user ? `Hola, ${user.displayName || user.email}` : "AdoptMatch"}
+          </h1>
+        )}
 
         <div className="flex items-center">
           {user ? (
             <>
-              {user.isShelter ? (  // Cambia esta línea según cómo determines si es protectora
-                <button
-                  onClick={handleProfile}
-                  className="mr-4 hover:text-green-300"
-                >
-                  Perfil
-                </button>
-              ) : (
-                <button
-                  onClick={handleMyAnimals}
-                  className="mr-4 hover:text-green-300"
-                >
-                  Mis animales
-                </button>
-              )}
-              <button onClick={logout} className="hover:text-green-300">
-                Cerrar Sesión
+              <button
+                onClick={toggleMenu}
+                className="mr-4 text-2xl hover:text-green-300"
+              >
+                <FiMenu />
               </button>
+              {menuOpen && (
+                <div
+                  ref={menuRef}
+                  className="absolute right-0 mt-2 w-48 bg-[#6dab71] rounded-xl shadow-lg z-10"
+                >
+                  {user.isShelter ? (
+                    <>
+                      <button
+                        onClick={handleProfile}
+                        className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
+                      >
+                        Perfil
+                      </button>
+                      <button
+                        onClick={logout}
+                        className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
+                      >
+                        Cerrar Sesión
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={handleMyAnimals}
+                        className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
+                      >
+                        Mis animales
+                      </button>
+                      <button
+                        onClick={logout}
+                        className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
+                      >
+                        Cerrar Sesión
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
             </>
           ) : (
-            <>
-              <Link to="/register" className="mr-4 hover:text-green-300">
-                Registrarse
-              </Link>
-              <Link to="/login" className="hover:text-green-300">
-                Iniciar Sesión
-              </Link>
-            </>
+            <Link to="/login" className="hover:text-green-300">
+              Iniciar Sesión
+            </Link>
           )}
         </div>
       </div>

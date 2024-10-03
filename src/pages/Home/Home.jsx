@@ -29,8 +29,6 @@ const Home = () => {
             animalsCollection,
             where("shelterId", "==", user.uid)
           );
-        } else if (user) {
-          animalsQuery = query(animalsCollection);
         } else {
           animalsQuery = query(animalsCollection);
         }
@@ -51,28 +49,27 @@ const Home = () => {
     fetchAnimals();
   }, [db, user]);
 
-  const handleSeeMoreAnimals = () => {
-    navigate("/for-adoption");
-  };
-
   return (
-    <div className="flex flex-col items-center p-4">
+    <div className="flex flex-col items-center p-4 min-h-screen bg-[#6dab71]">
       <Navbar />
 
-      {loading ? (
-        <p>Cargando animales...</p>
-      ) : animals.length > 0 ? (
-        <AnimalBox animals={animals} />
-      ) : (
-        <p>No hay animales registrados.</p>
-      )}
+      <div className="w-full max-w-4xl mt-6 mb-6 text-left">
+        <h2 className="text-3xl font-semibold text-white">
+          Un hogar,
+          <br />
+          una nueva historia.
+        </h2>
+      </div>
 
-      <button
-        onClick={handleSeeMoreAnimals}
-        className="mt-6 w-full bg-[#6dab71] text-white font-semibold py-3 rounded-lg transition duration-200 hover:bg-[#5ca861]"
-      >
-        Ver más animales
-      </button>
+      <div className="mt-6 w-full max-w-4xl">
+        {loading ? (
+          <p>Cargando animales...</p>
+        ) : animals.length > 0 ? (
+          <AnimalBox animals={animals} />
+        ) : (
+          <p>No hay animales registrados.</p>
+        )}
+      </div>
     </div>
   );
 };

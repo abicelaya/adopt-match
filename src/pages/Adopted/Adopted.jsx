@@ -23,10 +23,6 @@ const Adopted = () => {
       <Navbar />
 
       <AnimalBox animals={animals} />
-
-      <button className="mt-6 w-full bg-[#6dab71] text-white font-semibold py-3 rounded-lg transition duration-200 hover:bg-[#5ca861]">
-        Ver más animales
-      </button>
     </div>
   );
 };

@@ -1,47 +1,91 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 const AnimalProfile = () => {
-  const animal = {
-    nombre: "Perro 1",
-    edad: "2 años",
-    salud: "Esterilizado",
-    descripcion:
-      "Gata de 2 años, muy tranquila, ideal para hogares con otros gatos calmados. Perfecta para un ambiente relajado.",
-    image: "path/to/perro1.jpg",
-  };
+  const { id } = useParams();
+  const [animal, setAnimal] = useState(null);
+  const db = getFirestore();
+
+  useEffect(() => {
+    const fetchAnimalData = async () => {
+      try {
+        const animalRef = doc(db, "animales", id);
+        const animalSnap = await getDoc(animalRef);
+
+        if (animalSnap.exists()) {
+          setAnimal(animalSnap.data());
+        } else {
+          console.log("No se encontró el animal");
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos del animal: ", error);
+      }
+    };
+
+    fetchAnimalData();
+  }, [id, db]);
+
+  if (!animal) {
+    return <div>Cargando...</div>;
+  }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col h-screen">
       <Navbar />
-      <div className="flex flex-col items-center justify-center flex-grow p-4">
-        <div className="flex flex-col md:flex-row md:space-x-8 items-center">
-          <img
-            src={animal.image}
-            alt={animal.nombre}
-            className="w-64 h-64 object-cover rounded-lg mb-4 md:mb-0"
-          />
-          <div className="flex flex-col items-center md:items-start">
-            <h2 className="text-2xl font-bold mb-2 text-center">
-              {animal.nombre}
-            </h2>
-            <p className="text-lg mb-2 text-center">Edad: {animal.edad}</p>
-            <p className="text-lg mb-2 text-center">Salud: {animal.salud}</p>
-            <div className="my-4 border-t border-gray-300 w-full"></div>
-            <p className="text-lg mb-4 text-center">{animal.descripcion}</p>
-            <div className="flex space-x-4 justify-center">
-              <Link to="/for-adoption">
-                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                  Volver
-                </button>
-              </Link>
-              <Link to="/adopt">
-                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                  Adoptar
-                </button>
-              </Link>
+      <div className="flex flex-col items-center justify-between flex-grow px-4 pt-4">
+        {/* Imagen del animal */}
+        <div className="relative flex flex-col items-center mb-4">
+          <div className="w-[300px] h-[320px] rounded-3xl border-4 border-[#bfdfc2] flex items-center justify-center">
+            <div className="w-[280px] h-[300px] rounded-3xl overflow-hidden border-4 border-[#6dab71]">
+              <img
+                src={animal.animalPhoto}
+                alt={animal.animalName}
+                className="w-full h-full object-cover"
+              />
             </div>
+          </div>
+          <h2 className="text-2xl text-[#6dab71] font-bold mt-4 text-center">
+            {animal.animalName}
+          </h2>
+        </div>
+
+        {/* Sección verde con detalles */}
+        <div className="bg-[#6dab71] text-white p-8 rounded-t-3xl w-full max-w-md flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between mb-4">
+              <div className="flex flex-col items-center">
+                <span className="text-sm">Edad</span>
+                <span className="font-semibold">{animal.animalAge} años</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-sm">Otros Animales</span>
+                <span className="font-semibold">
+                  {animal.canLiveWithOthers === "si" ? "Sí" : "No"}
+                </span>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-sm">Espacio Abierto</span>
+                <span className="font-semibold">
+                  {animal.space === "si" ? "Sí" : "No"}
+                </span>
+              </div>
+            </div>
+
+            {/* Descripción */}
+            <p className="text-center text-sm mt-4">
+              {animal.animalDescription}
+            </p>
+          </div>
+
+          {/* Botones */}
+          <div className="flex space-x-8 justify-center mt-6">
+            <Link to="/home" className="w-full max-w-[160px]">
+              <button className="bg-white text-[#6dab71] font-semibold py-2 px-4 rounded-lg transition duration-200 hover:bg-gray-100 w-full">
+                Conocer
+              </button>
+            </Link>
           </div>
         </div>
       </div>

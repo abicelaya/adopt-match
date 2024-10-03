@@ -126,12 +126,16 @@ const RegisterAdopter = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-6">
-        Adoptante - Información personal
-      </h1>
+    <div className="flex flex-col items-start justify-center h-screen ">
+      <div className="relative w-full h-full">
+        <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg z-[-1]"></div>
+
+        <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
+          Adoptante
+        </h1>
+      </div>
       <form
-        className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md space-y-4"
+        className="bg-white rounded-lg p-8 w-full max-w-md space-y-4 mb-5"
         onSubmit={formik.handleSubmit}
       >
         {/* Nombre completo */}
@@ -198,8 +202,8 @@ const RegisterAdopter = () => {
             onClick={() => handleOptionChange("animales", "Perro")}
             className={`${
               formik.values.animales.includes("Perro")
-                ? "bg-green-600"
-                : "bg-green-500"
+                ? "bg-[#6dab71]"
+                : "bg-[#6dab71]"
             } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           >
             Perro
@@ -209,8 +213,8 @@ const RegisterAdopter = () => {
             onClick={() => handleOptionChange("animales", "Gato")}
             className={`${
               formik.values.animales.includes("Gato")
-                ? "bg-green-600"
-                : "bg-green-500"
+                ? "bg-[#6dab71]"
+                : "bg-[#6dab71]"
             } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           >
             Gato
@@ -224,8 +228,8 @@ const RegisterAdopter = () => {
             onClick={() => handleOptionChange("hogar", "Terraza")}
             className={`${
               formik.values.hogar.includes("Terraza")
-                ? "bg-green-600"
-                : "bg-green-500"
+                ? "bg-[#6dab71]"
+                : "bg-[#6dab71]"
             } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           >
             Terraza
@@ -235,8 +239,8 @@ const RegisterAdopter = () => {
             onClick={() => handleOptionChange("hogar", "Balcón")}
             className={`${
               formik.values.hogar.includes("Balcón")
-                ? "bg-green-600"
-                : "bg-green-500"
+                ? "bg-[#6dab71]"
+                : "bg-[#6dab71]"
             } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           >
             Balcón
@@ -252,7 +256,7 @@ const RegisterAdopter = () => {
         <button
           type="submit"
           className={`${
-            isSubmitting ? "bg-gray-400" : "bg-green-500 hover:bg-green-600"
+            isSubmitting ? "bg-gray-400" : "bg-[#6dab71] hover:bg-green-600"
           } text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           disabled={isSubmitting}
         >
