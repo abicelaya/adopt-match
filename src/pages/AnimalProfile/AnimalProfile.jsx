@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { useAuth } from "../../context/AuthContext";
 
 const AnimalProfile = () => {
   const { id } = useParams();
   const [animal, setAnimal] = useState(null);
   const db = getFirestore();
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchAnimalData = async () => {
@@ -26,6 +29,19 @@ const AnimalProfile = () => {
 
     fetchAnimalData();
   }, [id, db]);
+
+  const handleLike = async () => {
+    if (!animal) return;
+
+    try {
+      const likeRef = doc(db, "likes", id);
+      await setDoc(likeRef, animal);
+      console.log("Animal guardado en likes:", animal);
+      navigate("/likes");
+    } catch (error) {
+      console.error("Error al guardar el animal en likes: ", error);
+    }
+  };
 
   if (!animal) {
     return <div>Cargando...</div>;
@@ -81,11 +97,14 @@ const AnimalProfile = () => {
 
           {/* Botones */}
           <div className="flex space-x-8 justify-center mt-6">
-            <Link to="/home" className="w-full max-w-[160px]">
-              <button className="bg-white text-[#6dab71] font-semibold py-2 px-4 rounded-lg transition duration-200 hover:bg-gray-100 w-full">
+            {user && !user.isShelter && (
+              <button
+                onClick={handleLike}
+                className="bg-white text-[#6dab71] font-semibold py-2 px-4 rounded-lg transition duration-200 hover:bg-gray-100 w-full max-w-[160px]"
+              >
                 Conocer
               </button>
-            </Link>
+            )}
           </div>
         </div>
       </div>

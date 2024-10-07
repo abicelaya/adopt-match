@@ -14,12 +14,12 @@ const ShelterProfile = () => {
               Editar perfil
             </button>
           </Link>
-          <Link to="/for-adoption">
+          <Link to="/home">
             <button className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
               Por adoptar
             </button>
           </Link>
-          <Link to="/adopted">
+          <Link to="/home">
             <button className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
               Adoptados
             </button>
