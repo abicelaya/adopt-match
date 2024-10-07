@@ -50,11 +50,11 @@ const Home = () => {
   }, [db, user]);
 
   return (
-    <div className="flex flex-col items-center p-4 min-h-screen bg-[#6dab71]">
+    <div className="flex flex-col items-center p-4 min-h-screen ">
       <Navbar />
 
       <div className="w-full max-w-4xl mt-6 mb-6 text-left">
-        <h2 className="text-3xl font-semibold text-white">
+        <h2 className="text-3xl font-semibold text-[#4b764e]">
           Un hogar,
           <br />
           una nueva historia.

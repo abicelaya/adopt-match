@@ -59,7 +59,7 @@ const RegisterAnimal = () => {
       setTimeout(() => {
         setIsModalOpen(false);
         navigate("/shelter-profile");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error("Error al registrar el animal: ", error);
     }

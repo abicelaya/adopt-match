@@ -54,7 +54,7 @@ const Navbar = () => {
           </button>
         ) : (
           <h1 className="text-lg font-bold">
-            {user ? `Hola, ${user.displayName || user.email}` : "AdoptMatch"}
+            {user ? `Hola, ${user.fullName}` : "AdoptMatch"}
           </h1>
         )}
 

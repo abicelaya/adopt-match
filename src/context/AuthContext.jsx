@@ -18,15 +18,25 @@ export const AuthProvider = ({ children }) => {
         try {
           const shelterRef = doc(db, "protectoras", currentUser.uid);
           const shelterDoc = await getDoc(shelterRef);
-
+  
           if (shelterDoc.exists()) {
-            setUser({ ...currentUser, isShelter: true });
+            const shelterData = shelterDoc.data(); // Aquí obtienes los datos
+            setUser({
+              ...currentUser,
+              isShelter: true,
+              fullName: shelterData.fullName || "Nombre desconocido", // Asegúrate de tener la propiedad fullName
+            });
           } else {
             const adopterRef = doc(db, "adoptantes", currentUser.uid);
             const adopterDoc = await getDoc(adopterRef);
-
+  
             if (adopterDoc.exists()) {
-              setUser({ ...currentUser, isShelter: false });
+              const adopterData = adopterDoc.data(); // Aquí obtienes los datos
+              setUser({
+                ...currentUser,
+                isShelter: false,
+                fullName: adopterData.fullName || "Nombre desconocido", // Asegúrate de tener la propiedad fullName
+              });
             } else {
               console.error("Usuario no encontrado en las colecciones.");
               setUser(null);
@@ -39,9 +49,10 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
       }
     });
-
+  
     return () => unsubscribe();
   }, [auth, db]);
+  
 
   const logout = async () => {
     try {

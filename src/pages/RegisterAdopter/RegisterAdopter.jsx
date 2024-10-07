@@ -15,8 +15,8 @@ const RegisterAdopter = () => {
   const db = getFirestore(app);
 
   const validationSchema = Yup.object({
-    nombreCompleto: Yup.string().required("El nombre completo es obligatorio"),
-    telefono: Yup.string()
+    fullName: Yup.string().required("El nombre completo es obligatorio"),
+    phone: Yup.string()
       .matches(/^[0-9]{9}$/, "El teléfono debe tener 9 dígitos")
       .required("El teléfono es obligatorio"),
     email: Yup.string()
@@ -25,41 +25,41 @@ const RegisterAdopter = () => {
     password: Yup.string()
       .min(6, "La contraseña debe tener al menos 6 caracteres")
       .required("La contraseña es obligatoria"),
-    animales: Yup.array().of(Yup.string()),
-    hogar: Yup.array().of(Yup.string()),
+    animals: Yup.array().of(Yup.string()),
+    home: Yup.array().of(Yup.string()),
   });
 
   const formik = useFormik({
     initialValues: {
-      nombreCompleto: "",
-      telefono: "",
+      fullName: "",
+      phone: "",
       email: "",
       password: "",
-      animales: [],
-      hogar: [],
+      animals: [],
+      home: [],
     },
     validationSchema,
     onSubmit: async (values) => {
       console.log("Valores de Formik:", values);
 
       setIsSubmitting(true);
-      try {
-        const adopterData = {
-          nombreCompleto: values.nombreCompleto,
-          telefono: values.telefono,
-          email: values.email,
-          animales: values.animales,
-          hogar: values.hogar,
-        };
+    try {
+      const adopterData = {
+        fullName: values.fullName,
+        phone: values.phone,
+        email: values.email,
+        animals: values.animals,
+        home: values.home,
+      };
 
-        const user = await registerUser(
-          values.email,
-          values.password,
-          adopterData
-        );
-        console.log("Usuario registrado correctamente:", user);
+      const user = await registerUser(
+        values.email,
+        values.password,
+        adopterData
+      );
+      console.log("Usuario registrado correctamente:", user);
 
-        console.log("Datos del adoptante:", adopterData);
+      console.log("Datos del adoptante:", adopterData);
 
         navigate("/home");
       } catch (error) {
@@ -111,11 +111,11 @@ const RegisterAdopter = () => {
 
       await setDoc(collectionRef, {
         userId: adopterData.uid,
-        nombreCompleto: adopterData.nombreCompleto,
-        telefono: adopterData.telefono,
+        fullName: adopterData.fullName,
+        phone: adopterData.phone,
         email: adopterData.email,
-        animales: adopterData.animales,
-        hogar: adopterData.hogar,
+        animals: adopterData.animals,
+        home: adopterData.home,
       });
 
       console.log("Adoptante agregado a Firestore:", adopterData);
@@ -138,7 +138,7 @@ const RegisterAdopter = () => {
           <IoArrowBack />
         </button>
         <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
-          Adoptante
+          Protectora
         </h1>
         </div>
       </div>
@@ -149,29 +149,29 @@ const RegisterAdopter = () => {
         {/* Nombre completo */}
         <input
           type="text"
-          name="nombreCompleto"
+          name="fullName"
           placeholder="Nombre completo"
           className="border border-gray-300 rounded-lg p-2 w-full"
-          value={formik.values.nombreCompleto}
+          value={formik.values.fullName}
           onChange={formik.handleChange}
         />
-        {formik.errors.nombreCompleto && (
+        {formik.errors.fullName && (
           <div className="text-red-500 text-sm">
-            {formik.errors.nombreCompleto}
+            {formik.errors.fullName}
           </div>
         )}
 
         {/* Teléfono */}
         <input
           type="tel"
-          name="telefono"
+          name="phone"
           placeholder="Teléfono"
           className="border border-gray-300 rounded-lg p-2 w-full"
-          value={formik.values.telefono}
+          value={formik.values.phone}
           onChange={formik.handleChange}
         />
-        {formik.errors.telefono && (
-          <div className="text-red-500 text-sm">{formik.errors.telefono}</div>
+        {formik.errors.phone && (
+          <div className="text-red-500 text-sm">{formik.errors.phone}</div>
         )}
 
         {/* Email */}
@@ -207,9 +207,9 @@ const RegisterAdopter = () => {
         <div className="flex space-x-4 mb-4">
           <button
             type="button"
-            onClick={() => handleOptionChange("animales", "Perro")}
+            onClick={() => handleOptionChange("animals", "Perro")}
             className={`${
-              formik.values.animales.includes("Perro")
+              formik.values.animals.includes("Perro")
                 ? "bg-[#6dab71]"
                 : "bg-[#6dab71]"
             } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
@@ -218,9 +218,9 @@ const RegisterAdopter = () => {
           </button>
           <button
             type="button"
-            onClick={() => handleOptionChange("animales", "Gato")}
+            onClick={() => handleOptionChange("animals", "Gato")}
             className={`${
-              formik.values.animales.includes("Gato")
+              formik.values.animals.includes("Gato")
                 ? "bg-[#6dab71]"
                 : "bg-[#6dab71]"
             } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
@@ -233,9 +233,9 @@ const RegisterAdopter = () => {
         <div className="flex space-x-4 mb-4">
           <button
             type="button"
-            onClick={() => handleOptionChange("hogar", "Terraza")}
+            onClick={() => handleOptionChange("home", "Terraza")}
             className={`${
-              formik.values.hogar.includes("Terraza")
+              formik.values.home.includes("Terraza")
                 ? "bg-[#6dab71]"
                 : "bg-[#6dab71]"
             } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
@@ -244,9 +244,9 @@ const RegisterAdopter = () => {
           </button>
           <button
             type="button"
-            onClick={() => handleOptionChange("hogar", "Balcón")}
+            onClick={() => handleOptionChange("home", "Balcón")}
             className={`${
-              formik.values.hogar.includes("Balcón")
+              formik.values.home.includes("Balcón")
                 ? "bg-[#6dab71]"
                 : "bg-[#6dab71]"
             } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
