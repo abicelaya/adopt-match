@@ -45,7 +45,7 @@ const Welcome = () => {
 
         <button
           onClick={handleAccept}
-          className="mt-10 w-full py-2 rounded-full bg-[#38853a] text-white border-2 border-white"
+          className="mt-11 w-full py-2 rounded-full bg-[#ffffff] font-medium text-[#6dab71] border-2 border-[#5b8f5e]"
         >
           Acepto las Condiciones
         </button>

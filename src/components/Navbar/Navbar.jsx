@@ -11,11 +11,11 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const handleMyAnimals = () => {
-    navigate("/likes");
+  const handleAdopterProfile = () => {
+    navigate("/adopter-profile");
   };
 
-  const handleProfile = () => {
+  const handleShelterProfile = () => {
     navigate("/shelter-profile");
   };
 
@@ -47,7 +47,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full bg-white text-[#6dab71] rounded-xl">
-      <div className="p-8 flex justify-between items-center">
+      <div className="p-4 flex justify-between items-center">
         {location.pathname !== "/home" ? (
           <button onClick={goBack} className="text-2xl hover:text-green-300">
             <IoArrowBack />
@@ -75,7 +75,7 @@ const Navbar = () => {
                   {user.isShelter ? (
                     <>
                       <button
-                        onClick={handleProfile}
+                        onClick={handleShelterProfile}
                         className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
                       >
                         Perfil
@@ -90,10 +90,10 @@ const Navbar = () => {
                   ) : (
                     <>
                       <button
-                        onClick={handleMyAnimals}
+                        onClick={handleAdopterProfile}
                         className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
                       >
-                        Mis animales
+                        Peril
                       </button>
                       <button
                         onClick={logout}
