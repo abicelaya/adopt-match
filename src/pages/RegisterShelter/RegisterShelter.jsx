@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { app } from "../../firebaseConfig";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
+import { IoArrowBack } from "react-icons/io5";
 
 const RegisterShelter = () => {
   const navigate = useNavigate();
@@ -85,14 +86,23 @@ const RegisterShelter = () => {
     }
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="flex flex-col items-start justify-center h-screen pb-4">
       <div className="relative w-full h-full">
-        <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg z-[-1]"></div>
-
+        <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg ">
+        <button onClick={goBack} className="text-2xl text-white p-4 hover:text-green-300">
+          <IoArrowBack />
+        </button>
         <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
           Protectora
         </h1>
+        </div>
+
+        
       </div>
 
       <div className="bg-white rounded-lg p-8 w-full max-w-md z-10 relative mb-5">
