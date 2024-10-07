@@ -24,6 +24,11 @@ const AdopterProfile = () => {
               Protectoras
             </button>
           </Link>
+          <Link to="/adoption-process">
+            <button className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
+              Proceso de adopción
+            </button>
+          </Link>
         </div>
       </div>
     </div>

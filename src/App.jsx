@@ -15,6 +15,7 @@ import Likes from "./pages/Likes/Likes";
 import { AuthProvider } from "./context/AuthContext";
 import Shelters from "./pages/Shelters/Shelters"
 import AdopterProfile from "./pages/AdopterProfile/AdopterProfile";
+import AdoptionProcess from "./pages/AdoptionProcess/AdoptionProcess"
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/likes" element={<Likes />} />
           <Route path="/shelters" element={<Shelters />} />
           <Route path="/adopter-profile" element={<AdopterProfile />} />
+          <Route path="/adoption-process" element={<AdoptionProcess />} />
         </Routes>
       </AuthProvider>
     </Router>
