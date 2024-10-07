@@ -13,6 +13,8 @@ import ForAdoption from "./pages/ForAdoption/ForAdoption";
 import AnimalProfile from "./pages/AnimalProfile/AnimalProfile";
 import Likes from "./pages/Likes/Likes";
 import { AuthProvider } from "./context/AuthContext";
+import Shelters from "./pages/Shelters/Shelters"
+import AdopterProfile from "./pages/AdopterProfile/AdopterProfile";
 
 const App = () => {
   return (
@@ -31,6 +33,8 @@ const App = () => {
           <Route path="/for-adoption" element={<ForAdoption />} />
           <Route path="/animal-profile/:id" element={<AnimalProfile />} />
           <Route path="/likes" element={<Likes />} />
+          <Route path="/shelters" element={<Shelters />} />
+          <Route path="/adopter-profile" element={<AdopterProfile />} />
         </Routes>
       </AuthProvider>
     </Router>

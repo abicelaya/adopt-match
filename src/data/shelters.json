@@ -1,0 +1,28 @@
+[
+    {
+      "name": "El Jardinet dels Gats",
+      "address": "Carrer Nou de la Rambla, 14",
+      "phone": "636 38 21 94"
+    },
+    {
+      "name": "Liga para la Protección de Animales y Plantas",
+      "address": "Carrer del Guarda Anton, 10",
+      "phone": "934 17 01 24"
+    },
+    {
+      "name": "Centro de Acogida de Animales de Compañía de Barcelona",
+      "address": "Carretera de l'Arrabassada, 250",
+      "phone": "934 13 21 99"
+    },
+    {
+      "name": "Progat Catalunya",
+      "address": "Carrer de l'Oblit, 36",
+      "phone": "934 46 10 92"
+    },
+    {
+        "name": "Progat Catalunya",
+        "address": "Carrer de l'Oblit, 36",
+        "phone": "934 46 10 92"
+      }
+  ]
+  
