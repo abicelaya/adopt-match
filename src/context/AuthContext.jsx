@@ -20,22 +20,22 @@ export const AuthProvider = ({ children }) => {
           const shelterDoc = await getDoc(shelterRef);
   
           if (shelterDoc.exists()) {
-            const shelterData = shelterDoc.data(); // Aquí obtienes los datos
+            const shelterData = shelterDoc.data(); 
             setUser({
               ...currentUser,
               isShelter: true,
-              fullName: shelterData.fullName || "Nombre desconocido", // Asegúrate de tener la propiedad fullName
+              fullName: shelterData.fullName || "Nombre desconocido", 
             });
           } else {
             const adopterRef = doc(db, "adoptantes", currentUser.uid);
             const adopterDoc = await getDoc(adopterRef);
   
             if (adopterDoc.exists()) {
-              const adopterData = adopterDoc.data(); // Aquí obtienes los datos
+              const adopterData = adopterDoc.data(); 
               setUser({
                 ...currentUser,
                 isShelter: false,
-                fullName: adopterData.fullName || "Nombre desconocido", // Asegúrate de tener la propiedad fullName
+                fullName: adopterData.fullName || "Nombre desconocido", 
               });
             } else {
               console.error("Usuario no encontrado en las colecciones.");
