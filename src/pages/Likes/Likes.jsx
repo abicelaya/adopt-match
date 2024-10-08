@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+  getDoc,
+  doc,
+} from "firebase/firestore";
 import Navbar from "../../components/Navbar/Navbar";
 import AnimalCard from "../../components/AnimalCard/AnimalCard";
 import { useAuth } from "../../context/AuthContext";
@@ -17,15 +25,27 @@ const Likes = () => {
         const likesCollectionRef = collection(db, "likes");
         const filteredLikesQuery = query(
           likesCollectionRef,
-          where("userId", "==", user.uid)
+          where("adopterId", "==", user.uid)
         );
         const likesSnapshot = await getDocs(filteredLikesQuery);
-        const likesList = likesSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
 
-        setLikedAnimals(likesList);
+        const likedAnimalsData = await Promise.all(
+          likesSnapshot.docs.map(async (likeDoc) => {
+            const like = likeDoc.data();
+            const animalId = like.animalId;
+            const animalRef = doc(db, "animales", animalId);
+            const animalSnap = await getDoc(animalRef);
+
+            if (!animalSnap.exists()) {
+              console.error(`Animal con ID ${animalId} no encontrado.`);
+              return null;
+            }
+
+            return { id: animalId, ...animalSnap.data() };
+          })
+        );
+
+        setLikedAnimals(likedAnimalsData.filter((animal) => animal !== null));
       } catch (error) {
         console.error("Error al obtener los animales guardados:", error);
       } finally {
@@ -39,7 +59,7 @@ const Likes = () => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
-      <div className="flex flex-col items-center justify-center flex-grow px-4 ">
+      <div className="flex flex-col items-center justify-center flex-grow px-4">
         <div className="max-w-3xl mx-auto p-4">
           <h1 className="text-4xl font-semibold text-[#6dab71] mb-6">
             Animales por conocer
