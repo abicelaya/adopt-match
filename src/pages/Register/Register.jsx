@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { IoArrowBack } from "react-icons/io5";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -12,9 +13,19 @@ const Register = () => {
     navigate("/register-adopter");
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl text-[#6dab71] font-bold mb-6">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4 relative">
+      <button
+        onClick={goBack}
+        className="absolute top-0 left-0 m-4 text-2xl text-[#6dab71] p-4 hover:text-green-300"
+      >
+        <IoArrowBack />
+      </button>
+      <h1 className="text-2xl text-[#6dab71] font-semibold mb-8">
         Elige tu perfil
       </h1>
       <div className="flex flex-col space-y-4 w-full max-w-md">

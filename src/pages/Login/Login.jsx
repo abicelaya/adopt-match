@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
 import { app } from "../../firebaseConfig";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { IoArrowBack } from "react-icons/io5";
 
 const Login = () => {
   const [error, setError] = useState(null);
@@ -54,9 +55,19 @@ const Login = () => {
     }
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#6dab71] p-4">
-      <h1 className="text-2xl  text-left text-white font-semibold mb-6">
+    <div className="flex flex-col items-center justify-center h-screen bg-[#6dab71] p-4 relative">
+      <button
+        onClick={goBack}
+        className="absolute top-0 left-0 m-4 text-2xl text-white p-4 hover:text-green-300"
+      >
+        <IoArrowBack />
+      </button>
+      <h1 className="text-2xl text-left text-white font-semibold mb-8">
         Iniciar sesión
       </h1>
       {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
@@ -73,7 +84,7 @@ const Login = () => {
             value={formik.values.email}
             onChange={formik.handleChange}
           />
-          {formik.errors.email && (
+          {formik.touched.email && formik.errors.email && (
             <div className="text-red-500 text-sm">{formik.errors.email}</div>
           )}
         </div>
@@ -87,7 +98,7 @@ const Login = () => {
             value={formik.values.password}
             onChange={formik.handleChange}
           />
-          {formik.errors.password && (
+          {formik.touched.password && formik.errors.password && (
             <div className="text-red-500 text-sm">{formik.errors.password}</div>
           )}
         </div>
