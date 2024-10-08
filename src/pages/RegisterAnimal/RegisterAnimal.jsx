@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/ModalRegisterAnimal/ModalRegisterAnimal";
@@ -12,6 +12,7 @@ const RegisterAnimal = () => {
   const db = getFirestore();
   const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const animalsCollectionRef = collection(db, "animales");
 
   const validationSchema = Yup.object({
     animalType: Yup.string().required("El tipo de animal es obligatorio"),
@@ -47,14 +48,25 @@ const RegisterAnimal = () => {
         ...values,
         shelterId: user.uid,
       };
-      await registerAnimal(animalData);
+
+      const animalId = await registerAnimal(animalData);
     },
   });
 
   const registerAnimal = async (animalData) => {
     try {
       const collectionRef = collection(db, "animales");
-      await addDoc(collectionRef, animalData);
+
+      const docRef = await addDoc(collectionRef, animalData);
+
+      const animalId = docRef.id;
+
+      await setDoc(
+        docRef,
+        { ...animalData, animalId: animalId },
+        { merge: true }
+      );
+
       setIsModalOpen(true);
       setTimeout(() => {
         setIsModalOpen(false);
@@ -80,14 +92,15 @@ const RegisterAnimal = () => {
 
       <div className="relative w-full h-full">
         <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg"></div>
-        <button onClick={goBack} className="text-2xl text-white absolute p-4 z-20 hover:text-green-300">
+        <button
+          onClick={goBack}
+          className="text-2xl text-white absolute p-4 z-20 hover:text-green-300"
+        >
           <IoArrowBack />
         </button>
         <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[100px] z-10 relative">
           Adoptante
         </h1>
-        
-
       </div>
 
       <form

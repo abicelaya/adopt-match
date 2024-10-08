@@ -31,12 +31,21 @@ const AnimalProfile = () => {
   }, [id, db]);
 
   const handleLike = async () => {
-    if (!animal) return;
+    if (!animal || !user) return;
 
     try {
-      const likeRef = doc(db, "likes", id);
-      await setDoc(likeRef, animal);
-      console.log("Animal guardado en likes:", animal);
+      const likeData = {
+        animalId: animal.animalId,
+        animalName: animal.animalName,
+        animalPhoto: animal.animalPhoto,
+        adopterId: user.uid,
+        shelterId: animal.shelterId,
+        timestamp: new Date(),
+      };
+
+      const likeRef = doc(db, "likes", `${user.uid}_${animal.animalId}`);
+      await setDoc(likeRef, likeData);
+      console.log("Animal guardado en likes:", likeData);
       navigate("/likes");
     } catch (error) {
       console.error("Error al guardar el animal en likes: ", error);

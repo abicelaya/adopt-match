@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
 import Navbar from "../../components/Navbar/Navbar";
 import AnimalCard from "../../components/AnimalCard/AnimalCard";
+import { useAuth } from "../../context/AuthContext";
 
 const Likes = () => {
   const [likedAnimals, setLikedAnimals] = useState([]);
+  const [loading, setLoading] = useState(true);
   const db = getFirestore();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchLikedAnimals = async () => {
+      if (!user) return;
       try {
         const likesCollectionRef = collection(db, "likes");
-        const likesSnapshot = await getDocs(likesCollectionRef);
+        const filteredLikesQuery = query(
+          likesCollectionRef,
+          where("userId", "==", user.uid)
+        );
+        const likesSnapshot = await getDocs(filteredLikesQuery);
         const likesList = likesSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -20,11 +28,13 @@ const Likes = () => {
         setLikedAnimals(likesList);
       } catch (error) {
         console.error("Error al obtener los animales guardados:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchLikedAnimals();
-  }, [db]);
+  }, [db, user]);
 
   return (
     <div className="flex flex-col h-screen">
@@ -37,8 +47,10 @@ const Likes = () => {
         </div>
 
         <div className="flex flex-col items-center">
-          {likedAnimals.length === 0 ? (
-            <p>No has conocido ningún animal aún.</p>
+          {loading ? (
+            <p>Cargando animales...</p>
+          ) : likedAnimals.length === 0 ? (
+            <p>No hay animales registrados.</p>
           ) : (
             likedAnimals.map((animal) => (
               <AnimalCard key={animal.id} animal={animal} />
