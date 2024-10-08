@@ -94,15 +94,16 @@ const RegisterShelter = () => {
     <div className="flex flex-col items-start justify-center h-screen pb-4">
       <div className="relative w-full h-full">
         <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg ">
-        <button onClick={goBack} className="text-2xl text-white p-4 hover:text-green-300">
-          <IoArrowBack />
-        </button>
-        <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
-          Protectora
-        </h1>
+          <button
+            onClick={goBack}
+            className="text-2xl text-white p-4 hover:text-green-300"
+          >
+            <IoArrowBack />
+          </button>
+          <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
+            Protectora
+          </h1>
         </div>
-
-        
       </div>
 
       <div className="bg-white rounded-lg p-8 w-full max-w-md z-10 relative mb-5">
@@ -120,7 +121,7 @@ const RegisterShelter = () => {
               value={formik.values.fullName}
               onChange={formik.handleChange}
             />
-            {formik.errors.fullName && (
+            {formik.touched.fullName && formik.errors.fullName && (
               <div className="text-red-500 text-sm">
                 {formik.errors.fullName}
               </div>
@@ -137,7 +138,7 @@ const RegisterShelter = () => {
               value={formik.values.phone}
               onChange={formik.handleChange}
             />
-            {formik.errors.phone && (
+            {formik.touched.phone && formik.errors.phone && (
               <div className="text-red-500 text-sm">{formik.errors.phone}</div>
             )}
           </div>
@@ -152,7 +153,7 @@ const RegisterShelter = () => {
               value={formik.values.location}
               onChange={formik.handleChange}
             />
-            {formik.errors.location && (
+            {formik.touched.location && formik.errors.location && (
               <div className="text-red-500 text-sm">
                 {formik.errors.location}
               </div>
@@ -169,11 +170,12 @@ const RegisterShelter = () => {
               value={formik.values.registrationNumber}
               onChange={formik.handleChange}
             />
-            {formik.errors.registrationNumber && (
-              <div className="text-red-500 text-sm">
-                {formik.errors.registrationNumber}
-              </div>
-            )}
+            {formik.touched.registrationNumber &&
+              formik.errors.registrationNumber && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.registrationNumber}
+                </div>
+              )}
           </div>
 
           <div className="mb-4">
@@ -186,7 +188,7 @@ const RegisterShelter = () => {
               value={formik.values.email}
               onChange={formik.handleChange}
             />
-            {formik.errors.email && (
+            {formik.touched.email && formik.errors.email && (
               <div className="text-red-500 text-sm">{formik.errors.email}</div>
             )}
           </div>
@@ -201,7 +203,7 @@ const RegisterShelter = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
             />
-            {formik.errors.password && (
+            {formik.touched.password && formik.errors.password && (
               <div className="text-red-500 text-sm">
                 {formik.errors.password}
               </div>

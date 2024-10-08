@@ -43,23 +43,23 @@ const RegisterAdopter = () => {
       console.log("Valores de Formik:", values);
 
       setIsSubmitting(true);
-    try {
-      const adopterData = {
-        fullName: values.fullName,
-        phone: values.phone,
-        email: values.email,
-        animals: values.animals,
-        home: values.home,
-      };
+      try {
+        const adopterData = {
+          fullName: values.fullName,
+          phone: values.phone,
+          email: values.email,
+          animals: values.animals,
+          home: values.home,
+        };
 
-      const user = await registerUser(
-        values.email,
-        values.password,
-        adopterData
-      );
-      console.log("Usuario registrado correctamente:", user);
+        const user = await registerUser(
+          values.email,
+          values.password,
+          adopterData
+        );
+        console.log("Usuario registrado correctamente:", user);
 
-      console.log("Datos del adoptante:", adopterData);
+        console.log("Datos del adoptante:", adopterData);
 
         navigate("/home");
       } catch (error) {
@@ -134,12 +134,15 @@ const RegisterAdopter = () => {
     <div className="flex flex-col items-start justify-center h-screen pb-4">
       <div className="relative w-full h-full">
         <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg ">
-        <button onClick={goBack} className="text-2xl text-white p-4 hover:text-green-300">
-          <IoArrowBack />
-        </button>
-        <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
-          Protectora
-        </h1>
+          <button
+            onClick={goBack}
+            className="text-2xl text-white p-4 hover:text-green-300"
+          >
+            <IoArrowBack />
+          </button>
+          <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
+            Protectora
+          </h1>
         </div>
       </div>
       <form
@@ -155,10 +158,8 @@ const RegisterAdopter = () => {
           value={formik.values.fullName}
           onChange={formik.handleChange}
         />
-        {formik.errors.fullName && (
-          <div className="text-red-500 text-sm">
-            {formik.errors.fullName}
-          </div>
+        {formik.touched.fullName && formik.errors.fullName && (
+          <div className="text-red-500 text-sm">{formik.errors.fullName}</div>
         )}
 
         {/* Teléfono */}
@@ -170,7 +171,7 @@ const RegisterAdopter = () => {
           value={formik.values.phone}
           onChange={formik.handleChange}
         />
-        {formik.errors.phone && (
+        {formik.touched.phone && formik.errors.phone && (
           <div className="text-red-500 text-sm">{formik.errors.phone}</div>
         )}
 
@@ -183,7 +184,7 @@ const RegisterAdopter = () => {
           value={formik.values.email}
           onChange={formik.handleChange}
         />
-        {formik.errors.email && (
+        {formik.touched.email && formik.errors.email && (
           <div className="text-red-500 text-sm">{formik.errors.email}</div>
         )}
 
@@ -196,7 +197,7 @@ const RegisterAdopter = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
         />
-        {formik.errors.password && (
+        {formik.touched.password && formik.errors.password && (
           <div className="text-red-500 text-sm">{formik.errors.password}</div>
         )}
 

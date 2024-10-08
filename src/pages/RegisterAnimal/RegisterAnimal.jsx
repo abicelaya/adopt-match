@@ -12,7 +12,6 @@ const RegisterAnimal = () => {
   const db = getFirestore();
   const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const animalsCollectionRef = collection(db, "animales");
 
   const validationSchema = Yup.object({
     animalType: Yup.string().required("El tipo de animal es obligatorio"),
@@ -42,14 +41,14 @@ const RegisterAnimal = () => {
       animalPhoto: null,
       animalDescription: "",
     },
-    validationSchema,
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       const animalData = {
         ...values,
         shelterId: user.uid,
       };
 
-      const animalId = await registerAnimal(animalData);
+      registerAnimal(animalData);
     },
   });
 
@@ -99,7 +98,7 @@ const RegisterAnimal = () => {
           <IoArrowBack />
         </button>
         <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[100px] z-10 relative">
-          Adoptante
+          Registrar Animal
         </h1>
       </div>
 
@@ -123,7 +122,7 @@ const RegisterAnimal = () => {
             <option value="perro">Perro</option>
             <option value="gato">Gato</option>
           </select>
-          {formik.errors.animalType && (
+          {formik.touched.animalType && formik.errors.animalType && (
             <div className="text-red-500 text-sm">
               {formik.errors.animalType}
             </div>
@@ -141,7 +140,7 @@ const RegisterAnimal = () => {
             value={formik.values.animalName}
             onChange={formik.handleChange}
           />
-          {formik.errors.animalName && (
+          {formik.touched.animalName && formik.errors.animalName && (
             <div className="text-red-500 text-sm">
               {formik.errors.animalName}
             </div>
@@ -159,7 +158,7 @@ const RegisterAnimal = () => {
             value={formik.values.animalAge}
             onChange={formik.handleChange}
           />
-          {formik.errors.animalAge && (
+          {formik.touched.animalAge && formik.errors.animalAge && (
             <div className="text-red-500 text-sm">
               {formik.errors.animalAge}
             </div>
@@ -195,11 +194,12 @@ const RegisterAnimal = () => {
               No
             </label>
           </div>
-          {formik.errors.canLiveWithOthers && (
-            <div className="text-red-500 text-sm">
-              {formik.errors.canLiveWithOthers}
-            </div>
-          )}
+          {formik.touched.canLiveWithOthers &&
+            formik.errors.canLiveWithOthers && (
+              <div className="text-red-500 text-sm">
+                {formik.errors.canLiveWithOthers}
+              </div>
+            )}
         </div>
 
         {/* ¿Necesita espacio abierto? */}
@@ -229,7 +229,7 @@ const RegisterAnimal = () => {
               No
             </label>
           </div>
-          {formik.errors.space && (
+          {formik.touched.space && formik.errors.space && (
             <div className="text-red-500 text-sm">{formik.errors.space}</div>
           )}
         </div>
@@ -248,11 +248,12 @@ const RegisterAnimal = () => {
             value={formik.values.animalDescription}
             onChange={formik.handleChange}
           />
-          {formik.errors.animalDescription && (
-            <div className="text-red-500 text-sm">
-              {formik.errors.animalDescription}
-            </div>
-          )}
+          {formik.touched.animalDescription &&
+            formik.errors.animalDescription && (
+              <div className="text-red-500 text-sm">
+                {formik.errors.animalDescription}
+              </div>
+            )}
         </div>
 
         <button
