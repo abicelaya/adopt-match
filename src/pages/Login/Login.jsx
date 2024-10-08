@@ -63,7 +63,7 @@ const Login = () => {
     <div className="flex flex-col items-center justify-center h-screen bg-[#6dab71] p-4 relative">
       <button
         onClick={goBack}
-        className="absolute top-0 left-0 m-4 text-2xl text-white p-4 hover:text-green-300"
+        className="absolute top-0 left-0 m-4 text-2xl text-white p-4"
       >
         <IoArrowBack />
       </button>
@@ -105,16 +105,16 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
+          className="w-full bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200"
         >
           Aceptar
         </button>
       </form>
 
       {/* Mensaje de registro */}
-      <p className="mt-5 text-gray-800 text-center">
+      <p className="mt-5 text-gray-700 text-center">
         ¿No tienes cuenta?{" "}
-        <Link to="/register" className="text-white font-semibold">
+        <Link to="/register" className="text-white hover:underline ml-1">
           Regístrate aquí
         </Link>
       </p>

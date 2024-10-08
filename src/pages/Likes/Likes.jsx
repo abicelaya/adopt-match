@@ -57,16 +57,16 @@ const Likes = () => {
   }, [db, user]);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen m-4">
       <Navbar />
-      <div className="flex flex-col items-center justify-center flex-grow px-4">
+      <div className="flex flex-col flex-grow px-4">
         <div className="max-w-3xl mx-auto p-4">
           <h1 className="text-4xl font-semibold text-[#6dab71] mb-6">
             Animales por conocer
           </h1>
         </div>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center flex-grow">
           {loading ? (
             <p>Cargando animales...</p>
           ) : likedAnimals.length === 0 ? (

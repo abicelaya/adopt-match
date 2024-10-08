@@ -49,7 +49,7 @@ const Navbar = () => {
     <nav className="w-full bg-white text-[#6dab71] rounded-xl">
       <div className="p-4 flex justify-between items-center">
         {location.pathname !== "/home" ? (
-          <button onClick={goBack} className="text-2xl hover:text-green-300">
+          <button onClick={goBack} className="text-2xl hover:text-[#4d7950]">
             <IoArrowBack />
           </button>
         ) : (
@@ -63,26 +63,26 @@ const Navbar = () => {
             <>
               <button
                 onClick={toggleMenu}
-                className="mr-4 text-2xl hover:text-green-300"
+                className="mr-4 text-2xl hover:text-[#4d7950]"
               >
                 <FiMenu />
               </button>
               {menuOpen && (
                 <div
                   ref={menuRef}
-                  className="absolute right-0 mt-2 w-48 bg-[#6dab71] rounded-xl shadow-lg z-10"
+                  className="absolute right-0 mt-4 w-48 bg-[#6dab71] rounded-xl shadow-lg z-10"
                 >
                   {user.isShelter ? (
                     <>
                       <button
                         onClick={handleShelterProfile}
-                        className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
+                        className="block px-4 py-2 text-left text-white rounded-xl"
                       >
                         Perfil
                       </button>
                       <button
                         onClick={logout}
-                        className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
+                        className="block px-4 py-2 text-left text-white  rounded-xl"
                       >
                         Cerrar Sesión
                       </button>
@@ -91,13 +91,13 @@ const Navbar = () => {
                     <>
                       <button
                         onClick={handleAdopterProfile}
-                        className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
+                        className="block px-4 py-2 text-left text-white  rounded-xl"
                       >
                         Peril
                       </button>
                       <button
                         onClick={logout}
-                        className="block px-4 py-2 text-left text-white hover:bg-green-300 rounded-xl"
+                        className="block px-4 py-2 text-left text-white rounded-xl"
                       >
                         Cerrar Sesión
                       </button>
@@ -107,7 +107,7 @@ const Navbar = () => {
               )}
             </>
           ) : (
-            <Link to="/login" className="hover:text-green-300">
+            <Link to="/login" className="hover:text-[#4d7950]">
               Iniciar Sesión
             </Link>
           )}

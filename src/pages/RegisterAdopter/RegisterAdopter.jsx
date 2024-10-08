@@ -134,10 +134,7 @@ const RegisterAdopter = () => {
     <div className="flex flex-col items-start justify-center h-screen pb-4">
       <div className="relative w-full h-full">
         <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg ">
-          <button
-            onClick={goBack}
-            className="text-2xl text-white p-4 hover:text-green-300"
-          >
+          <button onClick={goBack} className="text-2xl text-white p-4">
             <IoArrowBack />
           </button>
           <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
@@ -213,7 +210,7 @@ const RegisterAdopter = () => {
               formik.values.animals.includes("Perro")
                 ? "bg-[#6dab71]"
                 : "bg-[#6dab71]"
-            } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
+            } hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           >
             Perro
           </button>
@@ -224,7 +221,7 @@ const RegisterAdopter = () => {
               formik.values.animals.includes("Gato")
                 ? "bg-[#6dab71]"
                 : "bg-[#6dab71]"
-            } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
+            } hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           >
             Gato
           </button>
@@ -239,7 +236,7 @@ const RegisterAdopter = () => {
               formik.values.home.includes("Terraza")
                 ? "bg-[#6dab71]"
                 : "bg-[#6dab71]"
-            } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
+            } hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           >
             Terraza
           </button>
@@ -250,7 +247,7 @@ const RegisterAdopter = () => {
               formik.values.home.includes("Balcón")
                 ? "bg-[#6dab71]"
                 : "bg-[#6dab71]"
-            } hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
+            } hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           >
             Balcón
           </button>
@@ -265,7 +262,7 @@ const RegisterAdopter = () => {
         <button
           type="submit"
           className={`${
-            isSubmitting ? "bg-gray-400" : "bg-[#6dab71] hover:bg-green-600"
+            isSubmitting ? "bg-gray-400" : "bg-[#6dab71] hover:bg-[#4d7950]"
           } text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
           disabled={isSubmitting}
         >

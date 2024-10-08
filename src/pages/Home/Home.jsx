@@ -61,7 +61,7 @@ const Home = () => {
         </h2>
       </div>
 
-      <div className="mt-6 w-full max-w-4xl">
+      <div className="mt-6 w-full max-w-4xl text-gray-500">
         {loading ? (
           <p>Cargando animales...</p>
         ) : animals.length > 0 ? (

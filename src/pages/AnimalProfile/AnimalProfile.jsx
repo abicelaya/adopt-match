@@ -53,11 +53,11 @@ const AnimalProfile = () => {
   };
 
   if (!animal) {
-    return <div>Cargando...</div>;
+    return <div className="text-gray-500">Cargando...</div>;
   }
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen m-4">
       <Navbar />
       <div className="flex flex-col items-center justify-between flex-grow px-4 pt-4">
         {/* Imagen del animal */}
@@ -71,7 +71,7 @@ const AnimalProfile = () => {
               />
             </div>
           </div>
-          <h2 className="text-2xl text-[#6dab71] font-bold mt-4 text-center">
+          <h2 className="text-2xl text-[#4d7950] font-bold mt-4 text-center">
             {animal.animalName}
           </h2>
         </div>
@@ -99,7 +99,7 @@ const AnimalProfile = () => {
             </div>
 
             {/* Descripción */}
-            <p className="text-center text-sm mt-4">
+            <p className="text-center text-sm mt-6">
               {animal.animalDescription}
             </p>
           </div>
@@ -109,7 +109,7 @@ const AnimalProfile = () => {
             {user && !user.isShelter && (
               <button
                 onClick={handleLike}
-                className="bg-white text-[#6dab71] font-semibold py-2 px-4 rounded-lg transition duration-200 hover:bg-gray-100 w-full max-w-[160px]"
+                className="bg-white text-[#6dab71] hover:text-[#4d7950] font-semibold py-2 px-4 rounded-lg transition duration-200  w-full max-w-[160px]"
               >
                 Conocer
               </button>

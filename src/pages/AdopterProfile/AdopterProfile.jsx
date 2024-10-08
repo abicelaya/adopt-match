@@ -10,22 +10,22 @@ const AdopterProfile = () => {
       <div className="flex flex-col items-center justify-center flex-grow p-4">
         <div className="flex flex-col space-y-4 w-full max-w-md">
           <Link to="/register-adopter">
-            <button className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
+            <button className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
               Editar perfil
             </button>
           </Link>
           <Link to="/likes">
-            <button className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
+            <button className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
               Animales por conocer
             </button>
           </Link>
           <Link to="/shelters">
-            <button className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
+            <button className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
               Protectoras
             </button>
           </Link>
           <Link to="/adoption-process">
-            <button className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
+            <button className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
               Proceso de adopción
             </button>
           </Link>

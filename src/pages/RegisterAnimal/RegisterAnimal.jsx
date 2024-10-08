@@ -93,7 +93,7 @@ const RegisterAnimal = () => {
         <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg"></div>
         <button
           onClick={goBack}
-          className="text-2xl text-white absolute p-4 z-20 hover:text-green-300"
+          className="text-2xl text-white absolute p-4 z-20"
         >
           <IoArrowBack />
         </button>
@@ -258,7 +258,7 @@ const RegisterAnimal = () => {
 
         <button
           type="submit"
-          className="mt-6 w-full bg-[#6dab71] hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
+          className="mt-6 w-full bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200"
         >
           Registrar Animal
         </button>
