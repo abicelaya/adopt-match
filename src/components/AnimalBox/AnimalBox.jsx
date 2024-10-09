@@ -8,9 +8,9 @@ const AnimalBox = ({ animals }) => {
         <div key={animal.id} className="flex flex-col items-center">
           <Link
             to={`/animal-profile/${animal.id}`}
-            className="w-[160px] h-[180px] rounded-3xl border-4 border-[#bfdfc2] flex items-center justify-center"
+            className="w-[180px] h-[200px] rounded-3xl border-4 border-[#bfdfc2] flex items-center justify-center"
           >
-            <div className="w-[140px] h-[160px] bg-[#bfdfc2] rounded-3xl overflow-hidden border-4 border-[#4b764e]">
+            <div className="w-[160px] h-[180px] bg-[#bfdfc2] rounded-3xl overflow-hidden border-4 border-[#4b764e]">
               <img
                 src={animal.animalPhoto}
                 className="w-full h-full object-cover"

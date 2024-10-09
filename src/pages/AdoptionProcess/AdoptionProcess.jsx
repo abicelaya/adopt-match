@@ -11,7 +11,7 @@ const AdoptionProcess = () => {
           Proceso de Adopción
         </h1>
 
-        <h2 className="text-lg font-semibold text-gray-500 mb-4">
+        <h2 className="text-lg font-semibold text-gray-500 mb-4 ">
           Estas son pautas generales aplicables al proceso de adopción, pero es
           importante tener en cuenta que cada protectora puede tener sus propias
           normas específicas.
