@@ -92,25 +92,23 @@ const RegisterShelter = () => {
 
   return (
     <div className="flex flex-col items-start justify-center h-screen pb-4">
-      <div className="relative w-full h-full">
-        <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg ">
-          <button
-            onClick={goBack}
-            className="text-2xl text-white p-4 hover:text-green-300"
-          >
-            <IoArrowBack />
-          </button>
-          <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
-            Protectora
-          </h1>
-        </div>
+      {/* Sección verde */}
+      <div className="fixed top-0 left-0 w-full bg-[#6dab71] z-10 rounded-lg">
+        <button onClick={goBack} className="text-2xl text-white p-4">
+          <IoArrowBack />
+        </button>
+        <h1 className="text-3xl font-semibold text-white text-left mb-[2rem] pl-8 pt-[4rem] z-10 relative">
+          Protectora
+        </h1>
       </div>
 
-      <div className="bg-white rounded-lg p-8 w-full max-w-md z-10 relative mb-5">
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        {success && <p className="text-green-500 mb-4">{success}</p>}
-
-        <form onSubmit={formik.handleSubmit}>
+      {/* Espacio para evitar que el formulario quede debajo de la sección fija */}
+      <div className="pt-[12rem] w-full h-screen overflow-y-auto">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="bg-white rounded-lg p-8 w-full max-w-md mx-auto space-y-4 mb-5"
+        >
+          {/* Nombre completo */}
           <div className="mb-4">
             <input
               type="text"
@@ -212,7 +210,7 @@ const RegisterShelter = () => {
 
           <button
             type="submit"
-            className="bg-[#6dab71] hover:bg-green-600 text-white font-semibold mt-8 py-2 rounded-lg w-full transition duration-200"
+            className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200"
           >
             Aceptar
           </button>

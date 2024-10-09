@@ -80,19 +80,24 @@ const AnimalProfile = () => {
         <div className="bg-[#6dab71] text-white p-8 rounded-t-3xl w-full max-w-md flex flex-col justify-between">
           <div>
             <div className="flex justify-between mb-4">
-              <div className="flex flex-col items-center">
+              {/* Edad */}
+              <div className="flex flex-col items-center w-1/3">
                 <span className="text-sm">Edad</span>
-                <span className="font-semibold">{animal.animalAge} años</span>
+                <span className="font-semibold text-center">
+                  {animal.animalAge} años
+                </span>
               </div>
-              <div className="flex flex-col items-center">
-                <span className="text-sm">Otros Animales</span>
-                <span className="font-semibold">
+              {/* Otros Animales */}
+              <div className="flex flex-col items-center w-1/3">
+                <span className="text-sm text-center">Otros Animales</span>
+                <span className="font-semibold text-center">
                   {animal.canLiveWithOthers === "si" ? "Sí" : "No"}
                 </span>
               </div>
-              <div className="flex flex-col items-center">
-                <span className="text-sm">Espacio Abierto</span>
-                <span className="font-semibold">
+              {/* Espacio Abierto */}
+              <div className="flex flex-col items-center w-1/3">
+                <span className="text-sm text-center">Espacio Abierto</span>
+                <span className="font-semibold text-center">
                   {animal.space === "si" ? "Sí" : "No"}
                 </span>
               </div>
@@ -109,7 +114,7 @@ const AnimalProfile = () => {
             {user && !user.isShelter && (
               <button
                 onClick={handleLike}
-                className="bg-white text-[#6dab71] hover:text-[#4d7950] font-semibold py-2 px-4 rounded-lg transition duration-200  w-full max-w-[160px]"
+                className="bg-white text-[#6dab71] hover:text-[#4d7950] font-semibold py-2 px-4 rounded-lg transition duration-200 w-full max-w-[160px]"
               >
                 Conocer
               </button>

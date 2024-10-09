@@ -132,143 +132,130 @@ const RegisterAdopter = () => {
 
   return (
     <div className="flex flex-col items-start justify-center h-screen pb-4">
-      <div className="relative w-full h-full">
-        <div className="bg-[#6dab71] w-full h-full absolute top-0 left-0 rounded-lg ">
-          <button onClick={goBack} className="text-2xl text-white p-4">
-            <IoArrowBack />
-          </button>
-          <h1 className="text-3xl font-semibold text-white text-left pl-8 pt-[150px] z-10 relative">
-            Protectora
-          </h1>
-        </div>
-      </div>
-      <form
-        className="bg-white rounded-lg p-8 w-full max-w-md space-y-4 mb-5"
-        onSubmit={formik.handleSubmit}
-      >
-        {/* Nombre completo */}
-        <input
-          type="text"
-          name="fullName"
-          placeholder="Nombre completo"
-          className="border border-gray-300 rounded-lg p-2 w-full"
-          value={formik.values.fullName}
-          onChange={formik.handleChange}
-        />
-        {formik.touched.fullName && formik.errors.fullName && (
-          <div className="text-red-500 text-sm">{formik.errors.fullName}</div>
-        )}
-
-        {/* Teléfono */}
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Teléfono"
-          className="border border-gray-300 rounded-lg p-2 w-full"
-          value={formik.values.phone}
-          onChange={formik.handleChange}
-        />
-        {formik.touched.phone && formik.errors.phone && (
-          <div className="text-red-500 text-sm">{formik.errors.phone}</div>
-        )}
-
-        {/* Email */}
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="border border-gray-300 rounded-lg p-2 w-full"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-        />
-        {formik.touched.email && formik.errors.email && (
-          <div className="text-red-500 text-sm">{formik.errors.email}</div>
-        )}
-
-        {/* Contraseña */}
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          className="border border-gray-300 rounded-lg p-2 w-full"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-        />
-        {formik.touched.password && formik.errors.password && (
-          <div className="text-red-500 text-sm">{formik.errors.password}</div>
-        )}
-
-        {/* Opciones adicionales: Animales y Características del hogar */}
-        <h2 className="text-lg font-semibold mt-4">
-          ¿Tienes animales en casa?
-        </h2>
-        <div className="flex space-x-4 mb-4">
-          <button
-            type="button"
-            onClick={() => handleOptionChange("animals", "Perro")}
-            className={`${
-              formik.values.animals.includes("Perro")
-                ? "bg-[#6dab71]"
-                : "bg-[#6dab71]"
-            } hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
-          >
-            Perro
-          </button>
-          <button
-            type="button"
-            onClick={() => handleOptionChange("animals", "Gato")}
-            className={`${
-              formik.values.animals.includes("Gato")
-                ? "bg-[#6dab71]"
-                : "bg-[#6dab71]"
-            } hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
-          >
-            Gato
-          </button>
-        </div>
-
-        <h2 className="text-lg font-semibold">Características del hogar</h2>
-        <div className="flex space-x-4 mb-4">
-          <button
-            type="button"
-            onClick={() => handleOptionChange("home", "Terraza")}
-            className={`${
-              formik.values.home.includes("Terraza")
-                ? "bg-[#6dab71]"
-                : "bg-[#6dab71]"
-            } hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
-          >
-            Terraza
-          </button>
-          <button
-            type="button"
-            onClick={() => handleOptionChange("home", "Balcón")}
-            className={`${
-              formik.values.home.includes("Balcón")
-                ? "bg-[#6dab71]"
-                : "bg-[#6dab71]"
-            } hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
-          >
-            Balcón
-          </button>
-        </div>
-
-        {registerError && (
-          <div className="text-red-500 text-sm text-center">
-            {registerError}
-          </div>
-        )}
-
-        <button
-          type="submit"
-          className={`${
-            isSubmitting ? "bg-gray-400" : "bg-[#6dab71] hover:bg-[#4d7950]"
-          } text-white font-semibold py-2 rounded-lg transition duration-200 w-full`}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Registrando..." : "Aceptar"}
+      {/* Sección verde */}
+      <div className="fixed top-0 left-0 w-full bg-[#6dab71] z-10 rounded-lg">
+        <button onClick={goBack} className="text-2xl text-white p-4">
+          <IoArrowBack />
         </button>
-      </form>
+        <h1 className="text-3xl font-semibold text-white text-left mb-[2rem] pl-8 pt-[4rem] z-10 relative">
+          Adoptante
+        </h1>
+      </div>
+
+      {/* Espacio para evitar que el formulario quede debajo de la sección fija */}
+      <div className="pt-[12rem] w-full h-screen overflow-y-auto">
+        <form
+          className="bg-white rounded-lg p-8 w-full max-w-md mx-auto space-y-4 mb-5"
+          onSubmit={formik.handleSubmit}
+        >
+          {/* Nombre completo */}
+          <input
+            type="text"
+            name="fullName"
+            placeholder="Nombre completo" 
+            className="border border-gray-300 rounded-lg p-2 w-full"
+            value={formik.values.fullName}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.fullName && formik.errors.fullName && (
+            <div className="text-red-500 text-sm">{formik.errors.fullName}</div>
+          )}
+
+          {/* Teléfono */}
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Teléfono"
+            className="border border-gray-300 rounded-lg p-2 w-full"
+            value={formik.values.phone}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.phone && formik.errors.phone && (
+            <div className="text-red-500 text-sm">{formik.errors.phone}</div>
+          )}
+
+          {/* Email */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="border border-gray-300 rounded-lg p-2 w-full"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.email && formik.errors.email && (
+            <div className="text-red-500 text-sm">{formik.errors.email}</div>
+          )}
+
+          {/* Contraseña */}
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            className="border border-gray-300 rounded-lg p-2 w-full"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.password && formik.errors.password && (
+            <div className="text-red-500 text-sm">{formik.errors.password}</div>
+          )}
+
+          {/* Opciones adicionales: Animales y Características del hogar */}
+          <h2 className="text-lg font-semibold mt-4 text-gray-500">
+            ¿Tienes animales en casa?
+          </h2>
+          <div className="flex space-x-4 mb-4">
+            <button
+              type="button"
+              onClick={() => handleOptionChange("animals", "Perro")}
+              className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200"
+            >
+              Perro
+            </button>
+            <button
+              type="button"
+              onClick={() => handleOptionChange("animals", "Gato")}
+              className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200"
+            >
+              Gato
+            </button>
+          </div>
+
+          <h2 className="text-lg font-semibold text-gray-500">Características del hogar</h2>
+          <div className="flex space-x-4 mb-4">
+            <button
+              type="button"
+              onClick={() => handleOptionChange("home", "Terraza")}
+              className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200"
+            >
+              Terraza
+            </button>
+            <button
+              type="button"
+              onClick={() => handleOptionChange("home", "Balcón")}
+              className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200"
+            >
+              Balcón
+            </button>
+          </div>
+
+          {registerError && (
+            <div className="text-red-500 text-sm text-center">
+              {registerError}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className={`${
+              isSubmitting ? "bg-gray-400" : "bg-[#6dab71] hover:bg-[#4d7950]"
+            } text-white font-semibold py-2 rounded-lg w-full transition duration-200`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Registrando..." : "Aceptar"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
