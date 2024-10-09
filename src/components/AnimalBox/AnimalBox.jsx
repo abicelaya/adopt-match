@@ -12,7 +12,7 @@ const AnimalBox = ({ animals }) => {
           >
             <div className="w-[140px] h-[160px] bg-[#bfdfc2] rounded-3xl overflow-hidden border-4 border-[#4b764e]">
               <img
-                src={animal.animalImage}
+                src={animal.animalPhoto}
                 className="w-full h-full object-cover"
                 alt={animal.animalName}
               />

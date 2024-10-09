@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getFirestore, collection, addDoc, setDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/ModalRegisterAnimal/ModalRegisterAnimal";
@@ -10,8 +11,10 @@ import { IoArrowBack } from "react-icons/io5";
 const RegisterAnimal = () => {
   const navigate = useNavigate();
   const db = getFirestore();
+  const storage = getStorage();
   const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [animalPhotoFile, setAnimalPhotoFile] = useState(null);
 
   const validationSchema = Yup.object({
     animalType: Yup.string().required("El tipo de animal es obligatorio"),
@@ -48,9 +51,26 @@ const RegisterAnimal = () => {
         shelterId: user.uid,
       };
 
+      if (animalPhotoFile) {
+        const photoURL = await uploadAnimalPhoto(animalPhotoFile);
+        animalData.animalPhoto = photoURL;
+      }
+
       registerAnimal(animalData);
     },
   });
+
+  const uploadAnimalPhoto = async (file) => {
+    try {
+      const photoRef = ref(storage, `fotos animales/${file.name}`);
+      await uploadBytes(photoRef, file);
+      const photoURL = await getDownloadURL(photoRef);
+      return photoURL;
+    } catch (error) {
+      console.error("Error al subir la foto: ", error);
+      return null;
+    }
+  };
 
   const registerAnimal = async (animalData) => {
     try {
@@ -74,6 +94,12 @@ const RegisterAnimal = () => {
     } catch (error) {
       console.error("Error al registrar el animal: ", error);
     }
+  };
+
+  const handlePhotoChange = (event) => {
+    const file = event.currentTarget.files[0];
+    setAnimalPhotoFile(file);
+    formik.setFieldValue("animalPhoto", file);
   };
 
   const goBack = () => {
@@ -234,16 +260,32 @@ const RegisterAnimal = () => {
           )}
         </div>
 
-        {/* Descripción del animal */}
+        {/* Foto del animal */}
         <div className="mb-4">
-          <label className="text-sm text-gray-600" htmlFor="animalDescription">
-            Breve descripción del animal
+          <label className="text-sm text-gray-600" htmlFor="animalPhoto">
+            Foto del animal
           </label>
+          <input
+            type="file"
+            id="animalPhoto"
+            name="animalPhoto"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            className="mt-1 p-2 w-full border rounded-lg"
+          />
+          {formik.touched.animalPhoto && formik.errors.animalPhoto && (
+            <div className="text-red-500 text-sm">
+              {formik.errors.animalPhoto}
+            </div>
+          )}
+        </div>
+
+        {/* Descripción */}
+        <div className="mb-4">
           <textarea
             id="animalDescription"
             name="animalDescription"
-            rows="4"
-            placeholder="Escribe una breve descripción"
+            placeholder="Descripción del animal"
             className="mt-1 p-2 w-full border rounded-lg"
             value={formik.values.animalDescription}
             onChange={formik.handleChange}
@@ -258,7 +300,7 @@ const RegisterAnimal = () => {
 
         <button
           type="submit"
-          className="mt-6 w-full bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200"
+          className="bg-[#6dab71] text-white rounded-lg px-4 py-2 w-full"
         >
           Registrar Animal
         </button>
