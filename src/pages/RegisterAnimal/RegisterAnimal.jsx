@@ -23,12 +23,6 @@ const RegisterAnimal = () => {
       .required("La edad del animal es obligatoria")
       .min(0, "La edad debe ser mayor o igual a 0")
       .integer("La edad debe ser un número entero"),
-    space: Yup.string().required(
-      "Es necesario indicar si necesita espacio abierto"
-    ),
-    canLiveWithOthers: Yup.string().required(
-      "Es necesario indicar si puede estar con otros animales"
-    ),
     animalDescription: Yup.string().required(
       "La descripción del animal es obligatoria"
     ),
@@ -39,8 +33,8 @@ const RegisterAnimal = () => {
       animalType: "",
       animalName: "",
       animalAge: "",
-      canLiveWithOthers: "",
-      space: "",
+      canLiveWithOthers: "", // Se eliminará el campo de validación.
+      space: "", // Se eliminará el campo de validación.
       animalPhoto: null,
       animalDescription: "",
     },
@@ -102,6 +96,14 @@ const RegisterAnimal = () => {
     formik.setFieldValue("animalPhoto", file);
   };
 
+  const handleAnimalOptionChange = (value) => {
+    formik.setFieldValue("canLiveWithOthers", value);
+  };
+
+  const handleSpaceOptionChange = (value) => {
+    formik.setFieldValue("space", value);
+  };
+
   const goBack = () => {
     navigate(-1);
   };
@@ -134,9 +136,6 @@ const RegisterAnimal = () => {
       >
         {/* Tipo de animal */}
         <div className="mb-4">
-          <label className="text-sm text-gray-600" htmlFor="animalType">
-            Tipo de animal
-          </label>
           <select
             id="animalType"
             name="animalType"
@@ -144,7 +143,7 @@ const RegisterAnimal = () => {
             value={formik.values.animalType}
             onChange={formik.handleChange}
           >
-            <option value="">Selecciona un tipo</option>
+            <option value="">¿Qué animal es?</option>
             <option value="perro">Perro</option>
             <option value="gato">Gato</option>
           </select>
@@ -192,33 +191,32 @@ const RegisterAnimal = () => {
         </div>
 
         {/* ¿Puede estar con otros animales? */}
+        {/* ¿Puede estar con otros animales? */}
         <div className="mb-4">
-          <p className="text-sm text-gray-600">
+          <h2 className="text-lg font-semibold mt-4 text-gray-500">
             ¿Puede estar con otros animales?
-          </p>
-          <div className="flex space-x-4">
-            <label>
-              <input
-                type="radio"
-                name="canLiveWithOthers"
-                value="si"
-                className="mr-2"
-                checked={formik.values.canLiveWithOthers === "si"}
-                onChange={formik.handleChange}
-              />
-              Sí
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="canLiveWithOthers"
-                value="no"
-                className="mr-2"
-                checked={formik.values.canLiveWithOthers === "no"}
-                onChange={formik.handleChange}
-              />
-              No
-            </label>
+          </h2>
+          <div className="flex space-x-4 mb-4">
+            <button
+              type="button"
+              onClick={() => handleAnimalOptionChange("perro")}
+              className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
+                formik.values.canLiveWithOthers === "perro"
+                  ? "bg-[#4d7950]"
+                  : ""
+              }`}
+            >
+              Perro
+            </button>
+            <button
+              type="button"
+              onClick={() => handleAnimalOptionChange("gato")}
+              className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
+                formik.values.canLiveWithOthers === "gato" ? "bg-[#4d7950]" : ""
+              }`}
+            >
+              Gato
+            </button>
           </div>
           {formik.touched.canLiveWithOthers &&
             formik.errors.canLiveWithOthers && (
@@ -230,30 +228,28 @@ const RegisterAnimal = () => {
 
         {/* ¿Necesita espacio abierto? */}
         <div className="mb-4">
-          <p className="text-sm text-gray-600">¿Necesita espacio abierto?</p>
-          <div className="flex space-x-4">
-            <label>
-              <input
-                type="radio"
-                name="space"
-                value="si"
-                className="mr-2"
-                checked={formik.values.space === "si"}
-                onChange={formik.handleChange}
-              />
-              Sí
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="space"
-                value="no"
-                className="mr-2"
-                checked={formik.values.space === "no"}
-                onChange={formik.handleChange}
-              />
-              No
-            </label>
+          <h2 className="text-lg font-semibold mt-4 text-gray-500">
+            ¿Necesita espacio abierto?
+          </h2>
+          <div className="flex space-x-4 mb-4">
+            <button
+              type="button"
+              onClick={() => handleSpaceOptionChange("terraza")}
+              className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
+                formik.values.space === "terraza" ? "bg-[#4d7950]" : ""
+              }`}
+            >
+              Terraza
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSpaceOptionChange("balcon")}
+              className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
+                formik.values.space === "balcon" ? "bg-[#4d7950]" : ""
+              }`}
+            >
+              Balcón
+            </button>
           </div>
           {formik.touched.space && formik.errors.space && (
             <div className="text-red-500 text-sm">{formik.errors.space}</div>
@@ -262,25 +258,16 @@ const RegisterAnimal = () => {
 
         {/* Foto del animal */}
         <div className="mb-4">
-          <label className="text-sm text-gray-600" htmlFor="animalPhoto">
-            Foto del animal
-          </label>
           <input
             type="file"
             id="animalPhoto"
             name="animalPhoto"
-            accept="image/*"
-            onChange={handlePhotoChange}
             className="mt-1 p-2 w-full border rounded-lg"
+            onChange={handlePhotoChange}
           />
-          {formik.touched.animalPhoto && formik.errors.animalPhoto && (
-            <div className="text-red-500 text-sm">
-              {formik.errors.animalPhoto}
-            </div>
-          )}
         </div>
 
-        {/* Descripción */}
+        {/* Descripción del animal */}
         <div className="mb-4">
           <textarea
             id="animalDescription"
@@ -289,7 +276,7 @@ const RegisterAnimal = () => {
             className="mt-1 p-2 w-full border rounded-lg"
             value={formik.values.animalDescription}
             onChange={formik.handleChange}
-          />
+          ></textarea>
           {formik.touched.animalDescription &&
             formik.errors.animalDescription && (
               <div className="text-red-500 text-sm">
@@ -298,11 +285,12 @@ const RegisterAnimal = () => {
             )}
         </div>
 
+        {/* Botón de envío */}
         <button
           type="submit"
-          className="bg-[#6dab71] text-white rounded-lg px-4 py-2 w-full"
+          className="w-full bg-[#6dab71] text-white py-2 rounded-lg"
         >
-          Registrar Animal
+          Registrar
         </button>
       </form>
     </div>
