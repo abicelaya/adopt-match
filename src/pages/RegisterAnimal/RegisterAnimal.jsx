@@ -26,6 +26,8 @@ const RegisterAnimal = () => {
     animalDescription: Yup.string().required(
       "La descripción del animal es obligatoria"
     ),
+    canLiveWithOthers: Yup.array().of(Yup.string()),
+    space: Yup.array().of(Yup.string()),
   });
 
   const formik = useFormik({
@@ -33,8 +35,8 @@ const RegisterAnimal = () => {
       animalType: "",
       animalName: "",
       animalAge: "",
-      canLiveWithOthers: "", // Se eliminará el campo de validación.
-      space: "", // Se eliminará el campo de validación.
+      canLiveWithOthers: [],
+      space: [],
       animalPhoto: null,
       animalDescription: "",
     },
@@ -96,14 +98,17 @@ const RegisterAnimal = () => {
     formik.setFieldValue("animalPhoto", file);
   };
 
-  const handleAnimalOptionChange = (value) => {
-    formik.setFieldValue("canLiveWithOthers", value);
+  const handleOptionChange = (field, value) => {
+    const fieldValue = formik.values[field];
+    if (fieldValue.includes(value)) {
+      formik.setFieldValue(
+        field,
+        fieldValue.filter((item) => item !== value)
+      );
+    } else {
+      formik.setFieldValue(field, [...fieldValue, value]);
+    }
   };
-
-  const handleSpaceOptionChange = (value) => {
-    formik.setFieldValue("space", value);
-  };
-
   const goBack = () => {
     navigate(-1);
   };
@@ -191,7 +196,6 @@ const RegisterAnimal = () => {
         </div>
 
         {/* ¿Puede estar con otros animales? */}
-        {/* ¿Puede estar con otros animales? */}
         <div className="mb-4">
           <h2 className="text-lg font-semibold mt-4 text-gray-500">
             ¿Puede estar con otros animales?
@@ -199,7 +203,7 @@ const RegisterAnimal = () => {
           <div className="flex space-x-4 mb-4">
             <button
               type="button"
-              onClick={() => handleAnimalOptionChange("perro")}
+              onClick={() => handleOptionChange("canLiveWithOthers", "perro")}
               className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
                 formik.values.canLiveWithOthers === "perro"
                   ? "bg-[#4d7950]"
@@ -210,7 +214,7 @@ const RegisterAnimal = () => {
             </button>
             <button
               type="button"
-              onClick={() => handleAnimalOptionChange("gato")}
+              onClick={() => handleOptionChange("canLiveWithOthers", "gato")}
               className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
                 formik.values.canLiveWithOthers === "gato" ? "bg-[#4d7950]" : ""
               }`}
@@ -234,7 +238,7 @@ const RegisterAnimal = () => {
           <div className="flex space-x-4 mb-4">
             <button
               type="button"
-              onClick={() => handleSpaceOptionChange("terraza")}
+              onClick={() => handleOptionChange("space", "terraza")}
               className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
                 formik.values.space === "terraza" ? "bg-[#4d7950]" : ""
               }`}
@@ -243,7 +247,7 @@ const RegisterAnimal = () => {
             </button>
             <button
               type="button"
-              onClick={() => handleSpaceOptionChange("balcon")}
+              onClick={() => handleOptionChange("space", "balcon")}
               className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
                 formik.values.space === "balcon" ? "bg-[#4d7950]" : ""
               }`}
@@ -254,6 +258,24 @@ const RegisterAnimal = () => {
           {formik.touched.space && formik.errors.space && (
             <div className="text-red-500 text-sm">{formik.errors.space}</div>
           )}
+        </div>
+
+        {/* Descripción del animal */}
+        <div className="mb-4">
+          <textarea
+            id="animalDescription"
+            name="animalDescription"
+            placeholder="Descripción del animal"
+            className="mt-1 p-2 w-full border rounded-lg"
+            value={formik.values.animalDescription}
+            onChange={formik.handleChange}
+          />
+          {formik.touched.animalDescription &&
+            formik.errors.animalDescription && (
+              <div className="text-red-500 text-sm">
+                {formik.errors.animalDescription}
+              </div>
+            )}
         </div>
 
         {/* Foto del animal */}
@@ -267,28 +289,9 @@ const RegisterAnimal = () => {
           />
         </div>
 
-        {/* Descripción del animal */}
-        <div className="mb-4">
-          <textarea
-            id="animalDescription"
-            name="animalDescription"
-            placeholder="Descripción del animal"
-            className="mt-1 p-2 w-full border rounded-lg"
-            value={formik.values.animalDescription}
-            onChange={formik.handleChange}
-          ></textarea>
-          {formik.touched.animalDescription &&
-            formik.errors.animalDescription && (
-              <div className="text-red-500 text-sm">
-                {formik.errors.animalDescription}
-              </div>
-            )}
-        </div>
-
-        {/* Botón de envío */}
         <button
           type="submit"
-          className="w-full bg-[#6dab71] text-white py-2 rounded-lg"
+          className="bg-[#6dab71] text-white font-semibold py-2 rounded-lg w-full hover:bg-[#4d7950]"
         >
           Registrar
         </button>
