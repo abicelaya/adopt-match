@@ -16,7 +16,7 @@ const Start = () => {
 
       {/* Slogan superpuesto */}
       <div className="absolute bottom-10 left-11 z-10">
-        <h1 className="text-[#f7ead8] text-4xl md:text-6xl font-extralight leading-tight">
+        <h1 className="text-beige text-4xl md:text-6xl font-extralight leading-tight">
           Un match, <br />
           <span className="font-medium">una nueva</span>
           <br />
@@ -26,7 +26,7 @@ const Start = () => {
 
       {/* Botón next */}
       <div className="absolute bottom-20 right-8 z-10">
-        <button className="bg-[#f7ead8] bg-opacity-20 text-[#f7ead8] rounded-full p-3 flex items-center justify-center">
+        <button className="bg-beige bg-opacity-20 text-beige rounded-full p-3 flex items-center justify-center">
           <FaArrowRight size={24} />
         </button>
       </div>
