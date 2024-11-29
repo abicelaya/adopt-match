@@ -13,17 +13,19 @@ import ForAdoption from "./pages/ForAdoption/ForAdoption";
 import AnimalProfile from "./pages/AnimalProfile/AnimalProfile";
 import Likes from "./pages/Likes/Likes";
 import { AuthProvider } from "./context/AuthContext";
-import Shelters from "./pages/Shelters/Shelters"
+import Shelters from "./pages/Shelters/Shelters";
 import AdopterProfile from "./pages/AdopterProfile/AdopterProfile";
-import AdoptionProcess from "./pages/AdoptionProcess/AdoptionProcess"
+import AdoptionProcess from "./pages/AdoptionProcess/AdoptionProcess";
+import Start from "./pages/Start/Start";
 
 const App = () => {
   return (
     <Router>
       <AuthProvider>
         <Routes>
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Welcome />} />
+          <Route path="/" element={<Start />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register-shelter" element={<RegisterShelter />} />
