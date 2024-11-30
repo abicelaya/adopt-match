@@ -18,33 +18,36 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4 relative">
+    <div className="flex flex-col items-center justify-center h-screen bg-celeste p-4 relative">
       <button
         onClick={goBack}
-        className="absolute top-0 left-0 m-4 text-2xl text-[#6dab71] hover:text-[#4d7950] p-4"
+        className="absolute top-0 left-0 m-4 text-2xl text-celesteGrisaceo hover:text-[#4f5c62] p-4 "
       >
         <IoArrowBack />
       </button>
-      <h1 className="text-2xl text-[#6dab71] font-semibold mb-8">
-        Elige tu perfil
+      <h1 className="text-4xl text-center text-celesteGrisaceo font-dmSerif font-semibold mb-8">
+        ¿Cómo quieres ayudar?
       </h1>
       <div className="flex flex-col space-y-4 w-full max-w-md">
         <button
           onClick={handleProtectoraClick}
-          className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-3 rounded-lg transition duration-200"
+          className="bg-celesteGrisaceo hover:bg-[#4f5c62] bg-opacity-80 text-beige font-regular py-3 px-8 rounded-full w-3/4 mx-auto block transition duration-200"
         >
-          Soy una protectora
+          SOY UNA PROTECTORA
         </button>
         <button
           onClick={handleAdoptarClick}
-          className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-3 rounded-lg transition duration-200"
+          className="bg-celesteGrisaceo hover:bg-[#4f5c62] bg-opacity-80 text-beige font-regular py-3 px-8 rounded-full w-3/4 mx-auto block transition duration-200"
         >
-          Quiero adoptar
+          QUIERO ADOPTAR
         </button>
       </div>
-      <p className="mt-6 text-gray-500">
+      <p className="mt-6 text-celesteGrisaceo font-medium">
         ¿Ya tienes cuenta?
-        <Link to="/login" className="text-[#6dab71] hover:underline ml-1">
+        <Link
+          to="/login"
+          className="text-celesteGrisaceo font-light hover:underline ml-1 "
+        >
           Iniciar sesión aquí
         </Link>
       </p>

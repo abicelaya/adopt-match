@@ -1,8 +1,15 @@
 import React from "react";
 import PerroGato from "../../../public/images/perro-gato.jpg";
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Start = () => {
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    navigate("/welcome");
+  };
+
   return (
     <div className="relative h-screen w-screen">
       {/* Imagen de fondo */}
@@ -26,7 +33,10 @@ const Start = () => {
 
       {/* Botón next */}
       <div className="absolute bottom-20 right-8 z-10">
-        <button className="bg-beige bg-opacity-20 text-beige rounded-full p-3 flex items-center justify-center">
+        <button
+          onClick={handleNext}
+          className="bg-beige bg-opacity-20 text-beige rounded-full p-3 flex items-center justify-center"
+        >
           <FaArrowRight size={24} />
         </button>
       </div>

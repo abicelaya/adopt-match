@@ -17,6 +17,9 @@ import Shelters from "./pages/Shelters/Shelters";
 import AdopterProfile from "./pages/AdopterProfile/AdopterProfile";
 import AdoptionProcess from "./pages/AdoptionProcess/AdoptionProcess";
 import Start from "./pages/Start/Start";
+import ShelterRegister from "./pages/ShelterRegister/ShelterRegister";
+import AdopterRegister from "./pages/AdopterRegister/AdopterRegister";
+import AnimalRegister from "./pages/AnimalRegister/AnimalRegister";
 
 const App = () => {
   return (
@@ -28,6 +31,9 @@ const App = () => {
           <Route path="/" element={<Start />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/shelter-register" element={<ShelterRegister />} />
+          <Route path="/adopter-register" element={<AdopterRegister />} />
+          <Route path="/animal-register" element={<AnimalRegister />} />
           <Route path="/register-shelter" element={<RegisterShelter />} />
           <Route path="/register-adopter" element={<RegisterAdopter />} />
           <Route path="/register-animal" element={<RegisterAnimal />} />

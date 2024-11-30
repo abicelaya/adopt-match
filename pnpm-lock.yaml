@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/dm-serif-display':
+        specifier: ^5.1.0
+        version: 5.1.0
+      '@fontsource/poppins':
+        specifier: ^5.1.0
+        version: 5.1.0
       firebase:
         specifier: ^10.13.2
         version: 10.14.1
@@ -444,6 +450,12 @@ packages:
 
   '@firebase/webchannel-wrapper@1.0.1':
     resolution: {integrity: sha512-jmEnr/pk0yVkA7mIlHNnxCi+wWzOFUg0WyIotgkKAb2u1J7fAeDBcVNSTjTihbAYNusCLQdW5s9IJ5qwnEufcQ==}
+
+  '@fontsource/dm-serif-display@5.1.0':
+    resolution: {integrity: sha512-8IGBpTOn2XRA09plE6iAlZajL09iwCdSTd60FiM9NsD7VV4Nqseo9tgqiZLyuLC9D1jht5i39I2IYI/o2+Q0Kg==}
+
+  '@fontsource/poppins@5.1.0':
+    resolution: {integrity: sha512-tpLXlnNi2fwQjiipvuj4uNFHCdoLA8izRsKdoexZuEzjx0r/g1aKLf4ta6lFgF7L+/+AFdmaXFlUwwvmDzYH+g==}
 
   '@grpc/grpc-js@1.9.15':
     resolution: {integrity: sha512-nqE7Hc0AzI+euzUwDAy0aY5hCp10r734gMGRdU+qOPX0XSceI2ULrcXB5U2xSc5VkWwalCj4M7GzCAygZl2KoQ==}
@@ -2386,6 +2398,10 @@ snapshots:
       tslib: 2.8.1
 
   '@firebase/webchannel-wrapper@1.0.1': {}
+
+  '@fontsource/dm-serif-display@5.1.0': {}
+
+  '@fontsource/poppins@5.1.0': {}
 
   '@grpc/grpc-js@1.9.15':
     dependencies:
