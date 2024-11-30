@@ -60,27 +60,24 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#6dab71] p-4 relative">
+    <div className="flex flex-col items-center justify-center h-screen bg-verdeClaro p-4 relative">
       <button
         onClick={goBack}
-        className="absolute top-0 left-0 m-4 text-2xl text-white p-4"
+        className="absolute top-0 left-0 m-4 text-2xl text-verdeOscuro p-4"
       >
         <IoArrowBack />
       </button>
-      <h1 className="text-2xl text-left text-white font-semibold mb-8">
+      <h1 className="text-4xl font-dmSerif text-left text-verdeOscuro font-semibold mb-8">
         Iniciar sesión
       </h1>
       {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
-      <form
-        onSubmit={formik.handleSubmit}
-        className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md"
-      >
+      <form onSubmit={formik.handleSubmit} className="p-6 w-full max-w-md">
         <div className="mb-4">
           <input
             type="email"
             name="email"
             placeholder="Email"
-            className="border border-gray-300 rounded-lg p-2 w-full"
+            className="border-b border-verdeOscuro bg-transparent w-full p-2 focus:outline-none placeholder-verdeOscuro"
             value={formik.values.email}
             onChange={formik.handleChange}
           />
@@ -89,12 +86,12 @@ const Login = () => {
           )}
         </div>
 
-        <div className="mb-4">
+        <div className="mb-9">
           <input
             type="password"
             name="password"
             placeholder="Contraseña"
-            className="border border-gray-300 rounded-lg p-2 w-full"
+            className="border-b border-verdeOscuro bg-transparent w-full p-2 focus:outline-none placeholder-verdeOscuro"
             value={formik.values.password}
             onChange={formik.handleChange}
           />
@@ -105,16 +102,19 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg transition duration-200"
+          className="bg-verdeOscuro hover:bg-[#3d4435] bg-opacity-80 text-beige font-regular py-3 px-8 rounded-full w-3/4 mx-auto block transition duration-200"
         >
-          Aceptar
+          ACEPTAR
         </button>
       </form>
 
       {/* Mensaje de registro */}
-      <p className="mt-5 text-gray-700 text-center">
+      <p className="mt-5 text-verdeOscuro font-medium text-center">
         ¿No tienes cuenta?{" "}
-        <Link to="/register" className="text-white hover:underline ml-1">
+        <Link
+          to="/register"
+          className="text-verdeOscuro font-light hover:underline ml-1"
+        >
           Regístrate aquí
         </Link>
       </p>
