@@ -14,7 +14,7 @@ const Register = () => {
   };
 
   const goBack = () => {
-    navigate(-1);
+    navigate("/login");
   };
 
   return (
@@ -42,7 +42,7 @@ const Register = () => {
           QUIERO ADOPTAR
         </button>
       </div>
-      <p className="mt-6 text-celesteGrisaceo font-medium">
+      <p className="mt-12 text-celesteGrisaceo font-medium">
         ¿Ya tienes cuenta?
         <Link
           to="/login"

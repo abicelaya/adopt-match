@@ -14,11 +14,6 @@ const AdopterProfile = () => {
               Editar perfil
             </button>
           </Link>
-          <Link to="/likes">
-            <button className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
-              Animales por conocer
-            </button>
-          </Link>
           <Link to="/shelters">
             <button className="bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-3 rounded-lg transition duration-200 w-full">
               Protectoras

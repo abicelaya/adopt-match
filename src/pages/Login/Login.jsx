@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   const goBack = () => {
-    navigate(-1);
+    navigate("/home");
   };
 
   return (
@@ -67,7 +67,7 @@ const Login = () => {
       >
         <IoArrowBack />
       </button>
-      <h1 className="text-4xl font-dmSerif text-left text-verdeOscuro font-semibold mb-8">
+      <h1 className="text-4xl font-dmSerif text-left text-verdeOscuro font-semibold mb-5">
         Iniciar sesión
       </h1>
       {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
@@ -109,7 +109,7 @@ const Login = () => {
       </form>
 
       {/* Mensaje de registro */}
-      <p className="mt-5 text-verdeOscuro font-medium text-center">
+      <p className="mt-6 text-verdeOscuro font-medium text-center">
         ¿No tienes cuenta?{" "}
         <Link
           to="/register"
