@@ -29,7 +29,7 @@ const Menu = () => {
   const isActive = (path) => {
     return location.pathname === path
       ? "text-white scale-125 transition-all duration-300"
-      : "text-beige hover:text-white transition-all duration-300";
+      : "text-beige hover:text-white active:text-beige transition-all duration-300 active:text-beige";
   };
 
   const handleLogout = async () => {
@@ -45,12 +45,12 @@ const Menu = () => {
     if (!isAuthenticated) {
       return (
         <>
-          <li className="mx-4">
+          <li className="mx-2">
             <Link to="/home" className={isActive("/home")}>
               <IoHome size={24} />
             </Link>
           </li>
-          <li className="mx-4">
+          <li className="mx-2">
             <Link to="/login" className={isActive("/login")}>
               <IoLogIn size={24} />
             </Link>
@@ -63,12 +63,12 @@ const Menu = () => {
     if (isShelter) {
       return (
         <>
-          <li className="mx-4">
+          <li className="mx-2">
             <Link to="/home" className={isActive("/home")}>
               <IoHome size={24} />
             </Link>
           </li>
-          <li className="mx-4">
+          <li className="mx-2">
             <Link
               to="/animal-register"
               className={isActive("/animal-register")}
@@ -76,7 +76,7 @@ const Menu = () => {
               <IoAddCircle size={24} />
             </Link>
           </li>
-          <li className="mx-4">
+          <li className="mx-2">
             <Link
               to="/shelter-profile"
               className={isActive("/shelter-profile")}
@@ -84,7 +84,7 @@ const Menu = () => {
               <IoPerson size={24} />
             </Link>
           </li>
-          <li className="mx-4">
+          <li className="mx-2">
             <button
               onClick={handleLogout}
               className="text-beige hover:text-white transition-all duration-300"
@@ -99,25 +99,26 @@ const Menu = () => {
     // Usuario autenticado como adoptante
     return (
       <>
-        <li className="mx-4">
+        <li className="mx-2">
           <Link to="/home" className={isActive("/home")}>
             <IoHome size={24} />
           </Link>
         </li>
-        <li className="mx-4">
+        <li className="mx-2">
           <Link to="/favorites" className={isActive("/favorites")}>
             <IoHeart size={24} />
           </Link>
         </li>
-        <li className="mx-4">
+        <li className="mx-2">
           <Link to="/adopter-profile" className={isActive("/adopter-profile")}>
             <IoPerson size={24} />
           </Link>
         </li>
-        <li className="mx-4">
+        <li className="mx-2">
           <button
             onClick={handleLogout}
-            className="text-beige hover:text-white transition-all duration-300"
+            className="text-beige hover:text-white active:text-beige focus:text-beige transition-all duration-300 focus:outline-none active:bg-transparent"
+            style={{ WebkitTapHighlightColor: "transparent" }}
           >
             <IoLogOut size={24} />
           </button>
@@ -127,7 +128,7 @@ const Menu = () => {
   };
 
   return (
-    <ul className="menu menu-horizontal bg-marron rounded-box py-4 flex justify-center items-center">
+    <ul className="menu menu-horizontal bg-marron rounded-[2rem] py-2 flex justify-center items-center">
       {renderMenuItems()}
     </ul>
   );

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   getFirestore,
   collection,
@@ -14,7 +13,6 @@ import Menu from "../../components/Menu/Menu";
 
 const Home = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const db = getFirestore();
   const [animals, setAnimals] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,12 +49,24 @@ const Home = () => {
   }, [db, user]);
 
   return (
-    <div className="flex flex-col items-center min-h-screen">
-      <div className="fixed top-0 w-full bg-white z-10">
+    <div className="flex bg-beige flex-col items-center min-h-screen">
+      <div className="fixed top-0 w-full bg-beige z-10 shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
         <Navbar />
-
-        <div className="w-full max-w-[80rem] mt-4 mb-4 text-left px-4 mx-auto">
-          <h2 className="text-[1.5rem] font-semibold text-[#4b764e]">
+        <div>
+          <div className="w-full max-w-[80rem] px-5 mx-auto flex justify-between gap-4 py-3">
+            <button className="flex-1 bg-beige text-marron border border-marron py-1 px-4 rounded-full font-poppins hover:bg-[#b3c49b] transition-all duration-300">
+              Perros
+            </button>
+            <button className="flex-1 bg-beige text-marron border border-marron py-1 px-4 rounded-full font-poppins hover:bg-[#b3c49b] transition-all duration-300">
+              Gatos
+            </button>
+            <button className="flex-1 bg-beige text-marron border border-marron py-1 px-4 rounded-full font-poppins hover:bg-[#b3c49b] transition-all duration-300">
+              Todos
+            </button>
+          </div>
+        </div>
+        <div className="w-full max-w-[80rem] px-6  mx-auto">
+          <h2 className="text-[1.5rem]  font-dmSerif  font-semibold text-marron">
             Un hogar,
             <br />
             una nueva historia.
@@ -64,7 +74,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="mt-[12rem] w-full max-w-[80rem] text-gray-500 px-4">
+      <div className="mt-[14rem] w-full max-w-[80rem] text-marron px-4">
         {loading ? (
           <p>Cargando animales...</p>
         ) : animals.length > 0 ? (

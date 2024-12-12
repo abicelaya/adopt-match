@@ -33,15 +33,24 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-white text-[#6dab71] rounded-xl">
+    <nav className="w-full bg-beige text-marron rounded-xl">
       <div className="p-4 flex justify-between items-center">
         {location.pathname !== "/home" ? (
           <button onClick={goBack} className="text-2xl hover:text-[#4d7950]">
             <IoArrowBack />
           </button>
         ) : (
-          <h1 className="text-lg font-bold">
-            {user ? `Hola, ${user.fullName}` : "AdoptMatch"}
+          <h1 className="text-lg font-medium text-marron">
+            {user ? (
+              <>
+                <span className="font-poppins">Hola, </span>
+                <span className="font-dmSerif text-2xl font-bold">
+                  {user.fullName}
+                </span>
+              </>
+            ) : (
+              <span className="font-poppins">AdoptMatch</span>
+            )}
           </h1>
         )}
       </div>
