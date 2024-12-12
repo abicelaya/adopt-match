@@ -26,7 +26,7 @@ const AnimalCard = ({ animal }) => {
         <p className="text-sm text-gray-500 mt-1">
           {truncateText(animal.animalDescription, 80)}
         </p>
-        
+
         <button className="mt-2 py-1 px-3 bg-[#4b764e] text-white rounded-lg">
           Pedir cita
         </button>

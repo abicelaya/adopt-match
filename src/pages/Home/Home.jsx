@@ -10,6 +10,7 @@ import AnimalBox from "../../components/AnimalBox/AnimalBox";
 import Navbar from "../../components/Navbar/Navbar";
 import { useAuth } from "../../context/AuthContext";
 import Menu from "../../components/Menu/Menu";
+import { IoPaw } from "react-icons/io5";
 
 const Home = () => {
   const { user } = useAuth();
@@ -50,31 +51,22 @@ const Home = () => {
 
   return (
     <div className="flex bg-beige flex-col items-center min-h-screen">
-      <div className="fixed top-0 w-full bg-beige z-10 shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
+      <div className="w-full bg-beige z-10 ">
         <Navbar />
-        <div>
-          <div className="w-full max-w-[80rem] px-5 mx-auto flex justify-between gap-4 py-3">
-            <button className="flex-1 bg-beige text-marron border border-marron py-1 px-4 rounded-full font-poppins hover:bg-[#b3c49b] transition-all duration-300">
-              Perros
-            </button>
-            <button className="flex-1 bg-beige text-marron border border-marron py-1 px-4 rounded-full font-poppins hover:bg-[#b3c49b] transition-all duration-300">
-              Gatos
-            </button>
-            <button className="flex-1 bg-beige text-marron border border-marron py-1 px-4 rounded-full font-poppins hover:bg-[#b3c49b] transition-all duration-300">
-              Todos
-            </button>
-          </div>
-        </div>
+
         <div className="w-full max-w-[80rem] px-6  mx-auto">
-          <h2 className="text-[1.5rem]  font-dmSerif  font-semibold text-marron">
-            Un hogar,
-            <br />
-            una nueva historia.
+          <h2 className="text-[1.3rem]  font-dmSerif  font-semibold text-marron">
+            Adoptar es cambiar una vida
           </h2>
+        </div>
+        <div className="w-full max-w-[80rem] mx-auto px-6 flex items-center gap-4 my-4">
+          <div className="h-[1px] flex-grow bg-marron/20"></div>
+          <IoPaw className="text-marron/40 text-xl" />
+          <div className="h-[1px] flex-grow bg-marron/20"></div>
         </div>
       </div>
 
-      <div className="mt-[14rem] w-full max-w-[80rem] text-marron px-4">
+      <div className="mt-2 w-full max-w-[80rem] text-marron px-4">
         {loading ? (
           <p>Cargando animales...</p>
         ) : animals.length > 0 ? (
