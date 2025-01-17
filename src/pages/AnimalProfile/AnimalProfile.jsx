@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
+import { IoHeartOutline, IoHeart } from "react-icons/io5";
+import Menu from "../../components/Menu/Menu";
 
 const AnimalProfile = () => {
   const { id } = useParams();
@@ -10,6 +12,7 @@ const AnimalProfile = () => {
   const db = getFirestore();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     const fetchAnimalData = async () => {
@@ -29,6 +32,10 @@ const AnimalProfile = () => {
 
     fetchAnimalData();
   }, [id, db]);
+
+  const handleHeartClick = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   const handleLike = async () => {
     if (!animal || !user) return;
@@ -57,70 +64,67 @@ const AnimalProfile = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen m-4">
+    <div className="flex flex-col h-screen m-0 relative bg-verdeClaro">
       <Navbar />
-      <div className="flex flex-col items-center justify-between flex-grow px-4 pt-4">
+      <div className="flex flex-col items-center justify-start h-[44vh] px-0 pt-0">
         {/* Imagen del animal */}
-        <div className="relative flex flex-col items-center mb-4">
-          <div className="w-[300px] h-[320px] rounded-3xl border-4 border-[#bfdfc2] flex items-center justify-center">
-            <div className="w-[280px] h-[300px] rounded-3xl overflow-hidden border-4 border-[#6dab71]">
-              <img
-                src={animal.animalPhoto}
-                alt={animal.animalName}
-                className="w-full h-full object-cover"
-              />
-            </div>
+        <div className="w-full h-full flex items-center justify-center z-0">
+          <div className="w-full h-full rounded-none overflow-hidden">
+            <img
+              src={animal.animalPhoto}
+              alt={animal.animalName}
+              className="w-full h-full object-cover"
+            />
           </div>
-          <h2 className="text-2xl text-[#4d7950] font-bold mt-4 text-center">
-            {animal.animalName}
-          </h2>
         </div>
-
-        {/* Sección verde con detalles */}
-        <div className="bg-[#6dab71] text-white p-8 rounded-t-3xl w-full max-w-md flex flex-col justify-between">
-          <div>
-            <div className="flex justify-between mb-4">
-              {/* Edad */}
-              <div className="flex flex-col items-center w-1/3">
-                <span className="text-sm">Edad</span>
-                <span className="font-semibold text-center">
-                  {animal.animalAge} años
-                </span>
-              </div>
-              {/* Otros Animales */}
-              <div className="flex flex-col items-center w-1/3">
-                <span className="text-sm text-center">Otros Animales</span>
-                <span className="font-semibold text-center">
-                  {animal.canLiveWithOthers === "si" ? "Sí" : "No"}
-                </span>
-              </div>
-              {/* Espacio Abierto */}
-              <div className="flex flex-col items-center w-1/3">
-                <span className="text-sm text-center">Espacio Abierto</span>
-                <span className="font-semibold text-center">
-                  {animal.space === "si" ? "Sí" : "No"}
-                </span>
-              </div>
-            </div>
-
-            {/* Descripción */}
-            <p className="text-center text-sm mt-6">
-              {animal.animalDescription}
-            </p>
-          </div>
-
-          {/* Botones */}
-          <div className="flex space-x-8 justify-center mt-6">
-            {user && !user.isShelter && (
-              <button
-                onClick={handleLike}
-                className="bg-white text-[#6dab71] hover:text-[#4d7950] font-semibold py-2 px-4 rounded-lg transition duration-200 w-full max-w-[160px]"
-              >
-                Conocer
-              </button>
+      </div>
+      <div className="text-left mt-4 mx-8">
+        <h2 className="text-4xl text-verdeOscuro font-dmSerif font-bold flex">
+          {animal.animalName}
+          <span onClick={handleHeartClick} className="ml-auto cursor-pointer">
+            {isFavorite ? (
+              <IoHeart style={{ fontSize: "1.5rem" }} />
+            ) : (
+              <IoHeartOutline style={{ fontSize: "1.5rem" }} />
             )}
+          </span>
+        </h2>
+        <span className="text-verdeOscuro">sexo</span>
+      </div>
+      {/* Sección detalle del animal */}
+      <div className=" text-verdeOscuro px-8 w-full max-w-md flex flex-col ">
+        <div>
+          <div className="flex justify-center mt-8 space-x-4">
+            <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+              {animal.animalAge} años
+            </span>
+            <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+              {animal.canLiveWithOthers === "si" ? "Amistoso" : "Solitario"}
+            </span>
+            <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+              {animal.space === "si" ? "Zona Exterior" : "Zona Interior"}
+            </span>
           </div>
+
+          {/* Descripción */}
+          <h3 className="mt-8 font-semibold">Sobre mi</h3>
+          <p className="text-center text-sm mt-3">{animal.animalDescription}</p>
         </div>
+
+        {/* Botones */}
+        <div className="flex space-x-8 justify-center mt-6">
+          {user && !user.isShelter && (
+            <button
+              onClick={handleLike}
+              className="bg-white text-[#6dab71] hover:text-[#4d7950] font-semibold py-2 px-4 rounded-lg transition duration-200 w-full max-w-[160px]"
+            >
+              Conocer
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="fixed bottom-3 w-full z-10 flex justify-center">
+        <Menu />
       </div>
     </div>
   );

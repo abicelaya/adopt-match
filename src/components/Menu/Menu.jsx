@@ -3,12 +3,13 @@ import {
   IoAddCircle,
   IoHeart,
   IoPerson,
-  IoLogIn,
   IoLogOut,
+  IoCheckmark,
 } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
+import './Menu.css';
 
 const Menu = () => {
   const { user, logout } = useAuth();
@@ -28,8 +29,8 @@ const Menu = () => {
 
   const isActive = (path) => {
     return location.pathname === path
-      ? "text-white scale-125 transition-all duration-300"
-      : "text-beige hover:text-white active:text-beige transition-all duration-300 active:text-beige";
+      ? "menu-item-active"
+      : "menu-item-inactive";
   };
 
   const handleLogout = async () => {
@@ -47,12 +48,12 @@ const Menu = () => {
         <>
           <li className="mx-2">
             <Link to="/home" className={isActive("/home")}>
-              <IoHome size={24} />
+              <IoHome className={isActive("/home")} size={22} />
             </Link>
           </li>
           <li className="mx-2">
             <Link to="/login" className={isActive("/login")}>
-              <IoLogIn size={24} />
+              <IoPerson className={isActive("/login")} size={24} />
             </Link>
           </li>
         </>
@@ -81,7 +82,10 @@ const Menu = () => {
               to="/shelter-profile"
               className={isActive("/shelter-profile")}
             >
-              <IoPerson size={24} />
+              <div className="relative">
+                <IoPerson size={24} />
+                <IoCheckmark className="absolute top-1 left-6 text-beige" size={16} />
+              </div>
             </Link>
           </li>
           <li className="mx-2">
@@ -111,7 +115,10 @@ const Menu = () => {
         </li>
         <li className="mx-2">
           <Link to="/adopter-profile" className={isActive("/adopter-profile")}>
-            <IoPerson size={24} />
+            <div className="relative">
+              <IoPerson size={24} />
+              <IoCheckmark className="absolute top-1 left-6 text-beige" size={16} />
+            </div>
           </Link>
         </li>
         <li className="mx-2">

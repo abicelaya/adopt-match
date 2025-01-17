@@ -33,10 +33,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-beige text-marron rounded-xl">
+    <nav className="w-full text-marron rounded-xl relative z-10">
       <div className="flex justify-between items-center pt-4 px-6">
         {location.pathname !== "/home" ? (
-          <button onClick={goBack} className="text-2xl hover:text-[#4d7950]">
+          <button onClick={goBack} className="text-2xl z-20">
             <IoArrowBack />
           </button>
         ) : (
@@ -54,19 +54,21 @@ const Navbar = () => {
           </h1>
         )}
       </div>
-      <div>
-        <div className="w-full max-w-[80rem] px-5 mx-auto flex justify-between gap-4 py-3">
-          <button className="flex-1 bg-beige text-marron hover:text-beige text-medium border border-marron py-1 px-4 rounded-full font-poppins hover:bg-marron transition-all duration-300 active:bg-opacity-80">
-            Perros
-          </button>
-          <button className="flex-1 bg-beige text-marron hover:text-beige text-medium border border-marron py-1 px-4 rounded-full font-poppins hover:bg-marron transition-all duration-300 active:bg-opacity-80">
-            Gatos
-          </button>
-          <button className="flex-1 bg-beige text-marron hover:text-beige text-medium border border-marron py-1 px-4 rounded-full font-poppins hover:bg-marron transition-all duration-300 active:bg-opacity-80">
-            Todos
-          </button>
+      {location.pathname === "/home" && (
+        <div>
+          <div className="w-full max-w-[80rem] px-5 mx-auto flex justify-between gap-4 py-3">
+            <button className="flex-1 bg-beige text-marron hover:text-beige text-medium border border-marron py-1 px-4 rounded-full font-poppins hover:bg-marron transition-all duration-300 active:bg-opacity-80">
+              Perros
+            </button>
+            <button className="flex-1 bg-beige text-marron hover:text-beige text-medium border border-marron py-1 px-4 rounded-full font-poppins hover:bg-marron transition-all duration-300 active:bg-opacity-80">
+              Gatos
+            </button>
+            <button className="flex-1 bg-beige text-marron hover:text-beige text-medium border border-marron py-1 px-4 rounded-full font-poppins hover:bg-marron transition-all duration-300 active:bg-opacity-80">
+              Todos
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };

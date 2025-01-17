@@ -1,0 +1,15 @@
+/* Menu.css */
+.menu-item-active {
+  color: beige;
+  transform: scale(1.25);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-item-inactive {
+  color: beige;
+  transition: color 0.3s ease;
+}
+
+.menu-item-inactive:hover {
+  color: beige;
+}

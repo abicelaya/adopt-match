@@ -9,7 +9,8 @@ export default {
       colors: {
         verdeClaro: "#c5d5af",      
         verdeOscuro: "#58624c",     
-        beige: "#f7ead8",           
+        beige: "#f7ead8",
+        beigeOscuro: "#e6d2b8",
         marron: "#695942",          
         celeste: "#c5e1ee",         
         celesteGrisaceo: "#69787f", 
