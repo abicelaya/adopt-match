@@ -64,67 +64,74 @@ const AnimalProfile = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen m-0 relative bg-verdeClaro">
-      <Navbar />
-      <div className="flex flex-col items-center justify-start h-[44vh] px-0 pt-0">
-        {/* Imagen del animal */}
-        <div className="w-full h-full flex items-center justify-center z-0">
-          <div className="w-full h-full rounded-none overflow-hidden">
-            <img
-              src={animal.animalPhoto}
-              alt={animal.animalName}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
+    <div className="relative bg-verdeClaro min-h-screen">
+      <div className="relative z-20">
+        <Navbar />
       </div>
-      <div className="text-left mt-4 mx-8">
-        <h2 className="text-4xl text-verdeOscuro font-dmSerif font-bold flex">
-          {animal.animalName}
-          <span onClick={handleHeartClick} className="ml-auto cursor-pointer">
-            {isFavorite ? (
-              <IoHeart style={{ fontSize: "1.5rem" }} />
-            ) : (
-              <IoHeartOutline style={{ fontSize: "1.5rem" }} />
+
+      {/* Imagen de fondo */}
+      <div className="absolute top-0 left-0 w-full h-[50vh] z-0">
+        <img
+          src={animal.animalPhoto}
+          alt={animal.animalName}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
+      </div>
+
+      {/* Contenido */}
+      <div className="relative z-10 pt-[33vh] pb-20">
+        <div className="text-left mx-8">
+          <h2 className="text-4xl text-beige font-dmSerif font-bold flex">
+            {animal.animalName}
+            <span onClick={handleHeartClick} className="ml-auto cursor-pointer">
+              {isFavorite ? (
+                <IoHeart style={{ fontSize: "1.5rem" }} />
+              ) : (
+                <IoHeartOutline style={{ fontSize: "1.5rem" }} />
+              )}
+            </span>
+          </h2>
+          <span className="text-beige">sexo</span>
+        </div>
+
+        {/* Sección detalle del animal */}
+        <div className="flex flex-col items-center justify-center w-full max-w-3xl mx-auto px-8 mt-4">
+          <div className="w-full max-w-md">
+            <div className="flex justify-center mt-8 space-x-4">
+              <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+                {animal.animalAge} años
+              </span>
+              <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+                {animal.canLiveWithOthers === "si" ? "Amistoso" : "Solitario"}
+              </span>
+              <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+                {animal.space === "si" ? "Zona Exterior" : "Zona Interior"}
+              </span>
+            </div>
+
+            {/* Descripción */}
+            
+            <p className="text-center text-md mt-6">
+              {animal.animalDescription}
+            </p>
+          </div>
+
+          {/* Botones */}
+          <div className="flex space-x-8 justify-center mt-6">
+            {user && !user.isShelter && (
+              <button
+                onClick={handleLike}
+                className="bg-verdeOscuro/80 text-beige py-3 px-4 w-full max-w-[160px] border rounded-full"
+              >
+                Conocerme
+              </button>
             )}
-          </span>
-        </h2>
-        <span className="text-verdeOscuro">sexo</span>
-      </div>
-      {/* Sección detalle del animal */}
-      <div className=" text-verdeOscuro px-8 w-full max-w-md flex flex-col ">
-        <div>
-          <div className="flex justify-center mt-8 space-x-4">
-            <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
-              {animal.animalAge} años
-            </span>
-            <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
-              {animal.canLiveWithOthers === "si" ? "Amistoso" : "Solitario"}
-            </span>
-            <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
-              {animal.space === "si" ? "Zona Exterior" : "Zona Interior"}
-            </span>
           </div>
-
-          {/* Descripción */}
-          <h3 className="mt-8 font-semibold">Sobre mi</h3>
-          <p className="text-center text-sm mt-3">{animal.animalDescription}</p>
         </div>
-
-        {/* Botones */}
-        <div className="flex space-x-8 justify-center mt-6">
-          {user && !user.isShelter && (
-            <button
-              onClick={handleLike}
-              className="bg-white text-[#6dab71] hover:text-[#4d7950] font-semibold py-2 px-4 rounded-lg transition duration-200 w-full max-w-[160px]"
-            >
-              Conocer
-            </button>
-          )}
+        <div className="fixed bottom-3 w-full z-10 flex justify-center">
+          <Menu />
         </div>
-      </div>
-      <div className="fixed bottom-3 w-full z-10 flex justify-center">
-        <Menu />
       </div>
     </div>
   );

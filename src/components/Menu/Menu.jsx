@@ -9,7 +9,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
-import './Menu.css';
+import "./Menu.css";
 
 const Menu = () => {
   const { user, logout } = useAuth();
@@ -27,10 +27,21 @@ const Menu = () => {
     }
   }, [user]);
 
+
+
   const isActive = (path) => {
     return location.pathname === path
       ? "menu-item-active"
       : "menu-item-inactive";
+  };
+
+  const getMenuBackground = () => {
+    console.log("Current path:", location.pathname);
+    if (location.pathname.startsWith("/animal-profile")) {
+      return "bg-verdeOscuro";
+    }
+    // Agrega más condiciones aquí para otras páginas
+    return "bg-marron";
   };
 
   const handleLogout = async () => {
@@ -84,7 +95,10 @@ const Menu = () => {
             >
               <div className="relative">
                 <IoPerson size={24} />
-                <IoCheckmark className="absolute top-1 left-6 text-beige" size={16} />
+                <IoCheckmark
+                  className="absolute top-1 left-6 text-beige"
+                  size={16}
+                />
               </div>
             </Link>
           </li>
@@ -117,7 +131,10 @@ const Menu = () => {
           <Link to="/adopter-profile" className={isActive("/adopter-profile")}>
             <div className="relative">
               <IoPerson size={24} />
-              <IoCheckmark className="absolute top-1 left-6 text-beige" size={16} />
+              <IoCheckmark
+                className="absolute top-1 left-6 text-beige"
+                size={16}
+              />
             </div>
           </Link>
         </li>
@@ -135,7 +152,9 @@ const Menu = () => {
   };
 
   return (
-    <ul className="menu menu-horizontal bg-marron rounded-[2rem] py-2 flex justify-center items-center">
+    <ul
+      className={`menu menu-horizontal ${getMenuBackground()} rounded-[2rem] py-2 flex justify-center items-center`}
+    >
       {renderMenuItems()}
     </ul>
   );

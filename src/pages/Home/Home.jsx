@@ -61,8 +61,6 @@ const Home = () => {
         </div>
         <div className="w-full max-w-[80rem] mx-auto px-6 flex items-center gap-4 my-4">
           <div className="h-[1px] flex-grow bg-marron/20"></div>
-          <IoPaw className="text-marron/40 text-xl" />
-          <div className="h-[1px] flex-grow bg-marron/20"></div>
         </div>
       </div>
 
