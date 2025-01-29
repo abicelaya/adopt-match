@@ -45,9 +45,9 @@ const AnimalProfile = () => {
   }, [id, db, user]);
 
   const handleHeartClick = async () => {
-    if (!user) return; 
+    if (!user) return;
 
-    setIsFavorite(!isFavorite); 
+    setIsFavorite(!isFavorite);
 
     try {
       const likeRef = doc(db, "likes", `${user.uid}_${animal.animalId}`);
@@ -64,9 +64,7 @@ const AnimalProfile = () => {
 
         await setDoc(likeRef, likeData);
         console.log("Animal guardado en likes:", likeData);
-        navigate("/likes");
       } else {
-        // Eliminamos el documento de likes
         await deleteDoc(likeRef);
         console.log("Animal eliminado de likes");
       }

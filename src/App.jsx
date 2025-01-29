@@ -20,7 +20,6 @@ import Start from "./pages/Start/Start";
 import ShelterRegister from "./pages/ShelterRegister/ShelterRegister";
 import AdopterRegister from "./pages/AdopterRegister/AdopterRegister";
 import AnimalRegister from "./pages/AnimalRegister/AnimalRegister";
-import Favorites from "./pages/Favorites/Favorites";
 
 const App = () => {
   return (
@@ -43,7 +42,7 @@ const App = () => {
           <Route path="/for-adoption" element={<ForAdoption />} />
           <Route path="/animal-profile/:id" element={<AnimalProfile />} />
           <Route path="/likes" element={<Likes />} />
-          <Route path="/favorites" element={<Favorites />} />
+
           <Route path="/shelters" element={<Shelters />} />
           <Route path="/adopter-profile" element={<AdopterProfile />} />
           <Route path="/adoption-process" element={<AdoptionProcess />} />

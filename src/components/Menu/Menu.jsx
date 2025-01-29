@@ -122,7 +122,7 @@ const Menu = () => {
           </Link>
         </li>
         <li className="mx-2">
-          <Link to="/favorites" className={isActive("/favorites")}>
+          <Link to="/likes" className={isActive("/likes")}>
             <IoHeart size={24} />
           </Link>
         </li>
