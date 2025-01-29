@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
-import { Link } from "react-router-dom";
 
 const AnimalProfile = () => {
   const { id } = useParams();
@@ -22,6 +27,12 @@ const AnimalProfile = () => {
 
         if (animalSnap.exists()) {
           setAnimal(animalSnap.data());
+
+          if (user) {
+            const likeRef = doc(db, "likes", `${user.uid}_${id}`);
+            const likeSnap = await getDoc(likeRef);
+            setIsFavorite(likeSnap.exists());
+          }
         } else {
           console.log("No se encontró el animal");
         }
@@ -31,36 +42,47 @@ const AnimalProfile = () => {
     };
 
     fetchAnimalData();
-  }, [id, db]);
+  }, [id, db, user]);
 
-  const handleHeartClick = () => {
-    setIsFavorite(!isFavorite);
+  const handleHeartClick = async () => {
+    if (!user) return; 
+
+    setIsFavorite(!isFavorite); 
+
+    try {
+      const likeRef = doc(db, "likes", `${user.uid}_${animal.animalId}`);
+
+      if (!isFavorite) {
+        const likeData = {
+          animalId: animal.animalId,
+          animalName: animal.animalName,
+          animalPhoto: animal.animalPhoto,
+          adopterId: user.uid,
+          shelterId: animal.shelterId,
+          timestamp: new Date(),
+        };
+
+        await setDoc(likeRef, likeData);
+        console.log("Animal guardado en likes:", likeData);
+        navigate("/likes");
+      } else {
+        // Eliminamos el documento de likes
+        await deleteDoc(likeRef);
+        console.log("Animal eliminado de likes");
+      }
+    } catch (error) {
+      console.error("Error al gestionar favorito: ", error);
+      setIsFavorite(!isFavorite);
+    }
   };
 
   const handleRegister = () => {
     navigate("/register");
   };
 
-  const handleLike = async () => {
-    if (!animal || !user) return;
-
-    try {
-      const likeData = {
-        animalId: animal.animalId,
-        animalName: animal.animalName,
-        animalPhoto: animal.animalPhoto,
-        adopterId: user.uid,
-        shelterId: animal.shelterId,
-        timestamp: new Date(),
-      };
-
-      const likeRef = doc(db, "likes", `${user.uid}_${animal.animalId}`);
-      await setDoc(likeRef, likeData);
-      console.log("Animal guardado en likes:", likeData);
-      navigate("/likes");
-    } catch (error) {
-      console.error("Error al guardar el animal en likes: ", error);
-    }
+  const handleLike = () => {
+    // Aquí puedes poner otra funcionalidad para el botón "Conocerme"
+    // Por ejemplo, navegar a otra página o mostrar más información
   };
 
   if (!animal) {
@@ -124,25 +146,33 @@ const AnimalProfile = () => {
           <div className="w-full max-w-[80rem] mx-auto px-6 flex items-center gap-4 my-4">
             <div className="h-[2px] flex-grow bg-verdeOscuro/20"></div>
           </div>
+
           {/* Botones */}
           <div className="flex space-x-8 justify-center mt-2">
-            <div className="flex items-center gap-2">
-              <p className="text-verdeOscuro">¿Quieres conocerlo?</p>
-              <button
-                onClick={handleRegister}
-                className="text-verdeOscuro underline"
-              >
-                Registrarse
-              </button>
-            </div>
+            {!user && (
+              <div className="flex items-center gap-2">
+                <p className="text-verdeOscuro">¿Quieres conocerlo?</p>
+                <button
+                  onClick={handleRegister}
+                  className="text-verdeOscuro underline"
+                >
+                  Registrarse
+                </button>
+              </div>
+            )}
 
             {user && !user.isShelter && (
-              <button
-                onClick={handleLike}
-                className="bg-verdeOscuro/80 text-beige py-3 px-4 w-full max-w-[160px] border-verdeOscuro rounded-full"
-              >
-                Conocerme
-              </button>
+              <div className="flex items-center gap-4">
+                <p className="text-verdeOscuro text-sm text-center">
+                  Si ya te imaginas juntos ¿qué esperas?
+                </p>
+                <button
+                  onClick={handleLike}
+                  className="bg-verdeOscuro/60 text-beige py-3 px-4 w-full max-w-[160px] border-verdeOscuro rounded-full"
+                >
+                  Conocerme
+                </button>
+              </div>
             )}
           </div>
         </div>
