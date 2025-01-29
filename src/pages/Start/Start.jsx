@@ -19,7 +19,7 @@ const Start = () => {
         className="absolute top-0 left-0 h-full w-full object-cover"
       />
 
-      <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-40"></div>
+      <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-25"></div>
 
       {/* Slogan superpuesto */}
       <div className="absolute bottom-10 left-11 z-10">

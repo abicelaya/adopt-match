@@ -10,7 +10,7 @@ const Welcome = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen p-4 pt-12 bg-verdeClaro">
+    <div className="flex flex-col items-center justify-start h-screen p-4 pt-12 bg-verdeClaro overflow-hidden">
       <div className="p-8 w-full max-w-md">
         <h1 className="text-4xl font-dmSerif font-bold mb-6 text-left text-verdeOscuro">
           Te damos la bienvenida a AdoptMatch

@@ -69,7 +69,7 @@ const AnimalProfile = () => {
         <Navbar />
       </div>
 
-      {/* Imagen de fondo */}
+      {/* Imagen */}
       <div className="absolute top-0 left-0 w-full h-[50vh] z-0">
         <img
           src={animal.animalPhoto}
@@ -111,7 +111,7 @@ const AnimalProfile = () => {
             </div>
 
             {/* Descripción */}
-            
+
             <p className="text-center text-md mt-6">
               {animal.animalDescription}
             </p>
@@ -122,16 +122,14 @@ const AnimalProfile = () => {
             {user && !user.isShelter && (
               <button
                 onClick={handleLike}
-                className="bg-verdeOscuro/80 text-beige py-3 px-4 w-full max-w-[160px] border rounded-full"
+                className="bg-verdeOscuro/80 text-beige py-3 px-4 w-full max-w-[160px] border-verdeOscuro rounded-full"
               >
                 Conocerme
               </button>
             )}
           </div>
         </div>
-        <div className="fixed bottom-3 w-full z-10 flex justify-center">
-          <Menu />
-        </div>
+        
       </div>
     </div>
   );

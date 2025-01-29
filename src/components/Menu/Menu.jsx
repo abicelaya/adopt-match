@@ -59,18 +59,17 @@ const Menu = () => {
         <>
           <li className="mx-2">
             <Link to="/home" className={isActive("/home")}>
-              <IoHome className={isActive("/home")} size={22} />
+              <IoHome className={isActive("/home")} size={22} color="beige" />
             </Link>
           </li>
           <li className="mx-2">
             <Link to="/login" className={isActive("/login")}>
-              <IoPerson className={isActive("/login")} size={24} />
+              <IoPerson className={isActive("/login")} size={24} color="beige" />
             </Link>
           </li>
         </>
       );
     }
-
     // Usuario autenticado como protectora
     if (isShelter) {
       return (
