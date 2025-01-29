@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 
 const Welcome = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const adjustHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    adjustHeight();
+
+    window.addEventListener("resize", adjustHeight);
+
+    return () => window.removeEventListener("resize", adjustHeight);
+  }, []);
+
   const handleAccept = () => {
     navigate("/home");
   };
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen p-4 pt-12 bg-verdeClaro overflow-hidden">
+    <div className="flex flex-col items-center justify-start min-h-[calc(var(--vh,1vh)*100)] bg-verdeClaro pt-3">
       <div className="p-8 w-full max-w-md">
         <h1 className="text-4xl font-dmSerif font-bold mb-6 text-left text-verdeOscuro">
           Te damos la bienvenida a AdoptMatch

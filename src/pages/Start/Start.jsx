@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PerroGato from "../../../public/images/perro-gato.jpg";
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -6,12 +6,25 @@ import { useNavigate } from "react-router-dom";
 const Start = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const adjustHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    adjustHeight();
+
+    window.addEventListener("resize", adjustHeight);
+
+    return () => window.removeEventListener("resize", adjustHeight);
+  }, []);
+
   const handleNext = () => {
     navigate("/welcome");
   };
 
   return (
-    <div className="relative h-screen w-screen">
+    <div className="flex flex-col items-center justify-center min-h-[calc(var(--vh,1vh)*100)]">
       {/* Imagen de fondo */}
       <img
         src={PerroGato}
