@@ -60,7 +60,7 @@ const Welcome = () => {
       <div className="fixed bottom-20 right-10 z-10">
         <button
           onClick={handleAccept}
-          className="bg-verdeOscuro bg-opacity-20 text-verdeOscuro rounded-full p-3 flex items-center justify-center"
+          className=" text-verdeOscuro p-3 flex items-center justify-center"
         >
           <FaArrowRight size={24} />
         </button>

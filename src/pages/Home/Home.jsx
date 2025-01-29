@@ -10,7 +10,6 @@ import AnimalBox from "../../components/AnimalBox/AnimalBox";
 import Navbar from "../../components/Navbar/Navbar";
 import { useAuth } from "../../context/AuthContext";
 import Menu from "../../components/Menu/Menu";
-import { IoPaw } from "react-icons/io5";
 
 const Home = () => {
   const { user } = useAuth();
@@ -55,12 +54,12 @@ const Home = () => {
         <Navbar />
 
         <div className="w-full max-w-[80rem] px-6  mx-auto">
-          <h2 className="text-[1.3rem]  font-dmSerif  font-semibold text-marron">
+          <h2 className="text-[1.3rem] text-center  font-dmSerif  font-semibold text-marron">
             Adoptar es cambiar una vida
           </h2>
         </div>
         <div className="w-full max-w-[80rem] mx-auto px-6 flex items-center gap-4 my-4">
-          <div className="h-[1px] flex-grow bg-marron/20"></div>
+          <div className="h-[2px] flex-grow bg-marron/20"></div>
         </div>
       </div>
 

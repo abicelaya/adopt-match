@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
-import Menu from "../../components/Menu/Menu";
+import { Link } from "react-router-dom";
 
 const AnimalProfile = () => {
   const { id } = useParams();
@@ -35,6 +35,10 @@ const AnimalProfile = () => {
 
   const handleHeartClick = () => {
     setIsFavorite(!isFavorite);
+  };
+
+  const handleRegister = () => {
+    navigate("/register");
   };
 
   const handleLike = async () => {
@@ -99,26 +103,39 @@ const AnimalProfile = () => {
         <div className="flex flex-col items-center justify-center w-full max-w-3xl mx-auto px-8 mt-4">
           <div className="w-full max-w-md">
             <div className="flex justify-center mt-8 space-x-4">
-              <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+              <span className="flex flex-col justify-center items-center w-1/3 border border-verdeOscuro py-1 px-4 rounded-full text-sm text-center text-verdeOscuro">
                 {animal.animalAge} años
               </span>
-              <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+              <span className="flex flex-col justify-center items-center w-1/3 border border-verdeOscuro py-1 px-4 rounded-full text-sm text-center text-verdeOscuro">
                 {animal.canLiveWithOthers === "si" ? "Amistoso" : "Solitario"}
               </span>
-              <span className="flex flex-col justify-center items-center w-1/3 border border-marron py-1 px-4 rounded-full text-sm text-center">
+              <span className="flex flex-col justify-center items-center w-1/3 border border-verdeOscuro py-1 px-4 rounded-full text-sm text-center text-verdeOscuro">
                 {animal.space === "si" ? "Zona Exterior" : "Zona Interior"}
               </span>
             </div>
 
             {/* Descripción */}
 
-            <p className="text-center text-md mt-6">
+            <p className="text-center text-md mt-6 text-verdeOscuro">
               {animal.animalDescription}
             </p>
           </div>
 
+          <div className="w-full max-w-[80rem] mx-auto px-6 flex items-center gap-4 my-4">
+            <div className="h-[2px] flex-grow bg-verdeOscuro/20"></div>
+          </div>
           {/* Botones */}
-          <div className="flex space-x-8 justify-center mt-6">
+          <div className="flex space-x-8 justify-center mt-2">
+            <div className="flex items-center gap-2">
+              <p className="text-verdeOscuro">¿Quieres conocerlo?</p>
+              <button
+                onClick={handleRegister}
+                className="text-verdeOscuro underline"
+              >
+                Registrarse
+              </button>
+            </div>
+
             {user && !user.isShelter && (
               <button
                 onClick={handleLike}
@@ -129,7 +146,6 @@ const AnimalProfile = () => {
             )}
           </div>
         </div>
-        
       </div>
     </div>
   );
