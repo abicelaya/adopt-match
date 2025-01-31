@@ -40,7 +40,6 @@ const Menu = () => {
     if (location.pathname.startsWith("/animal-profile")) {
       return "bg-verdeOscuro";
     }
-    // Agrega más condiciones aquí para otras páginas
     return "bg-marron";
   };
 

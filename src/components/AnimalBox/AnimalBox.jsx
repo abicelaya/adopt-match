@@ -20,7 +20,7 @@ const AnimalBox = ({ animals }) => {
             className="w-full h-full block"
           >
             <div className="w-full h-full rounded-3xl overflow-hidden relative">
-              <div className="absolute inset-0 bg-black opacity-30 z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30"></div>
               <img
                 src={animal.animalPhoto}
                 className="w-full h-full object-cover"

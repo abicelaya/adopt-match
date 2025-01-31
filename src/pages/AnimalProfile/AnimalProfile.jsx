@@ -78,11 +78,6 @@ const AnimalProfile = () => {
     navigate("/register");
   };
 
-  const handleLike = () => {
-    // Aquí puedes poner otra funcionalidad para el botón "Conocerme"
-    // Por ejemplo, navegar a otra página o mostrar más información
-  };
-
   if (!animal) {
     return <div className="text-gray-500">Cargando...</div>;
   }
@@ -100,7 +95,7 @@ const AnimalProfile = () => {
           alt={animal.animalName}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30"></div>
       </div>
 
       {/* Contenido */}

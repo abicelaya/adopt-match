@@ -32,11 +32,25 @@ const Navbar = () => {
     navigate(-1);
   };
 
+  const getBackButtonColor = () => {
+    switch (location.pathname) {
+      case "/likes":
+        return "text-celeste";
+      case "/animal-profile":
+        return "text-beige";
+      default:
+        return "text-beige";
+    }
+  };
+
   return (
     <nav className="w-full text-marron rounded-xl relative z-10">
       <div className="flex justify-between items-center pt-4 px-6">
         {location.pathname !== "/home" ? (
-          <button onClick={goBack} className="text-2xl z-20 p-3 text-beige">
+          <button
+            onClick={goBack}
+            className={`text-2xl z-20 p-3 ${getBackButtonColor()}`}
+          >
             <IoArrowBack />
           </button>
         ) : (

@@ -54,62 +54,56 @@ const Likes = () => {
   };
 
   return (
-    <div className="min-h-screen bg-celeste">
+    <div className="h-screen bg-celesteGrisaceo overflow-hidden">
       <Navbar />
 
-      <div className="px-4 pt-6">
-        <p className="text-celesteGrisaceo text-center mb-4">
-          Aquí encontrarás los animales que quieres conocer. Puede ser que, al
-          contactar, el animalito ya esté adoptado. Recuerda, es una decisión
-          importante.
-        </p>
+      <div className="pl-9 pt-5 pb-5 bg-celesteGrisaceo">
+        <div className="relative">
+          <div className="absolute left-0 top-1 w-[2px] h-20 bg-celeste"></div>
 
-        <div className="w-full max-w-[80rem] mx-auto px-6 flex items-center gap-4 mb-4">
-          <div className="h-[2px] flex-grow bg-celesteGrisaceo/20"></div>
+          <p className="text-celeste text-lg pl-4">
+            Aquí encontrarás los animales que quieres conocer. Puede ser que, al
+            contactar, el animalito ya esté adoptado. Recuerda, es una decisión
+            importante.
+          </p>
         </div>
-        <div className="grid grid-cols-1 gap-4">
-          {likes.length > 0 ? (
-            likes.map((animal) => (
-              <div
-                key={animal.animalId}
-                className="relative h-64 rounded-xl overflow-hidden shadow-md cursor-pointer"
-                onClick={() => handleCardClick(animal.animalId)}
-              >
-                {/* Imagen de fondo */}
-                <img
-                  src={animal.animalPhoto}
-                  alt={animal.animalName}
-                  className="w-full h-full object-cover"
-                />
+      </div>
 
-                {/* Gradiente oscuro en la parte inferior */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <div className="bg-celeste rounded-t-3xl h-full">
+        <div className="pt-8 pl-8">
+          <div className="overflow-x-auto pb-4">
+            <div className="flex">
+              {likes.map((animal) => (
+                <div
+                  key={animal.animalId}
+                  className="flex-none w-80 cursor-pointer text-celesteGrisaceo -ml-4"
+                  onClick={() => handleCardClick(animal.animalId)}
+                >
+                  <div className="aspect-[4/5] rounded-xl overflow-hidden relative">
+                    <img
+                      src={animal.animalPhoto}
+                      alt={animal.animalName}
+                      className="w-[85%] h-full object-cover object-center mx-auto rounded-3xl"
+                    />
+                    <div className="absolute inset-x-[7.5%] bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent rounded-b-3xl" />
 
-                {/* Contenido superpuesto */}
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="text-beige">
-                      <h2 className="text-2xl">{animal.animalName}</h2>
-                      <span className="text-sm opacity-90">sexo</span>
-                    </div>
+                    <h2 className="absolute bottom-4 left-12 text-xl text-beige z-10">
+                      {animal.animalName}
+                    </h2>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         handleUnlike(animal.animalId);
                       }}
-                      className="text-beige"
+                      className="absolute bottom-4 right-12 text-beige hover:scale-110 transition-transform z-10"
                     >
-                      <IoHeart style={{ fontSize: "1.5rem" }} />
+                      <IoHeart size={28} />
                     </button>
                   </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-verdeOscuro">
-              Aún no has agregado ningún animal a favoritos
-            </p>
-          )}
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
