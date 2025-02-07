@@ -73,24 +73,22 @@ const Home = () => {
         {loading ? (
           <p>Cargando animales...</p>
         ) : user?.isShelter && animals.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-[70vh]">
-            <div className="h-48 w-48 mb-8">
+          <div className="flex flex-col items-center justify-center h-[50vh]">
+            <div className="h-60 w-48 overflow-hidden">
               <Lottie 
                 animationData={emptyAnimation}
                 loop={true}
-                style={{ height: '100%' }}
+                style={{ height: '100%', marginTop: '-80px' }}
               />
             </div>
-            <p className="text-marron text-center font-dmSerif text-2xl mb-8">
+            <p className="text-marron -mt-8 px-4 text-center font-dmSerif text-2xl">
               ¡Aún no has agregado ningún animal!
-              
             </p>
-            
           </div>
         ) : animals.length > 0 ? (
           <AnimalBox animals={animals} />
         ) : (
-          <p>No hay animales registrados.</p>
+          <p className="text-marron px-4 text-center font-dmSerif text-2xl">Aún no hay animales registrados.</p>
         )}
       </div>
       <div className="fixed bottom-3 w-full z-10 flex justify-center">

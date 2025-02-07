@@ -12,6 +12,8 @@ import { useAuth } from "../../context/AuthContext";
 import Navbar from "../../components/Navbar/Navbar";
 import { IoHeart } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import emptyAnimation from "../../animations/gatoAnimacion.json";
 
 const Likes = () => {
   const navigate = useNavigate();
@@ -107,7 +109,14 @@ const Likes = () => {
             </div>
           ) : (
             <div className="h-full flex flex-col items-center justify-center -ml-4 px-8 pt-20">
-              <p className="text-celesteGrisaceo text-center font-dmSerif text-2xl mb-8">
+              <div className="h-60 w-48 overflow-hidden">
+                <Lottie 
+                  animationData={emptyAnimation}
+                  loop={true}
+                  style={{ height: '100%', marginTop: '-150px' }}
+                />
+              </div>
+              <p className="text-celesteGrisaceo text-center font-dmSerif text-2xl -mt-20 mb-8">
                 Tu lista está vacía por ahora. Descubre animales increíbles y guarda a los que te gustaría conocer.
               </p>
               <button 
