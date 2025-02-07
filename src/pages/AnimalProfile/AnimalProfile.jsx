@@ -159,10 +159,7 @@ const AnimalProfile = () => {
                 <p className="text-verdeOscuro text-sm text-center">
                   Si ya te imaginas juntos ¿qué esperas?
                 </p>
-                <button
-                  onClick={handleLike}
-                  className="bg-verdeOscuro/60 text-beige py-3 px-4 w-full max-w-[160px] border-verdeOscuro rounded-full"
-                >
+                <button className="bg-verdeOscuro/60 text-beige py-3 px-4 w-full max-w-[160px] border-verdeOscuro rounded-full">
                   Conocerme
                 </button>
               </div>

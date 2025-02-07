@@ -6,7 +6,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleProtectoraClick = () => {
-    navigate("/register-shelter");
+    navigate("/shelter-register");
   };
 
   const handleAdoptarClick = () => {
