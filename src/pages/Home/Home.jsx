@@ -10,6 +10,8 @@ import AnimalBox from "../../components/AnimalBox/AnimalBox";
 import Navbar from "../../components/Navbar/Navbar";
 import { useAuth } from "../../context/AuthContext";
 import Menu from "../../components/Menu/Menu";
+import Lottie from 'lottie-react';
+import emptyAnimation from '../../animations/gatoAnimacion.json';
 
 const Home = () => {
   const { user } = useAuth();
@@ -48,8 +50,12 @@ const Home = () => {
     fetchAnimals();
   }, [db, user]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="flex bg-beige flex-col items-center min-h-screen">
+    <div className="flex bg-beige flex-col items-center min-h-screen overflow-x-hidden">
       <div className="w-full bg-beige z-10 ">
         <Navbar />
 
@@ -66,6 +72,21 @@ const Home = () => {
       <div className="mt-2 w-full max-w-[80rem] text-marron px-4">
         {loading ? (
           <p>Cargando animales...</p>
+        ) : user?.isShelter && animals.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-[70vh]">
+            <div className="h-48 w-48 mb-8">
+              <Lottie 
+                animationData={emptyAnimation}
+                loop={true}
+                style={{ height: '100%' }}
+              />
+            </div>
+            <p className="text-marron text-center font-dmSerif text-2xl mb-8">
+              ¡Aún no has agregado ningún animal!
+              
+            </p>
+            
+          </div>
         ) : animals.length > 0 ? (
           <AnimalBox animals={animals} />
         ) : (

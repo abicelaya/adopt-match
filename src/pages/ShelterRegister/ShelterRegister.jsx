@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { app } from "../../firebaseConfig";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { getFirestore, collection, setDoc, doc } from "firebase/firestore";
-import { IoArrowBack } from "react-icons/io5";
+import { IoArrowBack, IoArrowForward, IoCheckmark } from "react-icons/io5";
 
 const ShelterRegister = () => {
   const navigate = useNavigate();
@@ -49,46 +49,94 @@ const ShelterRegister = () => {
           location: values.location,
           registrationNumber: values.registrationNumber,
           email: values.email,
+          isShelter: true,
         });
-        navigate("/shelter-profile");
+        navigate("/home");
       } catch (error) {
         setError("Error al registrar: " + error.message);
       }
     },
   });
 
+  const getBackgroundColor = () => {
+    switch (currentStep) {
+      case 1:
+        return 'bg-verdeClaro';
+      case 2:
+        return 'bg-celeste';
+      case 3:
+        return 'bg-verdeClaro';
+      default:
+        return 'bg-verdeClaro';
+    }
+  };
+
+  const getBackArrowColor = () => {
+    switch (currentStep) {
+      case 1:
+        return 'text-verdeOscuro';
+      case 2:
+        return 'text-celesteGrisaceo';
+      case 3:
+        return 'text-verdeOscuro';
+      default:
+        return 'text-verdeOscuro';
+    }
+  };
+
+  const getNextButtonStyles = () => {
+    switch (currentStep) {
+      case 1:
+        return 'bg-verdeOscuro text-verdeClaro';
+      case 2:
+        return 'bg-celesteGrisaceo text-celeste';
+      case 3:
+        return 'bg-verdeOscuro text-verdeClaro';
+      default:
+        return 'bg-verdeOscuro text-verdeClaro';
+    }
+  };
+
   const renderStep = () => {
+    const inputClasses = "w-full p-2 border-b border-celesteGrisaceo/50 bg-transparent focus:outline-none focus:border-celesteGrisaceo";
+    const inputClassesStep1and3 = inputClasses + " placeholder-verdeOscuro/60";
+    const inputClassesStep2 = inputClasses + " placeholder-celesteGrisaceo/60";
+    
     switch (currentStep) {
       case 1:
         return (
           <>
-            <h2 className="text-2xl text-celesteGrisaceo font-dmSerif mb-8">
-              Empecemos con algunos datos:
+            <h2 className="text-4xl text-verdeOscuro font-semibold font-dmSerif mb-16">
+              Empecemos con algunos datos
             </h2>
-            <div className="space-y-4">
-              <input
-                type="text"
-                name="fullName"
-                placeholder="Nombre completo de la protectora"
-                className="w-full p-3 rounded-lg border border-celesteGrisaceo"
-                value={formik.values.fullName}
-                onChange={formik.handleChange}
-              />
-              {formik.touched.fullName && formik.errors.fullName && (
-                <div className="text-red-500">{formik.errors.fullName}</div>
-              )}
+            <div className="space-y-8">
+              <div>
+                <input
+                  type="text"
+                  name="fullName"
+                  placeholder="Nombre completo de la protectora"
+                  className={inputClassesStep1and3}
+                  value={formik.values.fullName}
+                  onChange={formik.handleChange}
+                />
+                {formik.touched.fullName && formik.errors.fullName && (
+                  <div className="text-red-500 text-sm mt-1">{formik.errors.fullName}</div>
+                )}
+              </div>
 
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Teléfono"
-                className="w-full p-3 rounded-lg border border-celesteGrisaceo"
-                value={formik.values.phone}
-                onChange={formik.handleChange}
-              />
-              {formik.touched.phone && formik.errors.phone && (
-                <div className="text-red-500">{formik.errors.phone}</div>
-              )}
+              <div>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Teléfono"
+                  className={inputClassesStep1and3}
+                  value={formik.values.phone}
+                  onChange={formik.handleChange}
+                />
+                {formik.touched.phone && formik.errors.phone && (
+                  <div className="text-red-500 text-sm mt-1">{formik.errors.phone}</div>
+                )}
+              </div>
             </div>
           </>
         );
@@ -96,33 +144,26 @@ const ShelterRegister = () => {
       case 2:
         return (
           <>
-            <h2 className="text-2xl text-celesteGrisaceo font-dmSerif mb-8">
-              Un par de datos más:
+            <h2 className="text-4xl text-celesteGrisaceo font-semibold font-dmSerif mb-16">
+              Un par de datos más
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-8">
               <input
                 type="text"
                 name="location"
                 placeholder="Ubicación"
-                className="w-full p-3 rounded-lg border border-celesteGrisaceo"
+                className={inputClassesStep2}
                 value={formik.values.location}
                 onChange={formik.handleChange}
               />
-              {formik.touched.location && formik.errors.location && (
-                <div className="text-red-500">{formik.errors.location}</div>
-              )}
-
               <input
                 type="text"
                 name="registrationNumber"
                 placeholder="Número de registro"
-                className="w-full p-3 rounded-lg border border-celesteGrisaceo"
+                className={inputClassesStep2}
                 value={formik.values.registrationNumber}
                 onChange={formik.handleChange}
               />
-              {formik.touched.registrationNumber && formik.errors.registrationNumber && (
-                <div className="text-red-500">{formik.errors.registrationNumber}</div>
-              )}
             </div>
           </>
         );
@@ -130,33 +171,26 @@ const ShelterRegister = () => {
       case 3:
         return (
           <>
-            <h2 className="text-2xl text-celesteGrisaceo font-dmSerif mb-8">
-              Para finalizar tu registro:
+            <h2 className="text-4xl text-verdeOscuro font-semibold font-dmSerif mb-16">
+              Para finalizar tu registro
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-8">
               <input
                 type="email"
                 name="email"
                 placeholder="Email"
-                className="w-full p-3 rounded-lg border border-celesteGrisaceo"
+                className={inputClassesStep1and3}
                 value={formik.values.email}
                 onChange={formik.handleChange}
               />
-              {formik.touched.email && formik.errors.email && (
-                <div className="text-red-500">{formik.errors.email}</div>
-              )}
-
               <input
                 type="password"
                 name="password"
                 placeholder="Contraseña"
-                className="w-full p-3 rounded-lg border border-celesteGrisaceo"
+                className={inputClassesStep1and3}
                 value={formik.values.password}
                 onChange={formik.handleChange}
               />
-              {formik.touched.password && formik.errors.password && (
-                <div className="text-red-500">{formik.errors.password}</div>
-              )}
             </div>
           </>
         );
@@ -208,22 +242,28 @@ const ShelterRegister = () => {
   };
 
   return (
-    <div className="min-h-screen bg-celeste">
-      <button onClick={handleBack} className="p-4 text-celesteGrisaceo">
+    <div className={`min-h-screen ${getBackgroundColor()} transition-colors duration-300`}>
+      <button onClick={handleBack} className={`p-8 ${getBackArrowColor()}`}>
         <IoArrowBack size={24} />
       </button>
 
-      <div className="px-8 pt-12">
+      <div className="px-14 pt-16">
         {renderStep()}
         
         {error && <div className="text-red-500 mt-4">{error}</div>}
 
-        <button
-          onClick={handleNext}
-          className="w-full bg-celesteGrisaceo text-celeste rounded-full py-3 mt-8"
-        >
-          {currentStep === 3 ? "Finalizar" : "Siguiente"}
-        </button>
+        <div className="fixed bottom-12 right-12">
+          <button
+            onClick={handleNext}
+            className={`w-14 h-14 rounded-full ${getNextButtonStyles()} flex items-center justify-center`}
+          >
+            {currentStep === 3 ? (
+              <IoCheckmark size={24} />
+            ) : (
+              <IoArrowForward size={24} />
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
