@@ -23,11 +23,15 @@ const RegisterAnimal = () => {
       .required("La edad del animal es obligatoria")
       .min(0, "La edad debe ser mayor o igual a 0")
       .integer("La edad debe ser un número entero"),
+    ageUnit: Yup.string().required().oneOf(["meses", "años"]),
     animalDescription: Yup.string().required(
       "La descripción del animal es obligatoria"
     ),
-    canLiveWithOthers: Yup.array().of(Yup.string()),
-    space: Yup.array().of(Yup.string()),
+    canLiveWithOthers: Yup.string().oneOf(["si", "no"]),
+    space: Yup.string().oneOf(["si", "no"]),
+    sexo: Yup.string()
+      .oneOf(["hembra", "macho"])
+      .required("El sexo es obligatorio"),
   });
 
   const formik = useFormik({
@@ -35,10 +39,12 @@ const RegisterAnimal = () => {
       animalType: "",
       animalName: "",
       animalAge: "",
-      canLiveWithOthers: [],
-      space: [],
+      canLiveWithOthers: "",
+      space: "",
       animalPhoto: null,
       animalDescription: "",
+      ageUnit: "años",
+      sexo: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -72,13 +78,22 @@ const RegisterAnimal = () => {
     try {
       const collectionRef = collection(db, "animales");
 
-      const docRef = await addDoc(collectionRef, animalData);
+      const formattedAge = `${animalData.animalAge} ${animalData.ageUnit}`;
+
+      const docRef = await addDoc(collectionRef, {
+        ...animalData,
+        formattedAge,
+      });
 
       const animalId = docRef.id;
 
       await setDoc(
         docRef,
-        { ...animalData, animalId: animalId },
+        {
+          ...animalData,
+          animalId: animalId,
+          formattedAge,
+        },
         { merge: true }
       );
 
@@ -179,19 +194,57 @@ const RegisterAnimal = () => {
 
         {/* Edad del animal */}
         <div className="mb-4">
-          <input
-            type="number"
-            id="animalAge"
-            name="animalAge"
-            placeholder="Edad del animal"
-            className="mt-1 p-2 w-full border rounded-lg"
-            value={formik.values.animalAge}
-            onChange={formik.handleChange}
-          />
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              name="animalAge"
+              placeholder="Edad"
+              className="border-b border-verdeOscuro bg-transparent w-1/2 p-2 focus:outline-none placeholder-verdeOscuro/60 text-verdeOscuro"
+              value={formik.values.animalAge}
+              onChange={formik.handleChange}
+            />
+            <select
+              name="ageUnit"
+              className="border-b border-verdeOscuro bg-transparent p-2 focus:outline-none text-verdeOscuro"
+              value={formik.values.ageUnit}
+              onChange={formik.handleChange}
+            >
+              <option value="meses">Meses</option>
+              <option value="años">Años</option>
+            </select>
+          </div>
           {formik.touched.animalAge && formik.errors.animalAge && (
-            <div className="text-red-500 text-sm">
+            <div className="text-gray-500 text-sm mt-1">
               {formik.errors.animalAge}
             </div>
+          )}
+        </div>
+
+        {/* Sexo */}
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold mt-4 text-gray-500">Sexo</h2>
+          <div className="flex space-x-4 mb-4">
+            <button
+              type="button"
+              onClick={() => formik.setFieldValue("sexo", "hembra")}
+              className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
+                formik.values.sexo === "hembra" ? "bg-[#4d7950]" : ""
+              }`}
+            >
+              Hembra
+            </button>
+            <button
+              type="button"
+              onClick={() => formik.setFieldValue("sexo", "macho")}
+              className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
+                formik.values.sexo === "macho" ? "bg-[#4d7950]" : ""
+              }`}
+            >
+              Macho
+            </button>
+          </div>
+          {formik.touched.sexo && formik.errors.sexo && (
+            <div className="text-gray-500 text-sm">{formik.errors.sexo}</div>
           )}
         </div>
 
@@ -203,23 +256,21 @@ const RegisterAnimal = () => {
           <div className="flex space-x-4 mb-4">
             <button
               type="button"
-              onClick={() => handleOptionChange("canLiveWithOthers", "perro")}
+              onClick={() => formik.setFieldValue("canLiveWithOthers", "si")}
               className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
-                formik.values.canLiveWithOthers === "perro"
-                  ? "bg-[#4d7950]"
-                  : ""
+                formik.values.canLiveWithOthers === "si" ? "bg-[#4d7950]" : ""
               }`}
             >
-              Perro
+              Sí
             </button>
             <button
               type="button"
-              onClick={() => handleOptionChange("canLiveWithOthers", "gato")}
+              onClick={() => formik.setFieldValue("canLiveWithOthers", "no")}
               className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
-                formik.values.canLiveWithOthers === "gato" ? "bg-[#4d7950]" : ""
+                formik.values.canLiveWithOthers === "no" ? "bg-[#4d7950]" : ""
               }`}
             >
-              Gato
+              No
             </button>
           </div>
           {formik.touched.canLiveWithOthers &&
@@ -238,21 +289,21 @@ const RegisterAnimal = () => {
           <div className="flex space-x-4 mb-4">
             <button
               type="button"
-              onClick={() => handleOptionChange("space", "terraza")}
+              onClick={() => formik.setFieldValue("space", "si")}
               className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
-                formik.values.space === "terraza" ? "bg-[#4d7950]" : ""
+                formik.values.space === "si" ? "bg-[#4d7950]" : ""
               }`}
             >
-              Terraza
+              Sí
             </button>
             <button
               type="button"
-              onClick={() => handleOptionChange("space", "balcon")}
+              onClick={() => formik.setFieldValue("space", "no")}
               className={`bg-[#6dab71] hover:bg-[#4d7950] text-white font-semibold py-2 rounded-lg w-full transition duration-200 ${
-                formik.values.space === "balcon" ? "bg-[#4d7950]" : ""
+                formik.values.space === "no" ? "bg-[#4d7950]" : ""
               }`}
             >
-              Balcón
+              No
             </button>
           </div>
           {formik.touched.space && formik.errors.space && (

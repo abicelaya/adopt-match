@@ -6,13 +6,11 @@ import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import RegisterAnimal from "./pages/RegisterAnimal/RegisterAnimal";
 import ShelterProfile from "./pages/ShelterProfile/ShelterProfile";
-import Adopted from "./pages/Adopted/Adopted";
 import ForAdoption from "./pages/ForAdoption/ForAdoption";
 import AnimalProfile from "./pages/AnimalProfile/AnimalProfile";
 import Likes from "./pages/Likes/Likes";
 import { AuthProvider } from "./context/AuthContext";
 import Shelters from "./pages/Shelters/Shelters";
-import AdopterProfile from "./pages/AdopterProfile/AdopterProfile";
 import AdoptionProcess from "./pages/AdoptionProcess/AdoptionProcess";
 import Start from "./pages/Start/Start";
 import ShelterRegister from "./pages/ShelterRegister/ShelterRegister";
@@ -34,12 +32,10 @@ const App = () => {
           <Route path="/animal-register" element={<AnimalRegister />} />
           <Route path="/register-animal" element={<RegisterAnimal />} />
           <Route path="/shelter-profile" element={<ShelterProfile />} />
-          <Route path="/adopted" element={<Adopted />} />
           <Route path="/for-adoption" element={<ForAdoption />} />
           <Route path="/animal-profile/:id" element={<AnimalProfile />} />
           <Route path="/likes" element={<Likes />} />
           <Route path="/shelters" element={<Shelters />} />
-          <Route path="/adopter-profile" element={<AdopterProfile />} />
           <Route path="/adoption-process" element={<AdoptionProcess />} />
         </Routes>
       </AuthProvider>

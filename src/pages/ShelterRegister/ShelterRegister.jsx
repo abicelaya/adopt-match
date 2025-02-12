@@ -15,20 +15,20 @@ const ShelterRegister = () => {
   const db = getFirestore(app);
 
   const validationSchema = Yup.object({
-    fullName: Yup.string().required("El nombre completo es obligatorio"),
+    fullName: Yup.string().required("Campo requerido"),
     phone: Yup.string()
       .matches(/^[0-9]{9}$/, "El teléfono debe tener 9 dígitos")
-      .required("El teléfono es obligatorio"),
-    location: Yup.string().required("La ubicación es obligatoria"),
+      .required("Campo requerido"),
+    location: Yup.string().required("Campo requerido"),
     registrationNumber: Yup.string().required(
-      "El número de registro es obligatorio"
+      "Campo requerido"
     ),
     email: Yup.string()
       .email("Email inválido")
-      .required("El email es obligatorio"),
+      .required("Campo requerido"),
     password: Yup.string()
       .min(6, "La contraseña debe tener al menos 6 caracteres")
-      .required("La contraseña es obligatoria"),
+      .required("Campo requerido"),
   });
 
   const formik = useFormik({

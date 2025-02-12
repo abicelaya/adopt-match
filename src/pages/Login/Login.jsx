@@ -13,9 +13,9 @@ const Login = () => {
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Correo electrónico inválido")
-      .required("El correo electrónico es obligatorio"),
+      .required("Campo requerido"),
     password: Yup.string()
-      .required("La contraseña es obligatoria")
+      .required("Campo requerido")
       .min(6, "La contraseña debe tener al menos 6 caracteres"),
   });
 
@@ -70,19 +70,19 @@ const Login = () => {
       <h1 className="text-4xl font-dmSerif text-left text-verdeOscuro font-semibold mb-5">
         Iniciar sesión
       </h1>
-      {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
+      {error && <div className="mb-4 text-gray-500 text-sm">{error}</div>}
       <form onSubmit={formik.handleSubmit} className="p-6 w-full max-w-md">
         <div className="mb-4">
           <input
             type="email"
             name="email"
             placeholder="Email"
-            className="border-b border-verdeOscuro bg-transparent w-full p-2 focus:outline-none placeholder-verdeOscuro"
+            className="border-b border-verdeOscuro bg-transparent w-full p-2 focus:outline-none placeholder-verdeOscuro text-verdeOscuro"
             value={formik.values.email}
             onChange={formik.handleChange}
           />
           {formik.touched.email && formik.errors.email && (
-            <div className="text-red-500 text-sm">{formik.errors.email}</div>
+            <div className="text-gray-500 text-sm">{formik.errors.email}</div>
           )}
         </div>
 
@@ -91,12 +91,12 @@ const Login = () => {
             type="password"
             name="password"
             placeholder="Contraseña"
-            className="border-b border-verdeOscuro bg-transparent w-full p-2 focus:outline-none placeholder-verdeOscuro"
+            className="border-b border-verdeOscuro bg-transparent w-full p-2 focus:outline-none placeholder-verdeOscuro text-verdeOscuro"
             value={formik.values.password}
             onChange={formik.handleChange}
           />
           {formik.touched.password && formik.errors.password && (
-            <div className="text-red-500 text-sm">{formik.errors.password}</div>
+            <div className="text-gray-500 text-sm">{formik.errors.password}</div>
           )}
         </div>
 
@@ -109,7 +109,7 @@ const Login = () => {
       </form>
 
       {/* Mensaje de registro */}
-      <p className="mt-6 text-verdeOscuro font-medium text-center">
+      <p className="mt-12 text-verdeOscuro font-medium text-center">
         ¿No tienes cuenta?{" "}
         <Link
           to="/register"
