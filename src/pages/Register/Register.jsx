@@ -10,7 +10,7 @@ const Register = () => {
   };
 
   const handleAdoptarClick = () => {
-    navigate("/register-adopter");
+    navigate("/adopter-register");
   };
 
   const goBack = () => {

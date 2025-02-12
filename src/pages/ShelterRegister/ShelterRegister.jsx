@@ -20,7 +20,9 @@ const ShelterRegister = () => {
       .matches(/^[0-9]{9}$/, "El teléfono debe tener 9 dígitos")
       .required("El teléfono es obligatorio"),
     location: Yup.string().required("La ubicación es obligatoria"),
-    registrationNumber: Yup.string().required("El número de registro es obligatorio"),
+    registrationNumber: Yup.string().required(
+      "El número de registro es obligatorio"
+    ),
     email: Yup.string()
       .email("Email inválido")
       .required("El email es obligatorio"),
@@ -41,7 +43,11 @@ const ShelterRegister = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const user = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        const user = await createUserWithEmailAndPassword(
+          auth,
+          values.email,
+          values.password
+        );
         await setDoc(doc(collection(db, "protectoras"), user.user.uid), {
           userId: user.user.uid,
           fullName: values.fullName,
@@ -61,47 +67,48 @@ const ShelterRegister = () => {
   const getBackgroundColor = () => {
     switch (currentStep) {
       case 1:
-        return 'bg-verdeClaro';
+        return "bg-verdeClaro";
       case 2:
-        return 'bg-celeste';
+        return "bg-celeste";
       case 3:
-        return 'bg-verdeClaro';
+        return "bg-verdeClaro";
       default:
-        return 'bg-verdeClaro';
+        return "bg-verdeClaro";
     }
   };
 
   const getBackArrowColor = () => {
     switch (currentStep) {
       case 1:
-        return 'text-verdeOscuro';
+        return "text-verdeOscuro";
       case 2:
-        return 'text-celesteGrisaceo';
+        return "text-celesteGrisaceo";
       case 3:
-        return 'text-verdeOscuro';
+        return "text-verdeOscuro";
       default:
-        return 'text-verdeOscuro';
+        return "text-verdeOscuro";
     }
   };
 
   const getNextButtonStyles = () => {
     switch (currentStep) {
       case 1:
-        return 'bg-verdeOscuro text-verdeClaro';
+        return "bg-verdeOscuro text-verdeClaro";
       case 2:
-        return 'bg-celesteGrisaceo text-celeste';
+        return "bg-celesteGrisaceo text-celeste";
       case 3:
-        return 'bg-verdeOscuro text-verdeClaro';
+        return "bg-verdeOscuro text-verdeClaro";
       default:
-        return 'bg-verdeOscuro text-verdeClaro';
+        return "bg-verdeOscuro text-verdeClaro";
     }
   };
 
   const renderStep = () => {
-    const inputClasses = "w-full p-2 border-b border-celesteGrisaceo/50 bg-transparent focus:outline-none focus:border-celesteGrisaceo";
+    const inputClasses =
+      "w-full p-2 border-b border-celesteGrisaceo/50 bg-transparent focus:outline-none focus:border-celesteGrisaceo";
     const inputClassesStep1and3 = inputClasses + " placeholder-verdeOscuro/60";
     const inputClassesStep2 = inputClasses + " placeholder-celesteGrisaceo/60";
-    
+
     switch (currentStep) {
       case 1:
         return (
@@ -120,7 +127,9 @@ const ShelterRegister = () => {
                   onChange={formik.handleChange}
                 />
                 {formik.touched.fullName && formik.errors.fullName && (
-                  <div className="text-red-500 text-sm mt-1">{formik.errors.fullName}</div>
+                  <div className="text-gray-500 text-sm mt-1">
+                    {formik.errors.fullName}
+                  </div>
                 )}
               </div>
 
@@ -134,7 +143,9 @@ const ShelterRegister = () => {
                   onChange={formik.handleChange}
                 />
                 {formik.touched.phone && formik.errors.phone && (
-                  <div className="text-red-500 text-sm mt-1">{formik.errors.phone}</div>
+                  <div className="text-gray-500 text-sm mt-1">
+                    {formik.errors.phone}
+                  </div>
                 )}
               </div>
             </div>
@@ -202,27 +213,27 @@ const ShelterRegister = () => {
 
   const handleNext = async () => {
     let fieldsToValidate = [];
-    
+
     switch (currentStep) {
       case 1:
-        fieldsToValidate = ['fullName', 'phone'];
+        fieldsToValidate = ["fullName", "phone"];
         break;
       case 2:
-        fieldsToValidate = ['location', 'registrationNumber'];
+        fieldsToValidate = ["location", "registrationNumber"];
         break;
       case 3:
-        fieldsToValidate = ['email', 'password'];
+        fieldsToValidate = ["email", "password"];
         break;
       default:
         break;
     }
 
-    fieldsToValidate.forEach(field => {
+    fieldsToValidate.forEach((field) => {
       formik.setFieldTouched(field, true);
     });
 
     const errors = await formik.validateForm();
-    const hasErrors = fieldsToValidate.some(field => errors[field]);
+    const hasErrors = fieldsToValidate.some((field) => errors[field]);
 
     if (!hasErrors) {
       if (currentStep < 3) {
@@ -242,15 +253,17 @@ const ShelterRegister = () => {
   };
 
   return (
-    <div className={`min-h-screen ${getBackgroundColor()} transition-colors duration-300`}>
+    <div
+      className={`min-h-screen ${getBackgroundColor()} transition-colors duration-300`}
+    >
       <button onClick={handleBack} className={`p-8 ${getBackArrowColor()}`}>
         <IoArrowBack size={24} />
       </button>
 
       <div className="px-14 pt-16">
         {renderStep()}
-        
-        {error && <div className="text-red-500 mt-4">{error}</div>}
+
+        {error && <div className="text-gray-500 mt-4">{error}</div>}
 
         <div className="fixed bottom-12 right-12">
           <button

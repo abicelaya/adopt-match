@@ -4,7 +4,6 @@ import Welcome from "./pages/Welcome/Welcome";
 import Home from "./pages/Home/Home";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
-import RegisterAdopter from "./pages/RegisterAdopter/RegisterAdopter";
 import RegisterAnimal from "./pages/RegisterAnimal/RegisterAnimal";
 import ShelterProfile from "./pages/ShelterProfile/ShelterProfile";
 import Adopted from "./pages/Adopted/Adopted";
@@ -33,7 +32,6 @@ const App = () => {
           <Route path="/shelter-register" element={<ShelterRegister />} />
           <Route path="/adopter-register" element={<AdopterRegister />} />
           <Route path="/animal-register" element={<AnimalRegister />} />
-          <Route path="/register-adopter" element={<RegisterAdopter />} />
           <Route path="/register-animal" element={<RegisterAnimal />} />
           <Route path="/shelter-profile" element={<ShelterProfile />} />
           <Route path="/adopted" element={<Adopted />} />
