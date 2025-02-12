@@ -347,7 +347,7 @@ const AdopterRegister = () => {
       <div className="px-14 pt-16">
         {renderStep()}
 
-        {error && <div className="text-red-500 mt-4">{error}</div>}
+        {error && <div className="text-gray-500 mt-4">{error}</div>}
 
         <div className="fixed bottom-12 right-12">
           <button
